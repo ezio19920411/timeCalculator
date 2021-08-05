@@ -64,7 +64,7 @@
                 var tmp_data = bossAry[key];
                 var nowD = Date.now();
                 
-                tmp = tmp.replace(/\*ID\*/gi, tmp_data[""]);
+                tmp = tmp.replace(/\*ID\*/gi, tmp_data["index"]);
                 tmp = tmp.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp = tmp.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
                 var btnclass = "primary";
