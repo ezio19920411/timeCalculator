@@ -19,20 +19,20 @@
                 checkBossTime();
                 bossData = LSdata;
             }else{
-                bossData["1"]={"name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"1"};
-                bossData["2"]={"name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"1"};
-                bossData["3"]={"name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"3"};
-                bossData["4"]={"name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"4"};
-                bossData["5"]={"name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"1"};
-                bossData["6"]={"name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"1"};
-                bossData["7"]={"name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"1"};
-                bossData["8"]={"name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"1"};
-                bossData["9"]={"name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"4"};
-                bossData["10"]={"name":"潘納洛德(哥肯花園)","rebornTime":"210","nextBorn":"","killTime":"2"};
-                bossData["11"]={"name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"3"};
-                bossData["12"]={"name":"魔圖拉(掠奪者野營)","rebornTime":"270","nextBorn":"","killTime":"1"};
-                bossData["13"]={"name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"1"};
-                bossData["14"]={"name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"4"};
+                bossData["1"]={"name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2"};
+                bossData["2"]={"name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2"};
+                bossData["3"]={"name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"1"};
+                bossData["4"]={"name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"1"};
+                bossData["5"]={"name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.5"};
+                bossData["6"]={"name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.5"};
+                bossData["7"]={"name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.5"};
+                bossData["8"]={"name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0.5"};
+                bossData["9"]={"name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"1"};
+                bossData["10"]={"name":"潘納洛德(哥肯花園)","rebornTime":"210","nextBorn":"","killTime":"0.8"};
+                bossData["11"]={"name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"2"};
+                bossData["12"]={"name":"魔圖拉(掠奪者野營)","rebornTime":"270","nextBorn":"","killTime":"0.5"};
+                bossData["13"]={"name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.5"};
+                bossData["14"]={"name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"1"};
                 show();
             }
 
@@ -58,10 +58,10 @@
             btn_view.innerHTML = "";
             show_view.innerHTML = "";
             var funcNameAry = new Array();
-            
-			for (key in bossData) {
+            var bossAry = object_sort(bossData);
+			for (key in bossAry) {
                 var tmp = btnXMP;
-                var tmp_data = bossData[key];
+                var tmp_data = bossAry[key];
                 var nowD = Date.now();
                 
                 tmp = tmp.replace(/\*ID\*/gi, key);
@@ -75,6 +75,15 @@
                 var tmp2 = listXMP;
                 tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
+                var textStylr = "";
+                var textColor = "#FF0000";
+                if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < 5*60*1000){
+                    btnclass = "background-color:Tomato;";
+                    textColor = "#ffffff";
+                }
+                tmp2 = tmp2.replace(/\*STYLE\*/gi, textStylr );
+                tmp2 = tmp2.replace(/\*COLOR\*/gi, textColor );
+
                 tmp_list_v += tmp2;          
             }
             btn_view.innerHTML = tmp_btn_v;
@@ -155,6 +164,15 @@
             // if(isModify)setLocalStorage("bossData",JSON.stringify(bossData));
             show();
         }
+        function object_sort (obj) {
+            var gmary = new Array();
+            for(var key in obj){
+                gmary.push(obj[key]);
+            }
+            gmary = gmary.sort(function (a, b) {return a["nextBorn"]- b["nextBorn"]; });
+
+            return gmary;
+        }
 	</script>
 </head>
 
@@ -182,8 +200,8 @@
             </button>
         </xmp>
         <xmp id="listXMP" >
-            <div class="panel-body">
-                <font color="#FF0000" size="5">*BORNTIME*</font>
+            <div class="panel-body" style ="*STYLE*">
+                <font color="*COLOR*" size="5">*BORNTIME*</font>
                 <font size="3">*BOSSNAME*</font>
             </div>
         </xmp>
