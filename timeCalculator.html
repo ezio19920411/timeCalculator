@@ -94,7 +94,7 @@
 
             var boss_D = bossData[key];
             var timeInMs = Date.now();
-            var addsec = (boss_D["rebornTime"]*60 + boss_D["killTime"]*60)*1000;
+            var addsec = (boss_D["rebornTime"]*60)*1000;
             bossData[key]["nextBorn"] = timeInMs + addsec;
             setLocalStorage("bossData",JSON.stringify(bossData));
             show();
