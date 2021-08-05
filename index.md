@@ -1,37 +1,212 @@
-## Welcome to GitHub Pages
+<!doctype html>
+<html style="height:100%" ;>
 
-You can use the [editor on GitHub](https://github.com/ezio19920411/timeCalculator/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>測試</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	 crossorigin="anonymous">
+	<script>
+		var uid = "<?php echo $uid ?>";
+		var navStatus = true;
+        var funcAry = new Array();
+        var bossData = new Object();
+        var getTime = 1000; //1秒刷新一次
+        var timeID = null;	//左上角現在時間
+		function init() {
+            var LSdata = (getLocalStorageItem("bossData") != null)?JSON.parse(getLocalStorageItem("bossData")):"";
+            if(LSdata != "" && LSdata["2"]){
+                checkBossTime();
+                bossData = LSdata;
+            }else{
+                bossData["1"]={"name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2"};
+                bossData["2"]={"name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2"};
+                bossData["3"]={"name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"1"};
+                bossData["4"]={"name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"1"};
+                bossData["5"]={"name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.5"};
+                bossData["6"]={"name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.5"};
+                bossData["7"]={"name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.5"};
+                bossData["8"]={"name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0.5"};
+                bossData["9"]={"name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"1"};
+                bossData["10"]={"name":"潘納洛德(哥肯花園)","rebornTime":"210","nextBorn":"","killTime":"0.8"};
+                bossData["11"]={"name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"2"};
+                bossData["12"]={"name":"魔圖拉(掠奪者野營)","rebornTime":"270","nextBorn":"","killTime":"0.5"};
+                bossData["13"]={"name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.5"};
+                bossData["14"]={"name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"1"};
+                show();
+            }
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+            getNowTime();
+           
+        }
+        function getNowTime() {
+            if (timeID != null) clearTimeout(timeID);
+            var timeInMs = Date.now();
+            var time_div = document.getElementById("text_now_time");
+            var tmp_time = secTrancer(timeInMs);
+            time_div.innerHTML = tmp_time;
+            checkBossTime();
+            timeID = setTimeout(getNowTime, getTime);
+        }        
+		function show() {
+            var btn_view = document.getElementById("btn_view");
+            var show_view = document.getElementById("show_view");
+            var btnXMP = document.getElementById("btnXMP").innerHTML;
+            var listXMP = document.getElementById("listXMP").innerHTML;
+            var tmp_btn_v = "";
+            var tmp_list_v = "";
+            btn_view.innerHTML = "";
+            show_view.innerHTML = "";
+            var funcNameAry = new Array();
+            var bossAry = object_sort(bossData);
+			for (key in bossAry) {
+                var tmp = btnXMP;
+                var tmp_data = bossAry[key];
+                var nowD = Date.now();
+                
+                tmp = tmp.replace(/\*ID\*/gi, key);
+                tmp = tmp.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
+                tmp = tmp.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
+                var btnclass = "primary";
+                if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < 5*60*1000)btnclass = "danger";
+                tmp = tmp.replace(/\*CLASS\*/gi, btnclass );
+                tmp_btn_v += tmp;
 
-### Markdown
+                var tmp2 = listXMP;
+                tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
+                tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
+                var textStylr = "";
+                var textColor = "#FF0000";
+                if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < 5*60*1000){
+                    btnclass = "background-color:Tomato;";
+                    textColor = "#ffffff";
+                }
+                tmp2 = tmp2.replace(/\*STYLE\*/gi, textStylr );
+                tmp2 = tmp2.replace(/\*COLOR\*/gi, textColor );
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+                tmp_list_v += tmp2;          
+            }
+            btn_view.innerHTML = tmp_btn_v;
+            show_view.innerHTML = tmp_list_v;
 
-```markdown
-Syntax highlighted code block
+		}
+		function setBossTime(key) {
+            var boss_D = bossData[key];
+            var timeInMs = Date.now();
+            var addsec = (boss_D["rebornTime"]*60 + boss_D["killTime"]*60)*1000;
+            bossData[key]["nextBorn"] = timeInMs + addsec;
+            setLocalStorage("bossData",JSON.stringify(bossData));
+            show();
+            
+        }
+        function secTrancer(timestamp){
+            if(timestamp == "")return "-";
+            var date = new Date(timestamp);
+            var year = date.getFullYear();
+            var month = (date.getMonth()+1)+"";
+            var day = date.getDate()+"";
+            var hh = date.getHours()+"";
+            var mm = date.getMinutes()+"";
+            var ss = date.getSeconds()+"";
+            
+            var real_month = (month.length < 2)?"0"+month:month;
+            var real_day = (day.length < 2)?"0"+day:day;
+            var real_hh = (hh.length < 2)?"0"+hh:hh;
+            var real_mm = (mm.length < 2)?"0"+mm:mm;
+            var real_ss = (ss.length < 2)?"0"+ss:ss;
+            var tmp_time = year + "/" + real_month + "/" + real_day + " " + real_hh + ":" + real_mm + ":" + real_ss;
 
-# Header 1
-## Header 2
-### Header 3
+            return tmp_time;
+        }
+        
+        function getLocalStorage () {
+            var tmp_storage = null;
+            try {
+                tmp_storage = (window.localStorage) ? window.localStorage : window.globalStorage[strDomain];
+                return tmp_storage;
+            } catch (e) {
+                return "";
+            }
+        }
+        function getLocalStorageItem (_key) {
+            var tmp_storage = getLocalStorage();
+            return tmp_storage.getItem(_key);
+        }        
+        function setLocalStorage (_key,_value) {
+            var tmp_storage = getLocalStorage();
+            tmp_storage.setItem(_key,_value);
+        }
+        function removeLocalStorage (_key){
+            var tmp_storage = getLocalStorage();            
+            tmp_storage.removeItem(_key);          
+            bossData = null;
+            init();
+        }
+        function checkBossTime(){
+            var isModify = false;
+            for (key in bossData) {
+                var tmp_BD = bossData[key];
+                var BT = tmp_BD["nextBorn"];
+                var loopSW = true;
+                var nowD = Date.now();
+                var addsec = (tmp_BD["rebornTime"]*60 + tmp_BD["killTime"]*60)*1000;
+                if(nowD > BT){
+                    while(loopSW){
+                        BT = BT*1+addsec;
+                        if(BT > nowD){
+                            loopSW = false;
+                            isModify = true;
+                            tmp_BD["nextBorn"] = BT;
+                        }
+                    }
+                }
+            }
+            // if(isModify)setLocalStorage("bossData",JSON.stringify(bossData));
+            show();
+        }
+        function object_sort (obj) {
+            var gmary = new Array();
+            for(var key in obj){
+                gmary.push(obj[key]);
+            }
+            gmary = gmary.sort(function (a, b) {return a["nextBorn"]- b["nextBorn"]; });
 
-- Bulleted
-- List
+            return gmary;
+        }
+	</script>
+</head>
 
-1. Numbered
-2. List
+<body onload="init();" style="height:100%;">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    現在時間 : <h3 id="text_now_time"></h3>
+                </div>
+            </div>            
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default col-lg-4" id= "show_view"></div>
+        <div id="btn_view" style="" class="col-lg-6 btn-group"></div>
+    </div>
+    </div>
 
-**Bold** and _Italic_ and `Code` text
+    <div style="display:none">
+        <xmp id="btnXMP" >
+            <button class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*)" id = "btn_boss_*ID*" >
+                *BOSSNAME*
+                <h4>*BORNTIME*</h4>
+            </button>
+        </xmp>
+        <xmp id="listXMP" >
+            <div class="panel-body" style ="*STYLE*">
+                <font color="*COLOR*" size="5">*BORNTIME*</font>
+                <font size="3">*BOSSNAME*</font>
+            </div>
+        </xmp>
+        
+    </div>
+</body>
 
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ezio19920411/timeCalculator/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+</html>
