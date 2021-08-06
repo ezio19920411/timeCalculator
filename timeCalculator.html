@@ -174,18 +174,50 @@
 
             return gmary;
         }
+        function getBossData(){
+            var msg_text = document.getElementById("msg_text");
+            var tmpD = getLocalStorageItem("bossData");
+            msg_text.value = tmpD;
+        }
+        function setBossData(){
+            var msg_text = document.getElementById("msg_text");
+
+            if(msg_text.value == ""){
+                alert("請勿匯入空白資料!");
+                return;
+            }            
+            
+            var tmp_Obj = JSON.parse(msg_text.value);
+            if(typeof(tmp_Obj) != "object"){
+                alert("資料格式錯誤!");
+                return;
+            }
+
+            setLocalStorage("bossData",JSON.stringify(tmp_Obj));
+            bossData = tmp_Obj;
+            checkBossTime();
+        }
 	</script>
 </head>
 
 <body onload="init();" style="height:100%;">
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-4">
             <div class="panel panel-default" >
                 <div class="panel-heading">
                     現在時間 : <h3 id="text_now_time"></h3>
                 </div>
             </div>            
         </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span class="input-group-addon">Text</span>
+                <input id="msg_text" type="text" class="form-control" name="msg" placeholder="Data is here">
+            </div> 
+            <button type="button" class="btn btn-info" onclick="getBossData()">匯出資料</button>
+            <button type="button" class="btn btn-warning" onclick="setBossData()">匯入資料</button>
+        </div>
+      
     </div>
     <div class="row">
         <div class="panel panel-default col-lg-4" id= "show_view"></div>
