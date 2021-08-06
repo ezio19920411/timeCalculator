@@ -59,9 +59,9 @@
             show_view.innerHTML = "";
             var funcNameAry = new Array();
             var bossAry = object_sort(bossData);
-			for (key in bossAry) {
+			for (key in bossData) {
                 var tmp = btnXMP;
-                var tmp_data = bossAry[key];
+                var tmp_data = bossData[key];
                 var nowD = Date.now();
                 
                 tmp = tmp.replace(/\*ID\*/gi, tmp_data["index"]);
@@ -70,8 +70,11 @@
                 var btnclass = "primary";
                 if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < 5*60*1000)btnclass = "danger";
                 tmp = tmp.replace(/\*CLASS\*/gi, btnclass );
-                tmp_btn_v += tmp;
+                tmp_btn_v += tmp;        
+            }
 
+            for(var i = 0 ; i < bossAry.length ; i++){
+                var tmp_data = bossAry[i];
                 var tmp2 = listXMP;
                 tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
@@ -84,7 +87,7 @@
                 tmp2 = tmp2.replace(/\*STYLE\*/gi, textStylr );
                 tmp2 = tmp2.replace(/\*COLOR\*/gi, textColor );
 
-                tmp_list_v += tmp2;          
+                tmp_list_v += tmp2;  
             }
             btn_view.innerHTML = tmp_btn_v;
             show_view.innerHTML = tmp_list_v;
