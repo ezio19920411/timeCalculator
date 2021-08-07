@@ -28,15 +28,28 @@
                 bossData["7"]={"index":"7","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.5"};
                 bossData["8"]={"index":"8","name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0.5"};
                 bossData["9"]={"index":"9","name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"1"};
-                bossData["10"]={"index":"10","name":"潘納洛德(哥肯花園)","rebornTime":"210","nextBorn":"","killTime":"0.8"};
+                bossData["10"]={"index":"10","name":"潘納洛德(哥肯花園)","rebornTime":"300","nextBorn":"","killTime":"0.8"};
                 bossData["11"]={"index":"11","name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"2"};
-                bossData["12"]={"index":"12","name":"魔圖拉(掠奪者野營)","rebornTime":"270","nextBorn":"","killTime":"0.5"};
+                bossData["12"]={"index":"12","name":"魔圖拉(掠奪者野營)","rebornTime":"360","nextBorn":"","killTime":"0.5"};
                 bossData["13"]={"index":"13","name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.5"};
                 bossData["14"]={"index":"14","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"1"};
                 show();
             }
 
             getNowTime();
+
+            var date = new Date(Date.now());
+            document.getElementById("time_YYYY").value = date.getFullYear();
+            document.getElementById("time_Mon").value = date.getMonth()+1;
+            document.getElementById("time_DD").value = date.getDate();
+            document.getElementById("time_HH").value = date.getHours();
+            document.getElementById("time_MM").value = date.getMinutes();
+
+            var boss_sele = document.getElementById("boss_select");
+            for(var key in bossData){
+                var tmp = bossData[key];
+                boss_sele.options.add(new Option(tmp["name"], tmp["index"]));
+            }
            
         }
         function getNowTime() {
@@ -122,7 +135,32 @@
 
             return tmp_time;
         }
-        
+        function timeTrancer(daytime){
+            if(daytime == "")return "";
+            var rs = "";
+            var d = new Date(daytime);
+            rs = d.getTime();
+
+            return rs;
+        }        
+        function editBossTime (){
+            var dayTime = "";
+            var time_YYYY = document.getElementById("time_YYYY").value;
+            var time_Mon = document.getElementById("time_Mon").value;
+            var time_DD = document.getElementById("time_DD").value;
+            var time_HH = document.getElementById("time_HH").value;
+            var time_MM = document.getElementById("time_MM").value;
+            var time_SS = document.getElementById("time_SS").value;
+            var boss_select = document.getElementById("boss_select").value;
+
+            dayTime = time_YYYY + "-" + time_Mon + "-" + time_DD + " " + time_HH + ":" + time_MM + ":" + time_SS;
+
+            var timstamp = timeTrancer(dayTime);
+            bossData[boss_select]["nextBorn"] = timstamp;
+            setLocalStorage("bossData",JSON.stringify(bossData));
+            show();
+
+        }
         function getLocalStorage () {
             var tmp_storage = null;
             try {
@@ -200,6 +238,25 @@
             bossData = tmp_Obj;
             checkBossTime();
         }
+        function doCopy(divID) {
+        var copyDiv = document.getElementById(divID);
+        if (window.clipboardData) {
+            window.clipboardData.setData("Text", copyDiv.innerHTML);
+            alert("success_Copy");
+        }
+        else if (document.createRange && window.getSelection) {
+            var range = document.createRange();
+            range.selectNode(copyDiv);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            document.execCommand("Copy", false, null);                        //此函數只接受選取到(有匡選起來的)的字串有反應
+            sel.removeAllRanges();
+            alert("success_Copy");
+        } else {
+            alert("erro_Copy");
+        }
+    }        
 	</script>
 </head>
 
@@ -210,6 +267,9 @@
                 <div class="panel-heading">
                     現在時間 : <h3 id="text_now_time"></h3>
                 </div>
+                <button type="button" class="btn btn-default" onclick="doCopy('show_view')">
+                    <span class="glyphicon glyphicon-copy"></span> Copy List
+                  </button>    
             </div>            
         </div>
         <div class="col-sm-6">
@@ -219,21 +279,63 @@
             </div> 
             <button type="button" class="btn btn-info" onclick="getBossData()">匯出資料</button>
             <button type="button" class="btn btn-warning" onclick="setBossData()">匯入資料</button>
+            <button type="button" class="btn btn-default " onclick="doCopy('msg_text')">
+                <span class="glyphicon glyphicon-copy"></span> Copy Text
+              </button>
         </div>
       
     </div>
     <div class="row">
         <div class="panel panel-default col-lg-4" id= "show_view"></div>
         <div id="btn_view" style="" class="col-lg-6 btn-group"></div>
-    </div>
-    </div>
+        <div class="panel panel-default col-lg-4">
+            <h3>設定時間</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            BOSS名稱:
+                            <select class="form-control" id="boss_select"></select>
+                        </th>
+                        <th><button type="button" class="btn btn-success" onclick="editBossTime()">修改</button></th>
+                      </tr>
+                  </thead>
+            </table>
+           
 
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Year</th>
+                    <th>Mon</th>
+                    <th>Day</th>
+                    <th>Hr</th>
+                    <th>Min</th>
+                    <th>Sec</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="text" class="form-control" id="time_YYYY"></td>
+                    <td><input type="text" class="form-control" id="time_Mon"></td>
+                    <td><input type="text" class="form-control" id="time_DD"></td>
+                    <td><input type="text" class="form-control" id="time_HH"></td>
+                    <td><input type="text" class="form-control" id="time_MM"></td>
+                    <td><input type="text" class="form-control" id="time_SS" placeholder="000"></td>
+                  </tr>
+                </tbody>
+              </table>            
+              
+        </div>
+    </div>
+    </div>
+    <div id="copy_area"></div>
     <div style="display:none">
         <xmp id="btnXMP" >
-            <button class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*)" id = "btn_boss_*ID*" >
+            <time_YYYY class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*)" id = "btn_boss_*ID*" >
                 *BOSSNAME*
                 <h4>*BORNTIME*</h4>
-            </button>
+            </time_YYYY>
         </xmp>
         <xmp id="listXMP" >
             <div class="panel-body" style ="*STYLE*">
