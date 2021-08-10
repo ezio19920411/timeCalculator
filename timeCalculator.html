@@ -184,6 +184,10 @@
             if(time_SS == "")time_SS = "000";
             dayTime = time_YYYY + "-" + time_Mon + "-" + time_DD + " " + time_HH + ":" + time_MM + ":" + time_SS;
             var timstamp = timeTrancer(dayTime);
+            if(isNaN(timstamp)){
+                dayTime = time_YYYY + "/" + time_Mon + "/" + time_DD + " " + time_HH + ":" + time_MM + ":" + time_SS;
+                timstamp = timeTrancer(dayTime);
+            }
             console.log(dayTime + " | " + timstamp);
             bossData[boss_select]["nextBorn"] = timstamp;
             setLocalStorage("bossData",JSON.stringify(bossData));
