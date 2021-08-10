@@ -181,7 +181,7 @@
             var time_MM = document.getElementById("time_MM").value;
             var time_SS = document.getElementById("time_SS").value;
             var boss_select = document.getElementById("boss_select").value;
-
+            if(time_SS == "")time_SS = "000";
             dayTime = time_YYYY + "-" + time_Mon + "-" + time_DD + " " + time_HH + ":" + time_MM + ":" + time_SS;
             var timstamp = timeTrancer(dayTime);
             console.log(dayTime + " | " + timstamp);
