@@ -291,7 +291,6 @@
             self.setRingAudioAtr = function () {
                 var ring = document.getElementById("ring_audio");
                 ring.setAttribute("type", "audio/mpeg");
-                ring.setAttribute("src", "./warnig.mp3");
                 ring.setAttribute("Loop", "Loop");
             }
 
@@ -402,7 +401,9 @@
     </div>
     </div>
     <div id="copy_area"></div>
-    <audio id="ring_audio"></audio>
+    <audio id="ring_audio">
+        <source src="./warnig.mp3">
+    </audio>
     <div style="display:none">
         <xmp id="btnXMP" >
             <time_YYYY class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*)" id = "btn_boss_*ID*" >
