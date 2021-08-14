@@ -16,26 +16,27 @@
         var ringUtil = null;
         var warnSW = false;
         var bossWarn = new Array();
+        var bossPlace = new Array();
 		function init() {
             var LSdata = (getLocalStorageItem("bossData") != null)?JSON.parse(getLocalStorageItem("bossData")):"";
             if(LSdata != "" && LSdata["2"]){
                 checkBossTime();
                 bossData = LSdata;
             }else{
-                bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2"};
-                bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2"};
-                bossData["3"]={"index":"3","name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"0.1"};
-                bossData["4"]={"index":"4","name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"0.5"};
-                bossData["5"]={"index":"5","name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.3"};
-                bossData["6"]={"index":"6","name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.3"};
-                bossData["7"]={"index":"7","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.3"};
-                bossData["8"]={"index":"8","name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0"};
-                bossData["9"]={"index":"9","name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"1"};
-                bossData["10"]={"index":"10","name":"潘納洛德(哥肯花園)","rebornTime":"300","nextBorn":"","killTime":"0.3"};
-                bossData["11"]={"index":"11","name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"1"};
-                bossData["12"]={"index":"12","name":"魔圖拉(掠奪者野營)","rebornTime":"360","nextBorn":"","killTime":"0.3"};
-                bossData["13"]={"index":"13","name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.3"};
-                bossData["14"]={"index":"14","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"1"};
+                bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":""};
+                bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":""};
+                bossData["3"]={"index":"3","name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"0.1","lastPlace":""};
+                bossData["4"]={"index":"4","name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"0.5","lastPlace":""};
+                bossData["5"]={"index":"5","name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.3","lastPlace":""};
+                bossData["6"]={"index":"6","name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
+                bossData["7"]={"index":"7","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":""};
+                bossData["8"]={"index":"8","name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0","lastPlace":""};
+                bossData["9"]={"index":"9","name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};
+                bossData["10"]={"index":"10","name":"潘納洛德(哥肯花園)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":""};
+                bossData["11"]={"index":"11","name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"1","lastPlace":""};
+                bossData["12"]={"index":"12","name":"魔圖拉(掠奪者野營)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
+                bossData["13"]={"index":"13","name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
+                bossData["14"]={"index":"14","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};
                 show();
             }
             bossWarn["1"]=false;
@@ -52,6 +53,21 @@
             bossWarn["12"]=false;
             bossWarn["13"]=false;
             bossWarn["14"]=false;
+
+            bossPlace["1"] = {"1":"左","2":"右","3":"下"};
+            bossPlace["2"] = {"1":""};
+            bossPlace["3"] = {"1":""};
+            bossPlace["4"] = {"1":"左","2":"中","3":"右下左","4":"右下右"};
+            bossPlace["5"] = {"1":"中","2":"下","3":"右"};
+            bossPlace["6"] = {"1":"左","2":"中","3":"右"};
+            bossPlace["7"] = {"1":"上","2":"下"};
+            bossPlace["8"] = {"1":""};
+            bossPlace["9"] = {"1":"上","2":"下"};
+            bossPlace["10"] = {"1":"左","2":"中","3":"右","4":"右下"};
+            bossPlace["11"] = {"1":"上","2":"下"};
+            bossPlace["12"] = {"1":"左","2":"中","3":"右上","4":"右下"};
+            bossPlace["13"] = {"1":"上","2":"中","3":"右"};
+            bossPlace["14"] = {"1":"左","2":"中","3":"右"};
 
             getNowTime();
 
@@ -70,6 +86,7 @@
            
             ringUtil = new ringSystem();
             ringUtil.setRingAudioAtr();
+            boss_select();
         }
         function getNowTime() {
             if (timeID != null) clearTimeout(timeID);
@@ -84,6 +101,7 @@
             var btn_view = document.getElementById("btn_view");
             var show_view = document.getElementById("show_view");
             var btnXMP = document.getElementById("btnXMP").innerHTML;
+            var btnXMP2 = document.getElementById("btnXMP2").innerHTML;
             var listXMP = document.getElementById("listXMP").innerHTML;
             var tmp_btn_v = "";
             var tmp_list_v = "";
@@ -93,6 +111,7 @@
             var bossAry = object_sort(bossData);
 			for (key in bossData) {
                 var tmp = btnXMP;
+                var inner_btn = "";
                 var tmp_data = bossData[key];
                 var nowD = Date.now();
                 
@@ -102,6 +121,16 @@
                 var btnclass = "primary";
                 if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < 5*60*1000)btnclass = "danger";
                 tmp = tmp.replace(/\*CLASS\*/gi, btnclass );
+
+                var placeAry = bossPlace[tmp_data["index"]];
+                for(var key in placeAry){
+                    if(placeAry[key] == "")continue;                    
+                    inner_btn += btnXMP2;
+                    inner_btn = inner_btn.replace(/\*ID\*/gi, tmp_data["index"]);
+                    inner_btn = inner_btn.replace(/\*PLACEID\*/gi, key);
+                    inner_btn = inner_btn.replace(/\*PLACENAME\*/gi, placeAry[key]);
+                }
+                tmp = tmp.replace(/\*PLACEBTN\*/gi, inner_btn );
                 tmp_btn_v += tmp;        
             }
 
@@ -110,8 +139,10 @@
                 var tmp2 = listXMP;
                 tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
+                tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, (bossPlace[tmp_data["index"]][tmp_data["lastPlace"]])? "最後位置:" + bossPlace[tmp_data["index"]][tmp_data["lastPlace"]]:"" );
                 var textStylr = "";
                 var textColor = "#FF0000";
+                var textColor2 = "#9933ff";
                 var tmp_SW = bossWarn[tmp_data["index"]];
                 if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < 5*60*1000){
                     if(warnSW){
@@ -123,11 +154,13 @@
                     }
                     textStylr = "background-color:Tomato;";
                     textColor = "#ffffff";
+                    textColor2 = "#ffff66";
                 }else{
                     if(tmp_SW)bossWarn[tmp_data["index"]] = false;
                 }
                 tmp2 = tmp2.replace(/\*STYLE\*/gi, textStylr );
                 tmp2 = tmp2.replace(/\*COLOR\*/gi, textColor );
+                tmp2 = tmp2.replace(/\*COLOR2\*/gi, textColor2 );
 
                 tmp_list_v += tmp2;  
             }
@@ -135,12 +168,13 @@
             show_view.innerHTML = tmp_list_v;
 
 		}
-		function setBossTime(key) {
-
+		function setBossTime(key,place) {
+            event.stopPropagation()
             var boss_D = bossData[key];
             var timeInMs = Date.now();
             var addsec = (boss_D["rebornTime"]*60)*1000;
             bossData[key]["nextBorn"] = timeInMs + addsec;
+            if(place)bossData[key]["lastPlace"] = place;
             setLocalStorage("bossData",JSON.stringify(bossData));
             show();
             
@@ -181,6 +215,7 @@
             var time_MM = document.getElementById("time_MM").value;
             var time_SS = document.getElementById("time_SS").value;
             var boss_select = document.getElementById("boss_select").value;
+            var place_select = document.getElementById("place_select").value;
             if(time_SS == "")time_SS = "000";
             dayTime = time_YYYY + "-" + time_Mon + "-" + time_DD + " " + time_HH + ":" + time_MM + ":" + time_SS;
             var timstamp = timeTrancer(dayTime);
@@ -188,8 +223,9 @@
                 dayTime = time_YYYY + "/" + time_Mon + "/" + time_DD + " " + time_HH + ":" + time_MM + ":" + time_SS;
                 timstamp = timeTrancer(dayTime);
             }
-            console.log(dayTime + " | " + timstamp);
+            // console.log(dayTime + " | " + timstamp);
             bossData[boss_select]["nextBorn"] = timstamp;
+            bossData[boss_select]["lastPlace"] = place_select;
             setLocalStorage("bossData",JSON.stringify(bossData));
             show();
 
@@ -327,7 +363,18 @@
                 warnSW = true;
                 warnText.innerHTML = "Warning Open";
             }
-        }            
+        }       
+        function boss_select(){
+            var boss_select = document.getElementById("boss_select");
+            var place_select = document.getElementById("place_select");
+            var tmp_index = boss_select.value;
+            place_select.options.length = 0;
+            for(var key in bossPlace[tmp_index]){
+                var tmp = bossPlace[tmp_index][key];
+                if(tmp == "")tmp = "無區分";
+                place_select.options.add(new Option(tmp, key));
+            }
+        }     
 	</script>
 </head>
 
@@ -370,8 +417,12 @@
                     <tr>
                         <th>
                             BOSS名稱:
-                            <select class="form-control" id="boss_select"></select>
+                            <select class="form-control" id="boss_select" onchange="boss_select()"></select>
                         </th>
+                        <th>
+                            最後位置:
+                            <select class="form-control" id="place_select" ></select>
+                        </th>                        
                         <th><button type="button" class="btn btn-success" onclick="editBossTime()">修改</button></th>
                       </tr>
                   </thead>
@@ -410,18 +461,22 @@
     </audio>
     <div style="display:none">
         <xmp id="btnXMP" >
-            <time_YYYY class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*)" id = "btn_boss_*ID*" >
+            <div class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*,'')" id = "btn_boss_*ID*" >
                 *BOSSNAME*
                 <h4>*BORNTIME*</h4>
-            </time_YYYY>
+                <div class="btn-group">*PLACEBTN*</div>
+                </div>
         </xmp>
         <xmp id="listXMP" >
             <div class="panel-body" style ="*STYLE*">
                 <font color="*COLOR*" size="5">*BORNTIME*</font>
                 <font size="3">*BOSSNAME*</font>
+                <font size="3" color="*COLOR2*">*BOSSPLACE*</font>
             </div>
         </xmp>
-        
+        <xmp id="btnXMP2" >
+            <button type="button" class="btn btn-default" onclick="setBossTime(*ID*,*PLACEID*)">*PLACENAME*</button>
+        </xmp>
     </div>
 </body>
 
