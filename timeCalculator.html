@@ -18,27 +18,52 @@
         var bossWarn = new Array();
         var bossPlace = new Array();
 		function init() {
-            var LSdata = (getLocalStorageItem("bossData") != null)?JSON.parse(getLocalStorageItem("bossData")):"";
+            bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":""};
+            bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":""};
+            bossData["3"]={"index":"3","name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"0.5","lastPlace":""};
+            bossData["4"]={"index":"4","name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
+            bossData["5"]={"index":"5","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":""};                
+            bossData["6"]={"index":"6","name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"0.1","lastPlace":""};
+            bossData["7"]={"index":"7","name":"薩班(螞蟻洞窟地下2樓)","rebornTime":"720","nextBorn":"","killTime":"0.1","lastPlace":""};
+            bossData["8"]={"index":"8","name":"巨蟻女王(螞蟻洞窟地下3樓)","rebornTime":"360","nextBorn":"","killTime":"5","lastPlace":""};
+            bossData["9"]={"index":"9","name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.3","lastPlace":""};
+            bossData["10"]={"index":"10","name":"提米特利斯(芙羅蘭開墾地)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};
+            bossData["11"]={"index":"11","name":"潘柴特(狄恩丘陵地)","rebornTime":"720","nextBorn":"","killTime":"0.2","lastPlace":""};
+            bossData["12"]={"index":"12","name":"塔拉金(叛亂軍根據地)","rebornTime":"600","nextBorn":"","killTime":"0.3","lastPlace":""};             
+            bossData["13"]={"index":"13","name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0","lastPlace":""};
+            bossData["14"]={"index":"14","name":"突變克魯瑪(克魯瑪沼澤地)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};
+            bossData["15"]={"index":"15","name":"卡坦(巨人的痕跡)","rebornTime":"420","nextBorn":"","killTime":"1","lastPlace":""};
+            bossData["16"]={"index":"16","name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};
+            bossData["17"]={"index":"17","name":"史坦(克魯瑪高塔6樓)","rebornTime":"420","nextBorn":"","killTime":"1","lastPlace":""};
+            bossData["18"]={"index":"18","name":"核心基座(克魯瑪高塔7樓)","rebornTime":"600","nextBorn":"","killTime":"5","lastPlace":""};
+            bossData["19"]={"index":"19","name":"潘納洛德(哥肯花園)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":""};
+            bossData["20"]={"index":"20","name":"魔圖拉(掠奪者野營)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
+            bossData["21"]={"index":"21","name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
+            bossData["22"]={"index":"22","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};                
+            bossData["23"]={"index":"23","name":"卡雷斯(塔諾峽谷)","rebornTime":"540","nextBorn":"","killTime":"1","lastPlace":""};
+            bossData["24"]={"index":"24","name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"1","lastPlace":""};
+            bossData["25"]={"index":"25","name":"黑色蕾爾莉(死亡迴廊)","rebornTime":"720","nextBorn":"","killTime":"3","lastPlace":""};
+            bossData["26"]={"index":"26","name":"貝希莫斯(龍之谷北部)","rebornTime":"540","nextBorn":"","killTime":"3","lastPlace":""};
+            bossData["27"]={"index":"27","name":"猛龍獸(安塔瑞斯洞窟地下6樓)","rebornTime":"720","nextBorn":"","killTime":"10","lastPlace":""};
+            bossData["28"]={"index":"28","name":"賽魯(帕格立歐祭壇)","rebornTime":"720","nextBorn":"","killTime":"1","lastPlace":""};
+            bossData["29"]={"index":"29","name":"瓦柏(山賊城寨)","rebornTime":"720","nextBorn":"","killTime":"2","lastPlace":""};
+            bossData["30"]={"index":"30","name":"提米妮爾(提米妮爾/風之丘陵)","rebornTime":"480","nextBorn":"","killTime":"2","lastPlace":""};
+            bossData["31"]={"index":"31","name":"雷比魯(孢子擴散地)","rebornTime":"420","nextBorn":"","killTime":"1","lastPlace":""};
+            bossData["32"]={"index":"32","name":"奧爾芬(奧爾芬之巢)","rebornTime":"1440","nextBorn":"","killTime":"20","lastPlace":""};
+
+            var LSdata = (getLocalStorageItem("bossData_v2") != null)?JSON.parse(getLocalStorageItem("bossData_v2")):"";
             if(LSdata != "" && LSdata["2"]){
-                checkBossTime();
+
+                if( object_count(bossData) != object_count(LSdata)){
+                    for(var key in bossData){
+                        if(!LSdata[key])LSdata[key] = bossData[key];
+                        console.log("1:" + LSdata[key]["name"] + " | 2:" + bossData[key]["name"]);
+                        if(LSdata[key]["name"] != bossData[key]["name"])LSdata[key] = bossData[key];
+                    }
+                }
                 bossData = LSdata;
-            }else{
-                bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":""};
-                bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":""};
-                bossData["3"]={"index":"3","name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"0.1","lastPlace":""};
-                bossData["4"]={"index":"4","name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"0.5","lastPlace":""};
-                bossData["5"]={"index":"5","name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.3","lastPlace":""};
-                bossData["6"]={"index":"6","name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
-                bossData["7"]={"index":"7","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":""};
-                bossData["8"]={"index":"8","name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0","lastPlace":""};
-                bossData["9"]={"index":"9","name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};
-                bossData["10"]={"index":"10","name":"潘納洛德(哥肯花園)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":""};
-                bossData["11"]={"index":"11","name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"1","lastPlace":""};
-                bossData["12"]={"index":"12","name":"魔圖拉(掠奪者野營)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
-                bossData["13"]={"index":"13","name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
-                bossData["14"]={"index":"14","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};
-                show();
             }
+
             bossWarn["1"]=false;
             bossWarn["2"]=false;
             bossWarn["3"]=false;
@@ -53,22 +78,60 @@
             bossWarn["12"]=false;
             bossWarn["13"]=false;
             bossWarn["14"]=false;
+            bossWarn["15"]=false;
+            bossWarn["16"]=false;
+            bossWarn["17"]=false;
+            bossWarn["18"]=false;
+            bossWarn["19"]=false;
+            bossWarn["20"]=false;
+            bossWarn["21"]=false;
+            bossWarn["22"]=false;
+            bossWarn["23"]=false;
+            bossWarn["24"]=false;
+            bossWarn["25"]=false;
+            bossWarn["26"]=false;
+            bossWarn["27"]=false;
+            bossWarn["28"]=false;
+            bossWarn["29"]=false;
+            bossWarn["30"]=false;
+            bossWarn["31"]=false;
+            bossWarn["32"]=false;
+
 
             bossPlace["1"] = {"1":"左","2":"右","3":"下"};
             bossPlace["2"] = {"1":""};
-            bossPlace["3"] = {"1":""};
-            bossPlace["4"] = {"1":"左","2":"中","3":"右下左","4":"右下右"};
-            bossPlace["5"] = {"1":"中","2":"下","3":"右"};
-            bossPlace["6"] = {"1":"左","2":"中","3":"右"};
-            bossPlace["7"] = {"1":"上","2":"下"};
+            bossPlace["3"] = {"1":"左","2":"中","3":"右下左","4":"右下右"};
+            bossPlace["4"] = {"1":"左","2":"中","3":"右"};
+            bossPlace["5"] = {"1":"上","2":"下"};
+            bossPlace["6"] = {"1":""};
+            bossPlace["7"] = {"1":""};
             bossPlace["8"] = {"1":""};
-            bossPlace["9"] = {"1":"上","2":"下"};
-            bossPlace["10"] = {"1":"左","2":"中","3":"右","4":"右下"};
-            bossPlace["11"] = {"1":"上","2":"下"};
-            bossPlace["12"] = {"1":"左","2":"中","3":"右上","4":"右下"};
-            bossPlace["13"] = {"1":"上","2":"中","3":"右"};
-            bossPlace["14"] = {"1":"左","2":"中","3":"右"};
-
+            bossPlace["9"] = {"1":"中","2":"下","3":"右"};
+            bossPlace["10"] = {"1":""};
+            bossPlace["11"] = {"1":""};
+            bossPlace["12"] = {"1":""};
+            bossPlace["13"] = {"1":""};
+            bossPlace["14"] = {"1":""};
+            bossPlace["15"] = {"1":""};
+            bossPlace["16"] = {"1":"上","2":"下"};
+            bossPlace["17"] = {"1":""};
+            bossPlace["18"] = {"1":""};
+            bossPlace["19"] = {"1":"左","2":"中","3":"右","4":"右下"};
+            bossPlace["20"] = {"1":"左","2":"中","3":"右上","4":"右下"};
+            bossPlace["21"] = {"1":"上","2":"中","3":"右"};
+            bossPlace["22"] = {"1":"上","2":"中","3":"右"};
+            bossPlace["23"] = {"1":""};
+            bossPlace["24"] = {"1":"上","2":"下"};
+            bossPlace["25"] = {"1":""};
+            bossPlace["26"] = {"1":""};
+            bossPlace["27"] = {"1":""};
+            bossPlace["28"] = {"1":""};
+            bossPlace["29"] = {"1":""};
+            bossPlace["30"] = {"1":""};
+            bossPlace["31"] = {"1":""};
+            bossPlace["32"] = {"1":""};
+            
+            setLocalStorage("bossData_v2",JSON.stringify(bossData));
             getNowTime();
 
             var date = new Date(Date.now());
@@ -139,7 +202,7 @@
                 var tmp2 = listXMP;
                 tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
-                tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, (bossPlace[tmp_data["index"]][tmp_data["lastPlace"]])? "最後位置:" + bossPlace[tmp_data["index"]][tmp_data["lastPlace"]]:"" );
+                tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, (bossPlace[tmp_data["index"]][tmp_data["lastPlace"]])? "最後位置:" + bossPlace[tmp_data["index"]][tmp_data["lastPlace"]]:"");
                 var textStylr = "";
                 var textColor = "#FF0000";
                 var textColor2 = "#9933ff";
@@ -175,7 +238,7 @@
             var addsec = (boss_D["rebornTime"]*60)*1000;
             bossData[key]["nextBorn"] = timeInMs + addsec;
             if(place)bossData[key]["lastPlace"] = place;
-            setLocalStorage("bossData",JSON.stringify(bossData));
+            setLocalStorage("bossData_v2",JSON.stringify(bossData));
             show();
             
         }
@@ -226,7 +289,7 @@
             // console.log(dayTime + " | " + timstamp);
             bossData[boss_select]["nextBorn"] = timstamp;
             bossData[boss_select]["lastPlace"] = place_select;
-            setLocalStorage("bossData",JSON.stringify(bossData));
+            setLocalStorage("bossData_v2",JSON.stringify(bossData));
             show();
 
         }
@@ -284,9 +347,17 @@
 
             return gmary;
         }
+        function object_count (obj) {
+            var count = 0;
+            for(var key in obj){
+                count++;
+                
+            }
+            return count;
+        }        
         function getBossData(){
             var msg_text = document.getElementById("msg_text");
-            var tmpD = getLocalStorageItem("bossData");
+            var tmpD = getLocalStorageItem("bossData_v2");
             msg_text.value = tmpD;
         }
         function setBossData(){
@@ -303,7 +374,7 @@
                 return;
             }
 
-            setLocalStorage("bossData",JSON.stringify(tmp_Obj));
+            setLocalStorage("bossData_v2",JSON.stringify(tmp_Obj));
             bossData = tmp_Obj;
             checkBossTime();
         }
@@ -394,7 +465,7 @@
                 </button>
             </div>            
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <div class="input-group">
                 <span class="input-group-addon">Text</span>
                 <input id="msg_text" type="text" class="form-control" name="msg" placeholder="Data is here">
@@ -409,7 +480,7 @@
     </div>
     <div class="row">
         <div class="panel panel-default col-lg-4" id= "show_view"></div>
-        <div id="btn_view" style="" class="col-lg-6 btn-group"></div>
+        <div id="btn_view" style="" class="col-lg-8 btn-group"></div>
         <div class="panel panel-default col-lg-4">
             <h3>設定時間</h3>
             <table class="table">
@@ -461,7 +532,7 @@
     </audio>
     <div style="display:none">
         <xmp id="btnXMP" >
-            <div class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*,'')" id = "btn_boss_*ID*" >
+            <div class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*,'')"  style="height: 120px;" id = "btn_boss_*ID*" >
                 *BOSSNAME*
                 <h4>*BORNTIME*</h4>
                 <div class="btn-group">*PLACEBTN*</div>
