@@ -6,18 +6,34 @@
 	<title>Boss重生計時</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
      crossorigin="anonymous">
-
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<script>
-		
+        let sendButton = document.querySelector('button');        
+        function get() {
+            var a = {
+            sheetUrl : 'https://docs.google.com/spreadsheets/d/1NB7hwcCacLIzsvdIfOpbPq1-RJ-SWV9YuWK7Ux6_bRw/edit#gid=0',
+            sheetTag : '工作表1',
+            row: 1,
+            col: 1,
+            };
+            $.get('https://script.google.com/macros/s/AKfycbz9yfEDO9JydG7pRBcVZTm_Qv_t15mZ5yiY1_J5GIiwpfKDgc6ztf1klGeSm4Xu2HB-tw/exec',a, function(data){
+                 console.log(data);
+                var d = data.split(',');
+                var arr = [];
+                for(var i=0; i<(a.endRow-a.row+1); i++){
+                arr[i] = d.splice(0, (a.endCol-a.col+1)); 
+                $show.append(arr[i]+'<br/>');
+                }
+
+            });
+        };
+        sendButton.addEventListener('click', get);
 	</script>
 </head>
 
 <body onload="init();" style="height:100%;">
-    <button type="button" class="btn btn-default" onclick="doCopy('show_view')">
+    <button type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-copy"></span> get
-    </button>
-    <button type="button" class="btn btn-default" onclick="doCopy('show_view')">
-        <span class="glyphicon glyphicon-copy"></span> set
     </button>
 
   
