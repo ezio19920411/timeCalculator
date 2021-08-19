@@ -1,42 +1,77 @@
 <!doctype html>
 <html style="height:100%" ;>
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Boss重生計時</title>
+	<title>隨便測試</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
      crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <style shopback-extension-v6-6-3="" data-styled-version="4.2.0"></style>
-    <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/util.js"></script>
-    <script src="chrome-extension://jhffgcfmcckgmioipfnmbannkpncfipo/pagejs.js"></script></head>    
 	<script>
-        let sendButton = document.querySelector('button');   
-        console.log(sendButton);     
-        function get() {
-            var a = {
-            sheetUrl : 'https://docs.google.com/spreadsheets/d/1NB7hwcCacLIzsvdIfOpbPq1-RJ-SWV9YuWK7Ux6_bRw/edit#gid=0',
-            sheetTag : '工作表1',
-            row: 1,
-            col: 1,
-            };
-            $.get('https://script.google.com/macros/s/AKfycbz9yfEDO9JydG7pRBcVZTm_Qv_t15mZ5yiY1_J5GIiwpfKDgc6ztf1klGeSm4Xu2HB-tw/exec',a, function(data){
-                 console.log(data);
-                var d = data.split(',');
-                var arr = [];
-                for(var i=0; i<(a.endRow-a.row+1); i++){
-                arr[i] = d.splice(0, (a.endCol-a.col+1)); 
-                $show.append(arr[i]+'<br/>');
-                }
-
+        var bossData = new Object();
+        bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":""};
+        bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":""};
+        bossData["3"]={"index":"3","name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"0.5","lastPlace":""};
+        bossData["4"]={"index":"4","name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
+        bossData["5"]={"index":"5","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":""};                
+        bossData["6"]={"index":"6","name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"0.1","lastPlace":""};
+        bossData["7"]={"index":"7","name":"薩班(螞蟻洞窟地下2樓)","rebornTime":"720","nextBorn":"","killTime":"0.1","lastPlace":""};
+        bossData["8"]={"index":"8","name":"巨蟻女王(螞蟻洞窟地下3樓)","rebornTime":"360","nextBorn":"","killTime":"5","lastPlace":""};
+        bossData["9"]={"index":"9","name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.3","lastPlace":""};
+        bossData["10"]={"index":"10","name":"提米特利斯(芙羅蘭開墾地)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};
+        bossData["11"]={"index":"11","name":"潘柴特(狄恩丘陵地)","rebornTime":"720","nextBorn":"","killTime":"0.2","lastPlace":""};
+        bossData["12"]={"index":"12","name":"塔拉金(叛亂軍根據地)","rebornTime":"600","nextBorn":"","killTime":"0.3","lastPlace":""};             
+        bossData["13"]={"index":"13","name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0","lastPlace":""};
+        bossData["14"]={"index":"14","name":"突變克魯瑪(克魯瑪沼澤地)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};
+        bossData["15"]={"index":"15","name":"卡坦(巨人的痕跡)","rebornTime":"420","nextBorn":"","killTime":"1","lastPlace":""};
+        bossData["16"]={"index":"16","name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};
+        bossData["17"]={"index":"17","name":"史坦(克魯瑪高塔6樓)","rebornTime":"420","nextBorn":"","killTime":"1","lastPlace":""};
+        bossData["18"]={"index":"18","name":"核心基座(克魯瑪高塔7樓)","rebornTime":"600","nextBorn":"","killTime":"5","lastPlace":""};
+        bossData["19"]={"index":"19","name":"潘納洛德(哥肯花園)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":""};
+        bossData["20"]={"index":"20","name":"魔圖拉(掠奪者野營)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
+        bossData["21"]={"index":"21","name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":""};
+        bossData["22"]={"index":"22","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"1","lastPlace":""};                
+        bossData["23"]={"index":"23","name":"卡雷斯(塔諾峽谷)","rebornTime":"540","nextBorn":"","killTime":"1","lastPlace":""};
+        bossData["24"]={"index":"24","name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"1","lastPlace":""};
+        bossData["25"]={"index":"25","name":"黑色蕾爾莉(死亡迴廊)","rebornTime":"720","nextBorn":"","killTime":"3","lastPlace":""};
+        bossData["26"]={"index":"26","name":"貝希莫斯(龍之谷北部)","rebornTime":"540","nextBorn":"","killTime":"3","lastPlace":""};
+        bossData["27"]={"index":"27","name":"猛龍獸(安塔瑞斯洞窟地下6樓)","rebornTime":"720","nextBorn":"","killTime":"10","lastPlace":""};
+        bossData["28"]={"index":"28","name":"賽魯(帕格立歐祭壇)","rebornTime":"720","nextBorn":"","killTime":"1","lastPlace":""};
+        bossData["29"]={"index":"29","name":"瓦柏(山賊城寨)","rebornTime":"720","nextBorn":"","killTime":"2","lastPlace":""};
+        bossData["30"]={"index":"30","name":"提米妮爾(提米妮爾/風之丘陵)","rebornTime":"480","nextBorn":"","killTime":"2","lastPlace":""};
+        bossData["31"]={"index":"31","name":"雷比魯(孢子擴散地)","rebornTime":"420","nextBorn":"","killTime":"1","lastPlace":""};
+        bossData["32"]={"index":"32","name":"奧爾芬(奧爾芬之巢)","rebornTime":"1440","nextBorn":"","killTime":"20","lastPlace":""};        
+        function get(){
+            $.ajax({
+                url: "https://script.google.com/macros/s/AKfycbwef3IcTUu2jPIRcm3KXJvSb0X3CXjc6wX8Mb39oKserfNSbggLmJ3L5rU7zXpNz1LNWQ/exec",
+                type: "POST",
+                success: function(response) {
+                    console.log("response :");
+                    console.log(response);
+                },
             });
-        };
-        sendButton.addEventListener('click', get);
+        }        
+        function send() {
+            let name = JSON.stringify(bossData);
+            $.ajax({
+                type: "POST",
+                url: "https://script.google.com/macros/s/AKfycbxy-ZJgfvS8YNOoSOvutoA4Xht269BzIOUDTXeYcOz-b1sZMhDXgebBSRx1IZImPeZJ/exec",
+                data: {
+                    "name": name,
+                },
+                success: function(response) {
+                if(response == "成功"){
+                    console.log("成功 :" + name);
+                    return "success";
+                }
+                },
+            });
+        };  
 	</script>
 </head>
 
 <body  style="height:100%;">
-    <button> get</button>
+    <button onclick="get()"> get</button>
+    <button onclick="send()"> send</button>
 
   
 </body>

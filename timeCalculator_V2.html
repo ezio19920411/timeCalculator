@@ -5,14 +5,17 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>萬國_Boss重生計時</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	 crossorigin="anonymous">
+     crossorigin="anonymous">
+     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>  
 	<script>
 		var uid = "<?php echo $uid ?>";
 		var navStatus = true;
         var funcAry = new Array();
         var bossData = new Object();
         var getTime = 1000; 
+        var getGSTime = 5000;         
         var timeID = null;
+        var timeIDGS = null;        
         var ringUtil = null;
         var warnSW = false;
         var bossWarn = new Array();
@@ -51,19 +54,6 @@
             bossData["31"]={"index":"31","name":"雷比魯(孢子擴散地)","rebornTime":"420","nextBorn":"","killTime":"0","lastPlace":""};
             bossData["32"]={"index":"32","name":"奧爾芬(奧爾芬之巢)","rebornTime":"1440","nextBorn":"","killTime":"0","lastPlace":""};
             bossData["33"]={"index":"33","name":"寇倫(象牙塔二樓)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":""};
-
-            var LSdata = (getLocalStorageItem("bossData_v2") != null)?JSON.parse(getLocalStorageItem("bossData_v2")):"";
-            if(LSdata != "" && LSdata["2"]){
-
-                if( object_count(bossData) != object_count(LSdata)){
-                    for(var key in bossData){
-                        if(!LSdata[key])LSdata[key] = bossData[key];
-                        console.log("1:" + LSdata[key]["name"] + " | 2:" + bossData[key]["name"]);
-                        if(LSdata[key]["name"] != bossData[key]["name"])LSdata[key] = bossData[key];
-                    }
-                }
-                bossData = LSdata;
-            }
 
             bossWarn["1"]=false;
             bossWarn["2"]=false;
@@ -134,26 +124,43 @@
             bossPlace["32"] = {"1":""};
             bossPlace["33"] = {"1":"左","2":"中","3":"右"};
             
-            setLocalStorage("bossData_v2",JSON.stringify(bossData));
-            getNowTime();
-
             var date = new Date(Date.now());
             document.getElementById("time_YYYY").value = date.getFullYear();
             document.getElementById("time_Mon").value = date.getMonth()+1;
             document.getElementById("time_DD").value = date.getDate();
             document.getElementById("time_HH").value = date.getHours();
             document.getElementById("time_MM").value = date.getMinutes();
+           
+            ringUtil = new ringSystem();
+            ringUtil.setRingAudioAtr();
+            getGSBossData();
 
             var boss_sele = document.getElementById("boss_select");
             for(var key in bossData){
                 var tmp = bossData[key];
                 boss_sele.options.add(new Option(tmp["name"], tmp["index"]));
             }
-           
-            ringUtil = new ringSystem();
-            ringUtil.setRingAudioAtr();
-            boss_select();
+            boss_select();               
         }
+        function doSomthing(data){
+            if (timeIDGS != null) clearTimeout(timeIDGS);
+            var LSdata = JSON.parse(data);
+            if(LSdata != "" && LSdata["2"]){
+                if( object_count(bossData) != object_count(LSdata)){
+                    for(var key in bossData){
+                        if(!LSdata[key])LSdata[key] = bossData[key];
+                        // console.log("1:" + LSdata[key]["name"] + " | 2:" + bossData[key]["name"]);
+                        if(LSdata[key]["name"] != bossData[key]["name"])LSdata[key] = bossData[key];
+                    }
+                }
+                bossData = LSdata;
+            }            
+            bossData = LSdata;
+            getNowTime();
+            // setLocalStorage("bossData_v2",JSON.stringify(data));
+
+            timeIDGS = setTimeout(getGSBossData, getGSTime);
+        }        
         function getNowTime() {
             if (timeID != null) clearTimeout(timeID);
             var timeInMs = Date.now();
@@ -242,8 +249,8 @@
             var addsec = (boss_D["rebornTime"]*60)*1000;
             bossData[key]["nextBorn"] = timeInMs + addsec;
             if(place)bossData[key]["lastPlace"] = place;
-            setLocalStorage("bossData_v2",JSON.stringify(bossData));
-            show();
+            setGSBossData();
+            // setLocalStorage("bossData_v2",JSON.stringify(bossData));
             
         }
         function secTrancer(timestamp){
@@ -293,8 +300,8 @@
             // console.log(dayTime + " | " + timstamp);
             bossData[boss_select]["nextBorn"] = timstamp;
             bossData[boss_select]["lastPlace"] = place_select;
-            setLocalStorage("bossData_v2",JSON.stringify(bossData));
-            show();
+            setGSBossData();
+            // setLocalStorage("bossData_v2",JSON.stringify(bossData));
 
         }
         function getLocalStorage () {
@@ -339,6 +346,7 @@
                     }
                 }
             }
+            if(isModify)setGSBossData();
             // if(isModify)setLocalStorage("bossData",JSON.stringify(bossData));
             show();
         }
@@ -467,9 +475,37 @@
                 bossData[key]["nextBorn"] = timstamp ;
             }
             console.log(bossData);
-            setLocalStorage("bossData_v2",JSON.stringify(bossData));
-            show();
+            setGSBossData();
+            // setLocalStorage("bossData_v2",JSON.stringify(bossData));
+            // show();
         }
+
+        function getGSBossData(){
+            $.ajax({
+                url: "https://script.google.com/macros/s/AKfycbwef3IcTUu2jPIRcm3KXJvSb0X3CXjc6wX8Mb39oKserfNSbggLmJ3L5rU7zXpNz1LNWQ/exec",
+                type: "POST",
+                success: function(response) {
+                    console.log("success");
+                    doSomthing(response);                    
+                },                
+            });
+        }        
+        function setGSBossData() {
+            var name = JSON.stringify(bossData);
+            $.ajax({
+                type: "POST",
+                url: "https://script.google.com/macros/s/AKfycbxy-ZJgfvS8YNOoSOvutoA4Xht269BzIOUDTXeYcOz-b1sZMhDXgebBSRx1IZImPeZJ/exec",
+                data: {
+                    "name": name,
+                },
+                success: function(response) {
+                if(response == "成功"){
+                    console.log(response);
+                    show();                    
+                }
+                },
+            });
+        };           
 	</script>
 </head>
 
@@ -493,65 +529,69 @@
                 </button>
             </div>            
         </div>
-        <div class="col-sm-6">
-            <div class="input-group">
-                <span class="input-group-addon">Text</span>
-                <input id="msg_text" type="text" class="form-control" name="msg" placeholder="Data is here">
-            </div> 
-            <button type="button" class="btn btn-info" onclick="getBossData()">匯出資料</button>
-            <button type="button" class="btn btn-warning" onclick="setBossData()">匯入資料</button>
-            <button type="button" class="btn btn-default " onclick="doCopy('msg_text')">
-                <span class="glyphicon glyphicon-copy"></span> Copy Text
-              </button>
+        <div class="col-sm-6" >
+            <div class="">
+                <h3>設定時間</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                BOSS名稱:
+                                <select class="form-control" id="boss_select" onchange="boss_select()"></select>
+                            </th>
+                            <th>
+                                最後位置:
+                                <select class="form-control" id="place_select" ></select>
+                            </th>                        
+                            <th><button type="button" class="btn btn-success" onclick="editBossTime()">修改</button></th>
+                          </tr>
+                      </thead>
+                </table>
+               
+    
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Year</th>
+                        <th>Mon</th>
+                        <th>Day</th>
+                        <th>Hr</th>
+                        <th>Min</th>
+                        <th>Sec</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><input type="text" class="form-control" id="time_YYYY"></td>
+                        <td><input type="text" class="form-control" id="time_Mon"></td>
+                        <td><input type="text" class="form-control" id="time_DD"></td>
+                        <td><input type="text" class="form-control" id="time_HH"></td>
+                        <td><input type="text" class="form-control" id="time_MM"></td>
+                        <td><input type="text" class="form-control" id="time_SS" placeholder="000"></td>
+                      </tr>
+                    </tbody>
+                </table>
+                  
+            </div>
+
+            <div style="display:none;">
+                <div class="input-group">
+                    <span class="input-group-addon">Text</span>
+                    <input id="msg_text" type="text" class="form-control" name="msg" placeholder="Data is here">
+                </div> 
+                <button type="button" class="btn btn-info" onclick="getBossData()">匯出資料</button>
+                <button type="button" class="btn btn-warning" onclick="setBossData()">匯入資料</button>
+                <button type="button" class="btn btn-default " onclick="doCopy('msg_text')">
+                    <span class="glyphicon glyphicon-copy"></span> Copy Text
+                </button>
+            </div>
         </div>
       
     </div>
     <div class="row">
         <div class="panel panel-default col-lg-4" id= "show_view"></div>
         <div id="btn_view" style="" class="col-lg-8 btn-group"></div>
-        <div class="panel panel-default col-lg-4">
-            <h3>設定時間</h3>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            BOSS名稱:
-                            <select class="form-control" id="boss_select" onchange="boss_select()"></select>
-                        </th>
-                        <th>
-                            最後位置:
-                            <select class="form-control" id="place_select" ></select>
-                        </th>                        
-                        <th><button type="button" class="btn btn-success" onclick="editBossTime()">修改</button></th>
-                      </tr>
-                  </thead>
-            </table>
-           
 
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th>Year</th>
-                    <th>Mon</th>
-                    <th>Day</th>
-                    <th>Hr</th>
-                    <th>Min</th>
-                    <th>Sec</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><input type="text" class="form-control" id="time_YYYY"></td>
-                    <td><input type="text" class="form-control" id="time_Mon"></td>
-                    <td><input type="text" class="form-control" id="time_DD"></td>
-                    <td><input type="text" class="form-control" id="time_HH"></td>
-                    <td><input type="text" class="form-control" id="time_MM"></td>
-                    <td><input type="text" class="form-control" id="time_SS" placeholder="000"></td>
-                  </tr>
-                </tbody>
-            </table>
-              
-        </div>
     </div>
     </div>
     <div id="copy_area"></div>
