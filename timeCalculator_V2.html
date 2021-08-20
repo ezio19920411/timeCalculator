@@ -169,7 +169,7 @@
                 var tmp2 = listXMP;
                 tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
-                tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, (tmp_data["lastPlace"] != "")? "最後位置:" + tmp_data["lastPlace"]:"");
+                tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, (tmp_data["lastPlace"] != "無區分")? "最後位置:" + tmp_data["lastPlace"]:"");
                 var textStylr = "";
                 var textColor = "#FF0000";
                 var textColor2 = "#9933ff";
