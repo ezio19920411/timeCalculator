@@ -519,7 +519,7 @@
             tmp_D["name"]=add_boss_name;
             tmp_D["rebornTime"]=add_boss_rebornTime;
             tmp_D["nextBorn"]="";
-            tmp_D["killTime"]=add_boss_killTime;
+            tmp_D["killTime"]=(add_boss_killTime=="")?"0":add_boss_killTime;
             tmp_D["lastPlace"]="";
             tmp_D["bossPlace"]=add_boss_place;
 
@@ -540,7 +540,7 @@
             bossData[index]["name"] = name;
             bossData[index]["bossPlace"] = place;
             bossData[index]["rebornTime"] = rebornTime;
-            bossData[index]["killTime"] = killTime;
+            bossData[index]["killTime"] = (killTime=="")?"0":killTime;
             setGSBossData();
         }
         function deleteBossTime (){
