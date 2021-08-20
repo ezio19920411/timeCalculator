@@ -206,6 +206,7 @@
             var addsec = (boss_D["rebornTime"]*60)*1000;
             bossData[key]["nextBorn"] = timeInMs + addsec;
             if(place)bossData[key]["lastPlace"] = place;
+            bossData[key]["passCount"] = 0;
             setGSBossData();
             // setLocalStorage("bossData_v2",JSON.stringify(bossData));
             
