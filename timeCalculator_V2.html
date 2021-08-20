@@ -19,39 +19,39 @@
         var bossPlace = new Array();
         var first_Open = true;
 		function init() {
-            bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|右|下"};
-            bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":""};
-            bossData["3"]={"index":"3","name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"上(26)|中(28)|下(27)"};
-            bossData["4"]={"index":"4","name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右"};
-            bossData["5"]={"index":"5","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|下"};                
-            bossData["6"]={"index":"6","name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"0.1","lastPlace":"","bossPlace":""};
-            bossData["7"]={"index":"7","name":"薩班(螞蟻洞窟地下2樓)","rebornTime":"720","nextBorn":"","killTime":"0.1","lastPlace":"","bossPlace":""};
-            bossData["8"]={"index":"8","name":"巨蟻女王(螞蟻洞窟地下3樓)","rebornTime":"360","nextBorn":"","killTime":"3","lastPlace":"","bossPlace":""};
-            bossData["9"]={"index":"9","name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"中|下|右"};
-            bossData["10"]={"index":"10","name":"提米特利斯(芙羅蘭開墾地)","rebornTime":"480","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"上(23)|下(24)"};
-            bossData["11"]={"index":"11","name":"潘柴特(狄恩丘陵地)","rebornTime":"720","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"上(20)|下(21)"};
-            bossData["12"]={"index":"12","name":"塔拉金(叛亂軍根據地)","rebornTime":"600","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|下"};             
-            bossData["13"]={"index":"13","name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":""};
-            bossData["14"]={"index":"14","name":"突變克魯瑪(克魯瑪沼澤地)","rebornTime":"480","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":""};
-            bossData["15"]={"index":"15","name":"史坦(巨人的痕跡)","rebornTime":"420","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"上|下"};
-            bossData["16"]={"index":"16","name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"上|下"};
-            bossData["17"]={"index":"17","name":"卡坦(克魯瑪高塔6樓)","rebornTime":"600","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"上|下"};
-            bossData["18"]={"index":"18","name":"核心基座(克魯瑪高塔7樓)","rebornTime":"600","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":""};
-            bossData["19"]={"index":"19","name":"潘納洛德(哥肯花園)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右|右下"};
-            bossData["20"]={"index":"20","name":"魔圖拉(掠奪者野營)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右上|右下"};
-            bossData["21"]={"index":"21","name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|中|右"};
-            bossData["22"]={"index":"22","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|中|右"};                
-            bossData["23"]={"index":"23","name":"卡雷斯(塔諾峽谷)","rebornTime":"540","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"左(02)|右(01)"};
-            bossData["24"]={"index":"24","name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"上(33)|下(32)"};
-            bossData["25"]={"index":"25","name":"黑色蕾爾莉(死亡迴廊)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左下(19)|中下(17)|右下(18)"};
-            bossData["26"]={"index":"26","name":"貝希莫斯(龍之谷北部)","rebornTime":"540","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左下|左中凹槽|上三岔|右下"};
-            bossData["27"]={"index":"27","name":"猛龍獸(安塔瑞斯洞窟地下6樓)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":""};
-            bossData["28"]={"index":"28","name":"賽魯(帕格立歐祭壇)","rebornTime":"720","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"左(31)|中(29)|右(30)"};
-            bossData["29"]={"index":"29","name":"瓦柏(山賊城寨)","rebornTime":"720","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"左|中|上|下"};
-            bossData["30"]={"index":"30","name":"提米妮爾(提米妮爾之巢/風之丘陵)","rebornTime":"480","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左上(16)|右內(14)|右外(15)"};
-            bossData["31"]={"index":"31","name":"雷比魯(孢子擴散地)","rebornTime":"420","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"中|右|最右"};
-            bossData["32"]={"index":"32","name":"奧爾芬(奧爾芬之巢)","rebornTime":"1440","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":""};
-            bossData["33"]={"index":"33","name":"寇倫(象牙塔二樓)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左|中|右"};
+            bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|右|下","passCount":0};
+            bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"","passCount":0};
+            bossData["3"]={"index":"3","name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"上(26)|中(28)|下(27)","passCount":0};
+            bossData["4"]={"index":"4","name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右","passCount":0};
+            bossData["5"]={"index":"5","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|下","passCount":0};                
+            bossData["6"]={"index":"6","name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"0.1","lastPlace":"","bossPlace":"","passCount":0};
+            bossData["7"]={"index":"7","name":"薩班(螞蟻洞窟地下2樓)","rebornTime":"720","nextBorn":"","killTime":"0.1","lastPlace":"","bossPlace":"","passCount":0};
+            bossData["8"]={"index":"8","name":"巨蟻女王(螞蟻洞窟地下3樓)","rebornTime":"360","nextBorn":"","killTime":"3","lastPlace":"","bossPlace":"","passCount":0};
+            bossData["9"]={"index":"9","name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"中|下|右","passCount":0};
+            bossData["10"]={"index":"10","name":"提米特利斯(芙羅蘭開墾地)","rebornTime":"480","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"上(23)|下(24)","passCount":0};
+            bossData["11"]={"index":"11","name":"潘柴特(狄恩丘陵地)","rebornTime":"720","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"上(20)|下(21)","passCount":0};
+            bossData["12"]={"index":"12","name":"塔拉金(叛亂軍根據地)","rebornTime":"600","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|下","passCount":0};             
+            bossData["13"]={"index":"13","name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
+            bossData["14"]={"index":"14","name":"突變克魯瑪(克魯瑪沼澤地)","rebornTime":"480","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
+            bossData["15"]={"index":"15","name":"史坦(巨人的痕跡)","rebornTime":"420","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"上|下","passCount":0};
+            bossData["16"]={"index":"16","name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"上|下","passCount":0};
+            bossData["17"]={"index":"17","name":"卡坦(克魯瑪高塔6樓)","rebornTime":"600","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"上|下","passCount":0};
+            bossData["18"]={"index":"18","name":"核心基座(克魯瑪高塔7樓)","rebornTime":"600","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
+            bossData["19"]={"index":"19","name":"潘納洛德(哥肯花園)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右|右下","passCount":0};
+            bossData["20"]={"index":"20","name":"魔圖拉(掠奪者野營)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右上|右下","passCount":0};
+            bossData["21"]={"index":"21","name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|中|右","passCount":0};
+            bossData["22"]={"index":"22","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|中|右","passCount":0};                
+            bossData["23"]={"index":"23","name":"卡雷斯(塔諾峽谷)","rebornTime":"540","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"左(02)|右(01)","passCount":0};
+            bossData["24"]={"index":"24","name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"上(33)|下(32)","passCount":0};
+            bossData["25"]={"index":"25","name":"黑色蕾爾莉(死亡迴廊)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左下(19)|中下(17)|右下(18)","passCount":0};
+            bossData["26"]={"index":"26","name":"貝希莫斯(龍之谷北部)","rebornTime":"540","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左下|左中凹槽|上三岔|右下","passCount":0};
+            bossData["27"]={"index":"27","name":"猛龍獸(安塔瑞斯洞窟地下6樓)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
+            bossData["28"]={"index":"28","name":"賽魯(帕格立歐祭壇)","rebornTime":"720","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"左(31)|中(29)|右(30)","passCount":0};
+            bossData["29"]={"index":"29","name":"瓦柏(山賊城寨)","rebornTime":"720","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"左|中|上|下","passCount":0};
+            bossData["30"]={"index":"30","name":"提米妮爾(提米妮爾之巢/風之丘陵)","rebornTime":"480","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左上(16)|右內(14)|右外(15)","passCount":0};
+            bossData["31"]={"index":"31","name":"雷比魯(孢子擴散地)","rebornTime":"420","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"中|右|最右","passCount":0};
+            bossData["32"]={"index":"32","name":"奧爾芬(奧爾芬之巢)","rebornTime":"1440","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
+            bossData["33"]={"index":"33","name":"寇倫(象牙塔二樓)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左|中|右","passCount":0};
 
             
             var date = new Date(Date.now());
@@ -170,6 +170,7 @@
                 tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
                 tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, (tmp_data["lastPlace"] != "無區分")? "最後位置:" + tmp_data["lastPlace"]:"");
+                tmp2 = tmp2.replace(/\*PASSCOUNT\*/gi, (tmp_data["passCount"])? "[過 " + tmp_data["passCount"] + " ]":"");
                 var textStylr = "";
                 var textColor = "#FF0000";
                 var textColor2 = "#9933ff";
@@ -298,6 +299,11 @@
                             loopSW = false;
                             isModify = true;
                             tmp_BD["nextBorn"] = BT;
+                            if(tmp_BD["passCount"]){
+                                tmp_BD["passCount"] = tmp_BD["passCount"]+1;
+                            }else{
+                                tmp_BD["passCount"] = 1;
+                            }
                         }
                     }
                 }
@@ -705,6 +711,7 @@
                 <font color="*COLOR*" size="5">*BORNTIME*</font>
                 <font size="3">*BOSSNAME*</font>
                 <font size="3" color="*COLOR2*">*BOSSPLACE*</font>
+                <font size="3" color="*COLOR2*">*PASSCOUNT*</font>
             </div>
         </xmp>
         <xmp id="btnXMP2" >
