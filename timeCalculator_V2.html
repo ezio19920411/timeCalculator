@@ -170,7 +170,7 @@
                 tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
                 tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, (tmp_data["lastPlace"] != "無區分")? "最後位置:" + tmp_data["lastPlace"]:"");
-                tmp2 = tmp2.replace(/\*PASSCOUNT\*/gi, (tmp_data["passCount"])? "[過 " + tmp_data["passCount"] + " ]":"");
+                tmp2 = tmp2.replace(/\*PASSCOUNT\*/gi, (tmp_data["passCount"])? "【過 " + tmp_data["passCount"] + " 】":"");
                 var textStylr = "";
                 var textColor = "#FF0000";
                 var textColor2 = "#9933ff";
@@ -712,7 +712,7 @@
                 <font color="*COLOR*" size="5">*BORNTIME*</font>
                 <font size="3">*BOSSNAME*</font>
                 <font size="3" color="*COLOR2*">*BOSSPLACE*</font>
-                <font size="3" color="*COLOR2*">*PASSCOUNT*</font>
+                <font size="3" >*PASSCOUNT*</font>
             </div>
         </xmp>
         <xmp id="btnXMP2" >
