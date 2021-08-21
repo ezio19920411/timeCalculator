@@ -6,7 +6,34 @@
 	<title>萬國_Boss重生計時</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
      crossorigin="anonymous">
-     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>  
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>  
+    <style>
+        .theme-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:#000;
+        opacity:0.4;
+        filter:alpha(opacity=40);        
+        }
+        .theme-popover {
+        z-index:9999;
+        position:fixed;
+        top:50%;
+        left:55%;
+        width:360px;
+        height:100px;
+        margin:-180px 0 0 -330px;
+        border-radius:5px;
+        border:solid 2px #666;
+        background-color:#fff;
+        box-shadow: 0 0 10px #666;
+        }
+        
+    </style>
 	<script>
         var bossData = new Object();
         var getTime = 1000; 
@@ -71,13 +98,13 @@
             if (timeIDGS != null) clearTimeout(timeIDGS);
             var LSdata = JSON.parse(data);
             if(LSdata != "" && LSdata["2"]){
-                if( object_count(bossData) != object_count(LSdata)){                                     
-                    for(var key in bossData){
-                        if(!LSdata[key])LSdata[key] = bossData[key];
-                        // console.log("1:" + LSdata[key]["name"] + " | 2:" + bossData[key]["name"]);
-                        if(LSdata[key]["name"] != bossData[key]["name"])LSdata[key] = bossData[key];
-                    }
-                }
+                // if( object_count(bossData) != object_count(LSdata)){                                     
+                //     for(var key in bossData){
+                //         if(!LSdata[key])LSdata[key] = bossData[key];
+                //         // console.log("1:" + LSdata[key]["name"] + " | 2:" + bossData[key]["name"]);
+                //         if(LSdata[key]["name"] != bossData[key]["name"])LSdata[key] = bossData[key];
+                //     }
+                // }
                 bossData = LSdata;
             }
             if(first_Open){
@@ -208,6 +235,7 @@
             if(place)bossData[key]["lastPlace"] = place;
             bossData[key]["passCount"] = 0;
             setGSBossData();
+            maskOpen("");
             // setLocalStorage("bossData_v2",JSON.stringify(bossData));
             
         }
@@ -260,6 +288,7 @@
             bossData[boss_select]["lastPlace"] = place_select;
             bossData[boss_select]["passCount"] = 0;
             setGSBossData();
+            maskOpen("");
             // setLocalStorage("bossData_v2",JSON.stringify(bossData));
 
         }
@@ -452,6 +481,7 @@
             }
             console.log(bossData);
             setGSBossData();
+            maskOpen("");
             // setLocalStorage("bossData_v2",JSON.stringify(bossData));
             // show();
         }
@@ -478,7 +508,8 @@
                 if(response == "成功"){
                     console.log(response);
                     resetAllSelect();
-                    show();                 
+                    show();
+                    maskOpen("none");
                 }
                 },
             });
@@ -526,7 +557,7 @@
 
             bossData[tmp_D["index"]] = tmp_D;
             addGSBossData();
-
+            maskOpen("");
         }
         function modifyBossTime(){
             var index = document.getElementById("modify_boss_select").value;
@@ -543,11 +574,17 @@
             bossData[index]["rebornTime"] = rebornTime;
             bossData[index]["killTime"] = (killTime=="")?"0":killTime;
             setGSBossData();
+            maskOpen("");
         }
         function deleteBossTime (){
             var index = document.getElementById("modify_boss_select").value;
             delete bossData[index];
             setGSBossData();
+            maskOpen("");
+        }
+        function maskOpen(disstr){
+            var mask = document.getElementById("loading_mask");
+            mask.style.display=disstr;
         }
 	</script>
 </head>
@@ -700,6 +737,12 @@
     <audio id="ring_audio">
         <source src="./warnig.mp3">
     </audio>
+    <div id="loading_mask" style="display:none;">
+        <div class="theme-popover-mask"></div>
+        <div class="theme-popover">
+            <h1>Loading...</h1>
+        </div>
+    </div>
     <div style="display:none">
         <xmp id="btnXMP" >
             <div class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*,'')" style="height: 120px;" id = "btn_boss_*ID*" >
