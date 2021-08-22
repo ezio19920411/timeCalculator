@@ -44,6 +44,7 @@
         var bossWarn = new Array();
         var bossPlace = new Array();
         var first_Open = true;
+        var fastCopyLimit = 5;
 		function init() {
             bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|右|下","passCount":0};
             bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"","passCount":0};
@@ -151,6 +152,7 @@
 		function show() {
             var btn_view = document.getElementById("btn_view");
             var show_view = document.getElementById("show_view");
+            var show_fast_view = document.getElementById("show_fast_view");
             var btnXMP = document.getElementById("btnXMP").innerHTML;
             var btnXMP2 = document.getElementById("btnXMP2").innerHTML;
             var listXMP = document.getElementById("listXMP").innerHTML;
@@ -158,8 +160,10 @@
             var tmp_list_v = "";
             btn_view.innerHTML = "";
             show_view.innerHTML = "";
+            show_fast_view.innerHTML = "";
             var funcNameAry = new Array();
             var bossAry = object_sort(bossData);
+            var fastListStr = "";
 			for (key in bossData) {
                 var tmp = btnXMP;
                 var inner_btn = "";
@@ -219,8 +223,17 @@
                 tmp2 = tmp2.replace(/\*COLOR\*/gi, textColor );
                 tmp2 = tmp2.replace(/\*COLOR2\*/gi, textColor2 );
 
+                if(i < fastCopyLimit){ 
+                    if(fastListStr != "")fastListStr += " ➠ ";
+                    var tmpT = secTrancer(tmp_data["nextBorn"]);
+                    var tmpN = (tmp_data["name"].length > 10 && (tmp_data["name"].split("(") != -1) )?tmp_data["name"].split("(")[0]:tmp_data["name"];
+                    var tmpPass = (tmp_data["passCount"])? "【過 " + tmp_data["passCount"] + " 】":"";
+                    var tmpPlace = (tmp_data["lastPlace"] != "無區分")? "最後位置:" + tmp_data["lastPlace"]:"";
+                    fastListStr += tmpT.split(" ")[1] + " " + tmpN + " " + tmpPass + " " + tmpPlace;
+                }
                 tmp_list_v += tmp2;  
             }
+            show_fast_view.innerHTML = fastListStr;
             btn_view.innerHTML = tmp_btn_v;
             show_view.innerHTML = tmp_list_v;
 
@@ -596,17 +609,20 @@
                 <div class="panel-heading">
                     現在時間 : <h3 id="text_now_time"></h3>
                 </div>
+                <button type="button" class="btn btn-default" onclick="doCopy('show_fast_view')">
+                    <span class="glyphicon glyphicon-duplicate"></span> Copy Top List
+                </button>                
                 <button type="button" class="btn btn-default" onclick="doCopy('show_view')">
-                    <span class="glyphicon glyphicon-copy"></span> Copy List
+                    <span class="glyphicon glyphicon-duplicate"></span> Copy All List
                 </button>
                 <button type="button" class="btn btn-default" onclick="warningSW()" >
                     <span class="glyphicon glyphicon-volume-off" id="warnPic" ></span> 
                     <span id="warnText" >Warning Off</span>
                 </button>
                 <button type="button" class="btn btn-default" onclick="resetAllTime()" >
-                    <span class="glyphicon glyphicon-retweet" id="warnPic" ></span> Reset All time
-                    
+                    <span class="glyphicon glyphicon-retweet" id="warnPic" ></span> Reset All time                    
                 </button>
+                <div id= "show_fast_view" style="margin:20px"></div>
             </div>            
         </div>
         <div class="col-sm-6" >
