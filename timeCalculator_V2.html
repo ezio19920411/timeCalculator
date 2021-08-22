@@ -228,7 +228,7 @@
                     var tmpT = secTrancer(tmp_data["nextBorn"]);
                     var tmpN = (tmp_data["name"].length > 3 && (tmp_data["name"].split("(") != -1) )?tmp_data["name"].split("(")[0]:tmp_data["name"];
                     var tmpPass = (tmp_data["passCount"])? "【過 " + tmp_data["passCount"] + " 】":"";
-                    var tmpPlace = (tmp_data["lastPlace"] != "無區分")? "最後位置:" + tmp_data["lastPlace"]:"";
+                    var tmpPlace = (tmp_data["lastPlace"] != "無區分")? " " + tmp_data["lastPlace"]:"";
                     fastListStr += tmpT.split(" ")[1] + " " + tmpN + " " + tmpPass + " " + tmpPlace;
                 }
                 tmp_list_v += tmp2;  
