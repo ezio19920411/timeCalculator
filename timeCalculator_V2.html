@@ -36,7 +36,7 @@
 	<script>
         var bossData = new Object();
         var getTime = 1000; 
-        var getGSTime = 5000;         
+        var getGSTime = 1000;         
         var timeID = null;
         var timeIDGS = null;        
         var ringUtil = null;
@@ -97,22 +97,24 @@
         function doSomthing(data){
             if (timeIDGS != null) clearTimeout(timeIDGS);
             var LSdata = JSON.parse(data);
+            var isModify = false;
             if(LSdata != "" && LSdata["2"]){
                 // if( object_count(bossData) != object_count(LSdata)){                                     
-                //     for(var key in bossData){
+                    for(var key in bossData){
                 //         if(!LSdata[key])LSdata[key] = bossData[key];
                 //         // console.log("1:" + LSdata[key]["name"] + " | 2:" + bossData[key]["name"]);
-                //         if(LSdata[key]["name"] != bossData[key]["name"])LSdata[key] = bossData[key];
-                //     }
+                        if(LSdata[key]["name"] != bossData[key]["name"])isModify = true;
+                    }
                 // }
                 bossData = LSdata;
             }
-            if(first_Open){
+            if(first_Open || isModify){
                 for(var key in bossData){
                     bossWarn[key] = false;
                     resetAllSelect();            
                 }
                 first_Open = false;
+                isModify = false;
             }
             var boss_select_length = document.getElementById("boss_select").options.length;
             var mboss_select_length = document.getElementById("modify_boss_select").options.length;
