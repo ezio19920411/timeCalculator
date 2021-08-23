@@ -106,13 +106,12 @@
                         if(LSdata[key]["name"] != bossData[key]["name"])isModify = true;
                     }
                 // }
-                bossData = LSdata;
             }
             if(first_Open || isModify){
                 for(var key in bossData){
                     bossWarn[key] = false;
-                    resetAllSelect();            
                 }
+                resetAllSelect();            
                 first_Open = false;
                 isModify = false;
             }
@@ -523,7 +522,7 @@
                 if(response == "成功"){
                     console.log(response);
                     resetAllSelect();
-                    show();
+                    getGSBossData();
                     maskOpen("none");
                 }
                 },
