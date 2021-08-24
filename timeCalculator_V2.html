@@ -36,7 +36,7 @@
 	<script>
         var bossData = new Object();
         var getTime = 1000; 
-        var getGSTime = 1000;         
+        var getGSTime = 5000;         
         var timeID = null;
         var timeIDGS = null;        
         var ringUtil = null;
@@ -523,7 +523,6 @@
                     console.log(response);
                     resetAllSelect();
                     getGSBossData();
-                    maskOpen("none");
                 }
                 },
             });
@@ -542,7 +541,7 @@
                     document.getElementById("add_boss_place").value = "" ;
                     document.getElementById("add_boss_rebornTime").value = "" ;
                     document.getElementById("add_boss_killTime").value = "" ;                    
-                    alert("新增成功!!");
+                    getGSBossData();
                 }
                 },
             });
