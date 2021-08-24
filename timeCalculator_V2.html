@@ -107,6 +107,10 @@
                 for(var key in bossData){
                     if(key=="timestamp"){
                         if(dataTimetamp != ""){
+                            if(!bossData["timestamp"]){
+                                setGSBossData();
+                                continue; 
+                            }                            
                             if(bossData["timestamp"] < dataTimetamp){
                                 console.log("doSomthing [ timestamp " + bossData["timestamp"] + " <  dataTimetamp " + dataTimetamp);
                                 setGSBossData();
