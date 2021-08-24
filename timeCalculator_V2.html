@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
      crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>  
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
         .theme-popover-mask {
         z-index: 9998;
@@ -253,7 +254,7 @@
                     var tmpN = (tmp_data["name"].length > 3 && (tmp_data["name"].split("(") != -1) )?tmp_data["name"].split("(")[0]:tmp_data["name"];
                     var tmpPass = (tmp_data["passCount"])? "[過" + tmp_data["passCount"] + "]":"";
                     // var tmpPlace = (tmp_data["lastPlace"] != "無區分")? " " + tmp_data["lastPlace"]:"";
-                    fastListStr += tmpT.split(" ")[1] + " " + tmpN + tmpPass ;
+                    fastListStr += tmpT.split(" ")[1] + tmpN + tmpPass ;
                 }
                 tmp_list_v += tmp2;  
             }
@@ -425,7 +426,8 @@
             var copyDiv = document.getElementById(divID);
             if (window.clipboardData) {
                 window.clipboardData.setData("Text", copyDiv.innerHTML);
-                alert("success_Copy");
+                // alert("success_Copy");
+                $('#btnTrigger').click();
             }
             else if (document.createRange && window.getSelection) {
                 var range = document.createRange();
@@ -435,7 +437,8 @@
                 sel.addRange(range);
                 document.execCommand("Copy", false, null);
                 sel.removeAllRanges();
-                alert("success_Copy");
+                // alert("success_Copy");
+                $('#btnTrigger').click();
             } else {
                 alert("erro_Copy");
             }
@@ -502,7 +505,8 @@
             document.getElementById("modify_boss_killTime").value = bossData[tmp_index]["killTime"] ;
         }  
         function resetAllTime(){
-            for(var key in bossData){
+            if(confirm("確定今天星期三要重置了嗎?")){
+                for(var key in bossData){
                 if(key=="timestamp")continue;
                 var boss_D = bossData[key];
                 var date = new Date(Date.now());
@@ -517,12 +521,13 @@
                     timstamp = timeTrancer(dayTime);
                 }
                 bossData[key]["nextBorn"] = timstamp ;
+                }
+                console.log(bossData);
+                setGSBossData();
+                maskOpen("");                
+            }else{
+                return;
             }
-            console.log(bossData);
-            setGSBossData();
-            maskOpen("");
-            // setLocalStorage("bossData_v2",JSON.stringify(bossData));
-            // show();
         }
 
         function getGSBossData(){
@@ -857,6 +862,27 @@
             <img src="./loading.gif">
         </div>
     </div>
+    <button style="display:none" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="btnTrigger"></button>    
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <!-- <h4 class="modal-title">System Massage</h4> -->
+            </div>
+            <div class="modal-body">
+                <h3>Copy Success !</h3>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        
+        </div>
+    </div>    
     <div style="display:none">
         <xmp id="btnXMP" >
             <div class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*,'')" style="height: 120px;" id = "btn_boss_*ID*" >
