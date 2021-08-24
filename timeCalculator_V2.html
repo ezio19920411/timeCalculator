@@ -522,7 +522,7 @@
                 if(response == "成功"){
                     console.log(response);
                     resetAllSelect();
-                    getGSBossData();
+                    setTimeout(getGSBossData, 1000);
                 }
                 },
             });
