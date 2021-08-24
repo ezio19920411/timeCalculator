@@ -533,6 +533,7 @@
         }        
         function setGSBossData() {
             bossData["timestamp"] = Date.now();
+            dataTimetamp = bossData["timestamp"];
             var name = JSON.stringify(bossData);
             $.ajax({
                 type: "POST",
