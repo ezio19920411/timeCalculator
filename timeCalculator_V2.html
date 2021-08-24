@@ -137,7 +137,7 @@
             }
             var boss_select_length = document.getElementById("boss_select").options.length;
             var mboss_select_length = document.getElementById("modify_boss_select").options.length;
-            if(object_count(LSdata) != boss_select_length || object_count(LSdata) != mboss_select_length)resetAllSelect();
+            if(object_count(LSdata)-1 != boss_select_length || object_count(LSdata)-1 != mboss_select_length)resetAllSelect();
             getNowTime();
             // setLocalStorage("bossData_v2",JSON.stringify(data));
 
