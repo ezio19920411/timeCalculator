@@ -104,6 +104,7 @@
             var LSdata = JSON.parse(data);
             console.log(" dataTimetamp :" + dataTimetamp + " | LSdata :" + LSdata["timestamp"]);
             var isModify = false;
+            var isRe = false;
             if(LSdata != "" && LSdata["2"]){                                 
                 for(var key in bossData){
                     if(key=="timestamp"){
@@ -111,12 +112,12 @@
                             if(!LSdata["timestamp"]){
                                 console.log("doSomthing [ LSdata " + LSdata["timestamp"] + " setGSBossData ]");
                                 setGSBossData();
-                                continue; 
+                                isRe = true;
                             }                            
                             if(LSdata["timestamp"] < dataTimetamp){
                                 console.log("doSomthing [ timestamp " + LSdata["timestamp"] + " <  dataTimetamp " + dataTimetamp + " setGSBossData ]");
                                 setGSBossData();
-                                continue;
+                                isRe = true;
                             }
                         }
                         continue;
@@ -124,6 +125,7 @@
                     if(LSdata[key]["name"] != bossData[key]["name"])isModify = true;
                 }
             }
+            if(isRe)return;
             if(first_Open || isModify){
                 for(var key in bossData){
                     if(key=="timestamp")continue;
