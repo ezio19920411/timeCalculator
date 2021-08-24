@@ -36,7 +36,7 @@
 	<script>
         var bossData = new Object();
         var getTime = 1000; 
-        var getGSTime = 5000;         
+        var getGSTime = 3000;         
         var timeID = null;
         var timeIDGS = null;        
         var ringUtil = null;
@@ -80,7 +80,7 @@
             bossData["31"]={"index":"31","name":"雷比魯(孢子擴散地)","rebornTime":"420","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"中|右|最右","passCount":0};
             bossData["32"]={"index":"32","name":"奧爾芬(奧爾芬之巢)","rebornTime":"1440","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
             bossData["33"]={"index":"33","name":"寇倫(象牙塔二樓)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左|中|右","passCount":0};
-            bossData["timestamp"]=0;
+            bossData["timestamp"]="";
 
             
             var date = new Date(Date.now());
@@ -102,17 +102,19 @@
         function doSomthing(data){
             if (timeIDGS != null) clearTimeout(timeIDGS);
             var LSdata = JSON.parse(data);
+            console.log(" dataTimetamp :" + dataTimetamp + " | LSdata :" + LSdata["timestamp"]);
             var isModify = false;
             if(LSdata != "" && LSdata["2"]){                                 
                 for(var key in bossData){
                     if(key=="timestamp"){
                         if(dataTimetamp != ""){
-                            if(!bossData["timestamp"]){
+                            if(!LSdata["timestamp"]){
+                                console.log("doSomthing [ LSdata " + LSdata["timestamp"] + " setGSBossData ");
                                 setGSBossData();
                                 continue; 
                             }                            
-                            if(bossData["timestamp"] < dataTimetamp){
-                                console.log("doSomthing [ timestamp " + bossData["timestamp"] + " <  dataTimetamp " + dataTimetamp);
+                            if(LSdata["timestamp"] < dataTimetamp){
+                                console.log("doSomthing [ timestamp " + LSdata["timestamp"] + " <  dataTimetamp " + dataTimetamp + " setGSBossData ");
                                 setGSBossData();
                                 continue;
                             }
@@ -127,7 +129,7 @@
                     if(key=="timestamp")continue;
                     bossWarn[key] = false;
                 }
-                dataTimetamp = bossData["timestamp"];
+                dataTimetamp = LSdata["timestamp"];
                 bossData = LSdata;
                 resetAllSelect();            
                 first_Open = false;
@@ -525,7 +527,7 @@
                 url: "https://script.google.com/macros/s/AKfycbwef3IcTUu2jPIRcm3KXJvSb0X3CXjc6wX8Mb39oKserfNSbggLmJ3L5rU7zXpNz1LNWQ/exec",
                 type: "POST",
                 success: function(response) {
-                    console.log("success");
+                    // console.log("success");
                     doSomthing(response);
                     maskOpen("none");
                 },                
