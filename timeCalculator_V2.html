@@ -109,12 +109,12 @@
                     if(key=="timestamp"){
                         if(dataTimetamp != ""){
                             if(!LSdata["timestamp"]){
-                                console.log("doSomthing [ LSdata " + LSdata["timestamp"] + " setGSBossData ");
+                                console.log("doSomthing [ LSdata " + LSdata["timestamp"] + " setGSBossData ]");
                                 setGSBossData();
                                 continue; 
                             }                            
                             if(LSdata["timestamp"] < dataTimetamp){
-                                console.log("doSomthing [ timestamp " + LSdata["timestamp"] + " <  dataTimetamp " + dataTimetamp + " setGSBossData ");
+                                console.log("doSomthing [ timestamp " + LSdata["timestamp"] + " <  dataTimetamp " + dataTimetamp + " setGSBossData ]");
                                 setGSBossData();
                                 continue;
                             }
