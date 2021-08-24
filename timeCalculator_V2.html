@@ -408,13 +408,15 @@
             var msg_text = document.getElementById("msg_text");
 
             if(msg_text.value == ""){
-                alert("請勿匯入空白資料!");
+                $('#alert_text').text("請勿匯入空白資料!");
+                $('#btnTrigger').click();                
                 return;
             }            
             
             var tmp_Obj = JSON.parse(msg_text.value);
             if(typeof(tmp_Obj) != "object"){
-                alert("資料格式錯誤!");
+                $('#alert_text').text("資料格式錯誤!");
+                $('#btnTrigger').click();  
                 return;
             }
 
@@ -425,8 +427,8 @@
         function doCopy(divID) {
             var copyDiv = document.getElementById(divID);
             if (window.clipboardData) {
-                window.clipboardData.setData("Text", copyDiv.innerHTML);
-                // alert("success_Copy");
+                window.clipboardData.setData("Text", copyDiv.innerHTML);                
+                $('#alert_text').text("Copy Success!");
                 $('#btnTrigger').click();
             }
             else if (document.createRange && window.getSelection) {
@@ -436,11 +438,13 @@
                 sel.removeAllRanges();
                 sel.addRange(range);
                 document.execCommand("Copy", false, null);
-                sel.removeAllRanges();
-                // alert("success_Copy");
+                sel.removeAllRanges();                
+                $('#alert_text').text("Copy Success!");
                 $('#btnTrigger').click();
+                
             } else {
-                alert("erro_Copy");
+                $('#alert_text').text("erro_Copy");
+                $('#btnTrigger').click();
             }
         }
         function ringSystem(){
@@ -587,7 +591,8 @@
             var add_boss_killTime = document.getElementById("add_boss_killTime").value;
 
             if(add_boss_name == "" || add_boss_rebornTime == ""){
-                alert("名稱 / 重生時間 不能為空!!");
+                $('#alert_text').text("名稱 / 重生時間 不能為空!");
+                $('#btnTrigger').click();   
                 return;
             }
 
@@ -612,7 +617,8 @@
             var rebornTime = document.getElementById("modify_boss_rebornTime").value;
             var killTime = document.getElementById("modify_boss_killTime").value;
             if(rebornTime == "" || name == "") {
-                alert("名稱/重生時間 不可為空白!!");
+                $('#alert_text').text("名稱/重生時間 不可為空白!");
+                $('#btnTrigger').click();                  
                 return;
             }
             bossData[index]["name"] = name;
@@ -635,7 +641,8 @@
         function sycBossData(){
             var fast_syc = document.getElementById("fast_syc").value;
             if(fast_syc == ""){
-                alert("同步資料 不能為空");
+                $('#alert_text').text("同步資料 不能為空!");
+                $('#btnTrigger').click();
                 return;
             }
             var dayTime = "";
@@ -658,7 +665,8 @@
                 }
             }
             if(boss_select == ""){
-                alert("查無資料 請確認資料是否正確");
+                $('#alert_text').text("查無資料 請確認資料是否正確!");
+                $('#btnTrigger').click();
                 return;
             }
             if(time_SS == "")time_SS = "000";
@@ -874,7 +882,7 @@
             <!-- <h4 class="modal-title">System Massage</h4> -->
             </div>
             <div class="modal-body">
-                <h3>Copy Success !</h3>
+                <h3 id="alert_text">Copy Success !</h3>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
