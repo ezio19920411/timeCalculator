@@ -87,7 +87,10 @@
             document.getElementById("time_DD").value = date.getDate();
             document.getElementById("time_HH").value = date.getHours();
             document.getElementById("time_MM").value = date.getMinutes();
-           
+
+            document.getElementById("syc_time_YYYY").value = date.getFullYear();
+            document.getElementById("syc_time_Mon").value = date.getMonth()+1;
+            document.getElementById("syc_time_DD").value = date.getDate();
             ringUtil = new ringSystem();
             ringUtil.setRingAudioAtr();
             getGSBossData();
@@ -111,14 +114,16 @@
                 for(var key in bossData){
                     bossWarn[key] = false;
                 }
+                bossData = LSdata;
                 resetAllSelect();            
                 first_Open = false;
                 isModify = false;
+            }else{
+                bossData = LSdata;
             }
             var boss_select_length = document.getElementById("boss_select").options.length;
             var mboss_select_length = document.getElementById("modify_boss_select").options.length;
             if(object_count(LSdata) != boss_select_length || object_count(LSdata) != mboss_select_length)resetAllSelect();
-            bossData = LSdata;
             getNowTime();
             // setLocalStorage("bossData_v2",JSON.stringify(data));
 
@@ -599,6 +604,48 @@
             var mask = document.getElementById("loading_mask");
             mask.style.display=disstr;
         }
+        function sycBossData(){
+            var fast_syc = document.getElementById("fast_syc").value;
+            if(fast_syc == ""){
+                alert("同步資料 不能為空");
+                return;
+            }
+            var dayTime = "";
+            var tmp_d = fast_syc.split(" ");
+            var tmp_t = tmp_d[0].split(":");
+            var boss_select = "";
+            var time_YYYY = document.getElementById("syc_time_YYYY").value;
+            var time_Mon = document.getElementById("syc_time_Mon").value;
+            var time_DD = document.getElementById("syc_time_DD").value;
+
+            var time_HH = tmp_t[0];
+            var time_MM = tmp_t[1];
+            var time_SS = tmp_t[2];
+
+            for(var key in bossData){
+                var tmpD = bossData[key];
+                if(tmpD["name"] == tmp_d[1]){
+                    boss_select = tmpD["index"];
+                    break;
+                }
+            }
+            if(boss_select == ""){
+                alert("查無資料 請確認資料是否正確");
+                return;
+            }
+            if(time_SS == "")time_SS = "000";
+            dayTime = time_YYYY + "-" + time_Mon + "-" + time_DD + " " + time_HH + ":" + time_MM + ":" + time_SS;
+            var timstamp = timeTrancer(dayTime);
+            if(isNaN(timstamp)){
+                dayTime = time_YYYY + "/" + time_Mon + "/" + time_DD + " " + time_HH + ":" + time_MM + ":" + time_SS;
+                timstamp = timeTrancer(dayTime);
+            }
+            console.log(dayTime + " | " + timstamp);
+            bossData[boss_select]["nextBorn"] = timstamp;
+            bossData[boss_select]["passCount"] = 0;
+            setGSBossData();
+            maskOpen("");
+        }
 	</script>
 </head>
 
@@ -745,6 +792,30 @@
                       </tr>
                     </tbody>
                 </table>
+                <h3>快速同步</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Year
+                                <input type="text" class="form-control" placeholder="0" id="syc_time_YYYY">
+                            </th>                           
+                            <th>
+                                Mon
+                                <input type="text" class="form-control" placeholder="0" id="syc_time_Mon">
+                            </th>                           
+                            <th>
+                                Day
+                                <input type="text" class="form-control" placeholder="0" id="syc_time_DD">
+                            </th>                           
+                            <th>
+                                時間 名稱(範例=>20:20:20 太平間)
+                                <input type="text" class="form-control" id="fast_syc">
+                            </th>                                                                 
+                            <th><button type="button" class="btn btn-success" onclick="sycBossData()">送出</button></th>
+                          </tr>
+                      </thead>
+                </table>            
             </div> 
         </div>
     </div>
