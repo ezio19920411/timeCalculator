@@ -45,6 +45,7 @@
         var bossPlace = new Array();
         var first_Open = true;
         var fastCopyLimit = 5;
+        var dataTimetamp = "";
 		function init() {
             bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|右|下","passCount":0};
             bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"","passCount":0};
@@ -79,6 +80,7 @@
             bossData["31"]={"index":"31","name":"雷比魯(孢子擴散地)","rebornTime":"420","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"中|右|最右","passCount":0};
             bossData["32"]={"index":"32","name":"奧爾芬(奧爾芬之巢)","rebornTime":"1440","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
             bossData["33"]={"index":"33","name":"寇倫(象牙塔二樓)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左|中|右","passCount":0};
+            bossData["timestamp"]=0;
 
             
             var date = new Date(Date.now());
@@ -101,19 +103,27 @@
             if (timeIDGS != null) clearTimeout(timeIDGS);
             var LSdata = JSON.parse(data);
             var isModify = false;
-            if(LSdata != "" && LSdata["2"]){
-                // if( object_count(bossData) != object_count(LSdata)){                                     
-                    for(var key in bossData){
-                //         if(!LSdata[key])LSdata[key] = bossData[key];
-                //         // console.log("1:" + LSdata[key]["name"] + " | 2:" + bossData[key]["name"]);
-                        if(LSdata[key]["name"] != bossData[key]["name"])isModify = true;
+            if(LSdata != "" && LSdata["2"]){                                 
+                for(var key in bossData){
+                    if(key=="timestamp"){
+                        if(dataTimetamp != ""){
+                            if(bossData["timestamp"] < dataTimetamp){
+                                console.log("doSomthing [ timestamp " + bossData["timestamp"] + " <  dataTimetamp " + dataTimetamp);
+                                setGSBossData();
+                                continue;
+                            }
+                        }
+                        continue;
                     }
-                // }
+                    if(LSdata[key]["name"] != bossData[key]["name"])isModify = true;
+                }
             }
             if(first_Open || isModify){
                 for(var key in bossData){
+                    if(key=="timestamp")continue;
                     bossWarn[key] = false;
                 }
+                dataTimetamp = bossData["timestamp"];
                 bossData = LSdata;
                 resetAllSelect();            
                 first_Open = false;
@@ -131,20 +141,18 @@
         }
         function resetAllSelect(){
             var boss_sele = document.getElementById("boss_select");
-            boss_sele.options.length = 0;
-            for(var key in bossData){
-                var tmp = bossData[key];
-                boss_sele.options.add(new Option(tmp["name"], tmp["index"]));
-            }
-            boss_select();  
-
             var mboss_select = document.getElementById("modify_boss_select");
+            boss_sele.options.length = 0;
             mboss_select.options.length = 0;
             for(var key in bossData){
+                if(key=="timestamp")continue;
                 var tmp = bossData[key];
+                boss_sele.options.add(new Option(tmp["name"], tmp["index"]));
                 mboss_select.options.add(new Option(tmp["name"], tmp["index"]));
-            }            
-            modify_boss_select();
+            }
+            boss_select();  
+            modify_boss_select();         
+
         }   
         function getNowTime() {
             if (timeID != null) clearTimeout(timeID);
@@ -171,6 +179,7 @@
             var bossAry = object_sort(bossData);
             var fastListStr = "";
 			for (key in bossData) {
+                if(key=="timestamp")continue;
                 var tmp = btnXMP;
                 var inner_btn = "";
                 var tmp_data = bossData[key];
@@ -336,6 +345,7 @@
         function checkBossTime(){
             var isModify = false;
             for (key in bossData) {
+                if(key=="timestamp")continue;
                 var tmp_BD = bossData[key];
                 var BT = tmp_BD["nextBorn"];
                 var loopSW = true;
@@ -364,6 +374,7 @@
         function object_sort (obj) {
             var gmary = new Array();
             for(var key in obj){
+                if(key=="timestamp")continue;
                 gmary.push(obj[key]);
             }
             gmary = gmary.sort(function (a, b) {return a["nextBorn"]- b["nextBorn"]; });
@@ -483,6 +494,7 @@
         }  
         function resetAllTime(){
             for(var key in bossData){
+                if(key=="timestamp")continue;
                 var boss_D = bossData[key];
                 var date = new Date(Date.now());
                 var year = date.getFullYear();
@@ -516,6 +528,7 @@
             });
         }        
         function setGSBossData() {
+            bossData["timestamp"] = Date.now();
             var name = JSON.stringify(bossData);
             $.ajax({
                 type: "POST",
