@@ -511,20 +511,21 @@
         function resetAllTime(){
             if(confirm("確定今天星期三要重置了嗎?")){
                 for(var key in bossData){
-                if(key=="timestamp")continue;
-                var boss_D = bossData[key];
-                var date = new Date(Date.now());
-                var year = date.getFullYear();
-                var month = (date.getMonth()+1)+"";
-                var day = date.getDate()+"";
-                var dayTime = "";
-                dayTime = year + "-" + month + "-" + day + " 05:50:00";
-                var timstamp = timeTrancer(dayTime);
-                if(isNaN(timstamp)){
-                    dayTime = year + "/" + month + "/" + day + " 05:50:00";
-                    timstamp = timeTrancer(dayTime);
-                }
-                bossData[key]["nextBorn"] = timstamp ;
+                    if(key=="timestamp")continue;
+                    var boss_D = bossData[key];
+                    var date = new Date(Date.now());
+                    var year = date.getFullYear();
+                    var month = (date.getMonth()+1)+"";
+                    var day = date.getDate()+"";
+                    var dayTime = "";
+                    dayTime = year + "-" + month + "-" + day + " 05:50:00";
+                    var timstamp = timeTrancer(dayTime);
+                    if(isNaN(timstamp)){
+                        dayTime = year + "/" + month + "/" + day + " 05:50:00";
+                        timstamp = timeTrancer(dayTime);
+                    }
+                    bossData[key]["nextBorn"] = timstamp ;
+                    bossData[key]["passCount"] = 0;
                 }
                 console.log(bossData);
                 setGSBossData();
