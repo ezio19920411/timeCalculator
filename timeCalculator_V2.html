@@ -124,7 +124,7 @@
                         }
                         continue;
                     }
-                    if(LSdata[key]["name"]){
+                    if(LSdata[key] && LSdata[key]["name"]){
                         if(LSdata[key]["name"] != bossData[key]["name"])isModify = true;
                     }
                 }
@@ -192,6 +192,7 @@
             var funcNameAry = new Array();
             var bossAry = object_sort(bossData);
             var fastListStr = "";
+            var fast_count = 0;
 			for (key in bossData) {
                 if(key=="timestamp")continue;
                 var tmp = btnXMP;
@@ -229,12 +230,12 @@
             }
 
             for(var i = 0 ; i < bossAry.length ; i++){
-                var tmp_data = bossAry[i];
+                var tmp_data = bossAry[i];            
                 if(nowGroup !="all"){
                     if(nowGroup != tmp_data["boss_group"]){
                         continue;
                     }
-                }                
+                }            
                 var tmp2 = listXMP;
                 tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
@@ -262,7 +263,7 @@
                 tmp2 = tmp2.replace(/\*COLOR\*/gi, textColor );
                 tmp2 = tmp2.replace(/\*COLOR2\*/gi, textColor2 );
 
-                if(i < fastCopyLimit){ 
+                if(fast_count < fastCopyLimit){ 
                     if(fastListStr != "")fastListStr += "➠";
                     var tmpT = secTrancer(tmp_data["nextBorn"]);
                     var tmpN = (tmp_data["name"].length > 3 && (tmp_data["name"].split("(") != -1) )?tmp_data["name"].split("(")[0]:tmp_data["name"];
@@ -270,6 +271,7 @@
                     // var tmpPlace = (tmp_data["lastPlace"] != "無區分")? " " + tmp_data["lastPlace"]:"";
                     fastListStr += tmpT.split(" ")[1] + tmpN + tmpPass ;
                 }
+                fast_count++;
                 tmp_list_v += tmp2;  
             }
             show_fast_view.innerHTML = fastListStr;
