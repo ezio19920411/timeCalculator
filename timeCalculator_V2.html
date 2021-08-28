@@ -210,7 +210,7 @@
                 tmp = tmp.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
                 var btnclass = "primary";
                 if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < 5*60*1000)btnclass = "danger";
-                if( tmp_data["nextBorn"] != "" && (nowD - (tmp_data["nextBorn"]-(tmp_data["rebornTime"]*60*1000 )) ) <= 5*60*1000)btnclass = "success";
+                if( tmp_data["nextBorn"] != "" && (nowD - (tmp_data["nextBorn"]-(tmp_data["rebornTime"]*60*1000 )) ) <= 10*60*1000)btnclass = "success";
                 tmp = tmp.replace(/\*CLASS\*/gi, btnclass );
 
                 var placeAry = bossPlace[tmp_data["index"]];
