@@ -679,6 +679,20 @@
                 $('#btnTrigger').click();
                 return;
             }
+            if(fast_syc.indexOf("  ") != -1){
+                var big_fast = fast_syc.split("  ");
+                for(var i = 0 ; i<big_fast.length ; i++){
+                    console.log(big_fast[i]);
+                    setSynBossData(big_fast[i]);                   
+                }
+            }else {
+                console.log(fast_syc);
+                setSynBossData(fast_syc);
+            }
+            setGSBossData();
+            maskOpen("");
+        }
+        function setSynBossData(fast_syc){
             var dayTime = "";
             var tmp_d = fast_syc.split(" ");
             var tmp_t = tmp_d[0].split(":");
@@ -717,8 +731,6 @@
             console.log(dayTime + " | " + timstamp + " | " + passCount);
             bossData[boss_select]["nextBorn"] = timstamp;
             bossData[boss_select]["passCount"] = passCount;
-            setGSBossData();
-            maskOpen("");
         }
         function showGroup(){            
             var group_div = document.getElementById("group_div");
