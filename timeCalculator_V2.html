@@ -280,7 +280,7 @@
 
 		}
 		function setBossTime(key,place) {
-            event.stopPropagation()
+            event.stopPropagation();
             var boss_D = bossData[key];
             var timeInMs = Date.now();
             var addsec = (boss_D["rebornTime"]*60)*1000;
