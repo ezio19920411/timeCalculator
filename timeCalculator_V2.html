@@ -48,6 +48,7 @@
         var fastCopyLimit = 3;
         var dataTimetamp = "";
         var nowGroup = "all";
+        var warn_min = 2;//warning min
 		function init() {
             bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|右|下","passCount":0};
             bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"","passCount":0};
@@ -245,7 +246,7 @@
                 var textColor = "#FF0000";
                 var textColor2 = "#9933ff";
                 var tmp_SW = bossWarn[tmp_data["index"]];
-                if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < 5*60*1000){
+                if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < warn_min*60*1000){
                     if(warnSW){
                         if(!tmp_SW){
                             console.log("open Ring");
