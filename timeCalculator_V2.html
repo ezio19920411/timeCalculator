@@ -6,7 +6,7 @@
 	<title>萬國_Boss重生計時</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
      crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>  
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
         .theme-popover-mask {
@@ -18,7 +18,7 @@
         height:100%;
         background:#000;
         opacity:0.7;
-        filter:alpha(opacity=40);        
+        filter:alpha(opacity=40);
         }
         .theme-popover {
         z-index:9999;
@@ -32,14 +32,14 @@
         /* border:solid 2px #666; */
         /* box-shadow: 0 0 10px #666; */
         }
-        
+
     </style>
 	<script>
         var bossData = new Object();
-        var getTime = 1000; 
-        var getGSTime = 3000;         
+        var getTime = 1000;
+        var getGSTime = 3000;
         var timeID = null;
-        var timeIDGS = null;        
+        var timeIDGS = null;
         var ringUtil = null;
         var warnSW = false;
         var bossWarn = new Array();
@@ -54,14 +54,14 @@
             bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"","passCount":0};
             bossData["3"]={"index":"3","name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"上(26)|中(28)|下(27)","passCount":0};
             bossData["4"]={"index":"4","name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右","passCount":0};
-            bossData["5"]={"index":"5","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|下","passCount":0};                
+            bossData["5"]={"index":"5","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|下","passCount":0};
             bossData["6"]={"index":"6","name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"0.1","lastPlace":"","bossPlace":"","passCount":0};
             bossData["7"]={"index":"7","name":"薩班(螞蟻洞窟地下2樓)","rebornTime":"720","nextBorn":"","killTime":"0.1","lastPlace":"","bossPlace":"","passCount":0};
             bossData["8"]={"index":"8","name":"巨蟻女王(螞蟻洞窟地下3樓)","rebornTime":"360","nextBorn":"","killTime":"3","lastPlace":"","bossPlace":"","passCount":0};
             bossData["9"]={"index":"9","name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"中|下|右","passCount":0};
             bossData["10"]={"index":"10","name":"提米特利斯(芙羅蘭開墾地)","rebornTime":"480","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"上(23)|下(24)","passCount":0};
             bossData["11"]={"index":"11","name":"潘柴特(狄恩丘陵地)","rebornTime":"720","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"上(20)|下(21)","passCount":0};
-            bossData["12"]={"index":"12","name":"塔拉金(叛亂軍根據地)","rebornTime":"600","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|下","passCount":0};             
+            bossData["12"]={"index":"12","name":"塔拉金(叛亂軍根據地)","rebornTime":"600","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|下","passCount":0};
             bossData["13"]={"index":"13","name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
             bossData["14"]={"index":"14","name":"突變克魯瑪(克魯瑪沼澤地)","rebornTime":"480","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
             bossData["15"]={"index":"15","name":"史坦(巨人的痕跡)","rebornTime":"420","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"上|下","passCount":0};
@@ -71,7 +71,7 @@
             bossData["19"]={"index":"19","name":"潘納洛德(哥肯花園)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右|右下","passCount":0};
             bossData["20"]={"index":"20","name":"魔圖拉(掠奪者野營)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右上|右下","passCount":0};
             bossData["21"]={"index":"21","name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|中|右","passCount":0};
-            bossData["22"]={"index":"22","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|中|右","passCount":0};                
+            bossData["22"]={"index":"22","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|中|右","passCount":0};
             bossData["23"]={"index":"23","name":"卡雷斯(塔諾峽谷)","rebornTime":"540","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"左(02)|右(01)","passCount":0};
             bossData["24"]={"index":"24","name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"上(33)|下(32)","passCount":0};
             bossData["25"]={"index":"25","name":"黑色蕾爾莉(死亡迴廊)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左下(19)|中下(17)|右下(18)","passCount":0};
@@ -85,7 +85,7 @@
             bossData["33"]={"index":"33","name":"寇倫(象牙塔二樓)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左|中|右","passCount":0};
             bossData["timestamp"]="";
 
-            
+
             var date = new Date(Date.now());
             document.getElementById("time_YYYY").value = date.getFullYear();
             document.getElementById("time_Mon").value = date.getMonth()+1;
@@ -100,7 +100,7 @@
             ringUtil.setRingAudioAtr();
             getGSBossData();
             maskOpen("");
-             
+
         }
         function doSomthing(data){
             if (timeIDGS != null) clearTimeout(timeIDGS);
@@ -108,7 +108,7 @@
             console.log(" dataTimetamp :" + dataTimetamp + " | LSdata :" + LSdata["timestamp"]);
             var isModify = false;
             var isRe = false;
-            if(LSdata != "" && LSdata["2"]){                                 
+            if(LSdata != "" && LSdata["2"]){
                 for(var key in bossData){
                     if(key=="timestamp"){
                         if(dataTimetamp != ""){
@@ -116,7 +116,7 @@
                                 console.log("doSomthing [ LSdata " + LSdata["timestamp"] + " setGSBossData ]");
                                 setGSBossData();
                                 isRe = true;
-                            }                            
+                            }
                             if(LSdata["timestamp"] < dataTimetamp){
                                 console.log("doSomthing [ timestamp " + LSdata["timestamp"] + " <  dataTimetamp " + dataTimetamp + " setGSBossData ]");
                                 setGSBossData();
@@ -138,8 +138,8 @@
                 }
                 dataTimetamp = LSdata["timestamp"];
                 bossData = LSdata;
-                showGroup();          
-                resetAllSelect();            
+                showGroup();
+                resetAllSelect();
                 first_Open = false;
                 isModify = false;
             }else{
@@ -165,8 +165,8 @@
                 boss_sele.options.add(new Option(tmp["name"], tmp["index"]));
                 mboss_select.options.add(new Option(tmp["name"], tmp["index"]));
             }
-            boss_select();  
-            modify_boss_select();         
+            boss_select();
+            modify_boss_select();
 
         }
         function getNowTime() {
@@ -177,7 +177,7 @@
             time_div.innerHTML = tmp_time;
             checkBossTime();
             timeID = setTimeout(getNowTime, getTime);
-        }        
+        }
 		function show() {
             var btn_view = document.getElementById("btn_view");
             var show_view = document.getElementById("show_view");
@@ -200,7 +200,7 @@
                 var inner_btn = "";
                 var tmp_data = bossData[key];
                 var nowD = Date.now();
-                
+
                 if(nowGroup !="all"){
                     if(nowGroup != tmp_data["boss_group"]){
                         continue;
@@ -210,7 +210,7 @@
                 tmp = tmp.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp = tmp.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
                 var btnclass = "primary";
-                if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < 5*60*1000)btnclass = "danger";
+                if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < warn_min*60*1000)btnclass = "danger";
                 if( tmp_data["nextBorn"] != "" && (nowD - (tmp_data["nextBorn"]-(tmp_data["rebornTime"]*60*1000 )) ) <= 10*60*1000)btnclass = "success";
                 tmp = tmp.replace(/\*CLASS\*/gi, btnclass );
 
@@ -220,23 +220,23 @@
                     placeAry = tmp_data["bossPlace"].split("|");
                 }
                 for(var key in placeAry){
-                    if(placeAry[key] == "")continue;                    
+                    if(placeAry[key] == "")continue;
                     inner_btn += btnXMP2;
                     inner_btn = inner_btn.replace(/\*ID\*/gi, tmp_data["index"]);
                     inner_btn = inner_btn.replace(/\*PLACEID\*/gi, placeAry[key]);
                     inner_btn = inner_btn.replace(/\*PLACENAME\*/gi, placeAry[key]);
                 }
                 tmp = tmp.replace(/\*PLACEBTN\*/gi, inner_btn );
-                tmp_btn_v += tmp;        
+                tmp_btn_v += tmp;
             }
 
             for(var i = 0 ; i < bossAry.length ; i++){
-                var tmp_data = bossAry[i];            
+                var tmp_data = bossAry[i];
                 if(nowGroup !="all"){
                     if(nowGroup != tmp_data["boss_group"]){
                         continue;
                     }
-                }            
+                }
                 var tmp2 = listXMP;
                 tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
@@ -264,7 +264,7 @@
                 tmp2 = tmp2.replace(/\*COLOR\*/gi, textColor );
                 tmp2 = tmp2.replace(/\*COLOR2\*/gi, textColor2 );
 
-                if(fast_count < fastCopyLimit){ 
+                if(fast_count < fastCopyLimit){
                     if(fastListStr != "")fastListStr += "➠";
                     var tmpT = secTrancer(tmp_data["nextBorn"]);
                     var tmpN = (tmp_data["name"].length > 3 && (tmp_data["name"].split("(") != -1) )?tmp_data["name"].split("(")[0]:tmp_data["name"];
@@ -273,7 +273,7 @@
                     fastListStr += tmpT.split(" ")[1] + tmpN + tmpPass ;
                 }
                 fast_count++;
-                tmp_list_v += tmp2;  
+                tmp_list_v += tmp2;
             }
             show_fast_view.innerHTML = fastListStr;
             btn_view.innerHTML = tmp_btn_v;
@@ -291,7 +291,7 @@
             setGSBossData();
             maskOpen("");
             // setLocalStorage("bossData_v2",JSON.stringify(bossData));
-            
+
         }
         function secTrancer(timestamp){
             if(timestamp == "")return "-";
@@ -302,7 +302,7 @@
             var hh = date.getHours()+"";
             var mm = date.getMinutes()+"";
             var ss = date.getSeconds()+"";
-            
+
             var real_month = (month.length < 2)?"0"+month:month;
             var real_day = (day.length < 2)?"0"+day:day;
             var real_hh = (hh.length < 2)?"0"+hh:hh;
@@ -319,7 +319,7 @@
             rs = d.getTime();
 
             return rs;
-        }        
+        }
         function editBossTime (){
             var dayTime = "";
             var time_YYYY = document.getElementById("time_YYYY").value;
@@ -358,14 +358,14 @@
         function getLocalStorageItem (_key) {
             var tmp_storage = getLocalStorage();
             return tmp_storage.getItem(_key);
-        }        
+        }
         function setLocalStorage (_key,_value) {
             var tmp_storage = getLocalStorage();
             tmp_storage.setItem(_key,_value);
         }
         function removeLocalStorage (_key){
-            var tmp_storage = getLocalStorage();            
-            tmp_storage.removeItem(_key);          
+            var tmp_storage = getLocalStorage();
+            tmp_storage.removeItem(_key);
             bossData = null;
             init();
         }
@@ -412,10 +412,10 @@
             var count = 0;
             for(var key in obj){
                 count++;
-                
+
             }
             return count;
-        }        
+        }
         function getBossData(){
             var msg_text = document.getElementById("msg_text");
             var tmpD = getLocalStorageItem("bossData_v2");
@@ -426,14 +426,14 @@
 
             if(msg_text.value == ""){
                 $('#alert_text').text("請勿匯入空白資料!");
-                $('#btnTrigger').click();                
+                $('#btnTrigger').click();
                 return;
-            }            
-            
+            }
+
             var tmp_Obj = JSON.parse(msg_text.value);
             if(typeof(tmp_Obj) != "object"){
                 $('#alert_text').text("資料格式錯誤!");
-                $('#btnTrigger').click();  
+                $('#btnTrigger').click();
                 return;
             }
 
@@ -444,7 +444,7 @@
         function doCopy(divID) {
             var copyDiv = document.getElementById(divID);
             if (window.clipboardData) {
-                window.clipboardData.setData("Text", copyDiv.innerHTML);                
+                window.clipboardData.setData("Text", copyDiv.innerHTML);
                 $('#alert_text').text("Copy Success!");
                 $('#btnTrigger').click();
             }
@@ -455,10 +455,10 @@
                 sel.removeAllRanges();
                 sel.addRange(range);
                 document.execCommand("Copy", false, null);
-                sel.removeAllRanges();                
+                sel.removeAllRanges();
                 $('#alert_text').text("Copy Success!");
                 $('#btnTrigger').click();
-                
+
             } else {
                 $('#alert_text').text("erro_Copy");
                 $('#btnTrigger').click();
@@ -501,7 +501,7 @@
                 warnSW = true;
                 warnText.innerHTML = "Warning Open";
             }
-        }       
+        }
         function boss_select(){
             var boss_select = document.getElementById("boss_select");
             var place_select = document.getElementById("place_select");
@@ -515,7 +515,7 @@
                     place_select.options.add(new Option(tmp, key));
                 }
             }
-        } 
+        }
         function modify_boss_select(){
             var boss_select = document.getElementById("modify_boss_select");
             var tmp_index = boss_select.value;
@@ -525,8 +525,8 @@
             document.getElementById("modify_boss_rebornTime").value = bossData[tmp_index]["rebornTime"] ;
             document.getElementById("modify_boss_killTime").value = bossData[tmp_index]["killTime"] ;
             document.getElementById("modify_boss_group").value = (bossData[tmp_index]["boss_group"])?bossData[tmp_index]["boss_group"]:"" ;
-            
-        }  
+
+        }
         function resetAllTime(){
             if(confirm("確定今天星期三要重置了嗎?")){
                 for(var key in bossData){
@@ -548,7 +548,7 @@
                 }
                 console.log(bossData);
                 setGSBossData();
-                maskOpen("");                
+                maskOpen("");
             }else{
                 return;
             }
@@ -562,9 +562,9 @@
                     // console.log("success");
                     doSomthing(response);
                     maskOpen("none");
-                },                
+                },
             });
-        }        
+        }
         function setGSBossData() {
             bossData["timestamp"] = Date.now();
             dataTimetamp = bossData["timestamp"];
@@ -597,13 +597,13 @@
                     document.getElementById("add_boss_name").value = "" ;
                     document.getElementById("add_boss_place").value = "" ;
                     document.getElementById("add_boss_rebornTime").value = "" ;
-                    document.getElementById("add_boss_killTime").value = "" ;                    
+                    document.getElementById("add_boss_killTime").value = "" ;
                     getGSBossData();
                 }
                 },
             });
         };
-               
+
         function addBossData(){
             var add_boss_name = document.getElementById("add_boss_name").value;
             var add_boss_place = document.getElementById("add_boss_place").value;
@@ -613,12 +613,12 @@
 
             if(add_boss_name == "" || add_boss_rebornTime == ""){
                 $('#alert_text').text("名稱 / 重生時間 不能為空!");
-                $('#btnTrigger').click();   
+                $('#btnTrigger').click();
                 return;
             }
             if(add_boss_group == "all"){
                 $('#alert_text').text("群組不能為 all");
-                $('#btnTrigger').click();   
+                $('#btnTrigger').click();
                 return;
             }
             var nowCount = object_count(bossData);
@@ -631,7 +631,7 @@
             tmp_D["lastPlace"]="";
             tmp_D["bossPlace"]=(add_boss_place == "")?"0":add_boss_place;
             tmp_D["boss_group"]=add_boss_group;
-            
+
 
             bossData[tmp_D["index"]] = tmp_D;
             addGSBossData();
@@ -644,17 +644,17 @@
             var rebornTime = document.getElementById("modify_boss_rebornTime").value;
             var killTime = document.getElementById("modify_boss_killTime").value;
             var boss_group = document.getElementById("modify_boss_group").value;
-            
+
             if(rebornTime == "" || name == "") {
                 $('#alert_text').text("名稱/重生時間 不可為空白!");
-                $('#btnTrigger').click();                  
+                $('#btnTrigger').click();
                 return;
             }
             if(boss_group == "all"){
                 $('#alert_text').text("群組不能為 all");
-                $('#btnTrigger').click();   
+                $('#btnTrigger').click();
                 return;
-            }            
+            }
             bossData[index]["name"] = name;
             bossData[index]["bossPlace"] = place;
             bossData[index]["rebornTime"] = rebornTime;
@@ -684,7 +684,7 @@
                 var big_fast = fast_syc.split("  ");
                 for(var i = 0 ; i<big_fast.length ; i++){
                     console.log(big_fast[i]);
-                    setSynBossData(big_fast[i]);                   
+                    setSynBossData(big_fast[i]);
                 }
             }else {
                 console.log(fast_syc);
@@ -733,7 +733,7 @@
             bossData[boss_select]["nextBorn"] = timstamp;
             bossData[boss_select]["passCount"] = passCount;
         }
-        function showGroup(){            
+        function showGroup(){
             var group_div = document.getElementById("group_div");
             var li_XMP = document.getElementById("li_XMP").innerHTML;
             var groupAry = new Object();
@@ -742,13 +742,13 @@
             for(var key in bossData){
                 var tmpD = bossData[key];
                 console.log(tmpD["boss_group"]);
-                if(tmpD["boss_group"])groupAry[tmpD["boss_group"]] = "";             
+                if(tmpD["boss_group"])groupAry[tmpD["boss_group"]] = "";
             }
-            
+
             gstr+=li_XMP;
             gstr = gstr.replace(/\*GROUPNAME\*/gi, "all" );
             gstr = gstr.replace(/\*class\*/gi, "active" );
-            
+
             for(key in groupAry){
                 gstr += li_XMP;
                 gstr = gstr.replace(/\*GROUPNAME\*/gi, key );
@@ -776,24 +776,24 @@
             <div class="panel panel-default" >
                 <div class="panel-heading">
                     現在時間 : <h3 id="text_now_time"></h3>
-                    <ul class="nav nav-tabs" id="group_div" ></ul>                                                     
-                </div>                
+                    <ul class="nav nav-tabs" id="group_div" ></ul>
+                </div>
                 <button type="button" class="btn btn-default" onclick="doCopy('show_fast_view')">
                     <span class="glyphicon glyphicon-duplicate"></span> Copy Top List
-                </button>                
+                </button>
                 <button type="button" class="btn btn-default" onclick="doCopy('show_view')">
                     <span class="glyphicon glyphicon-duplicate"></span> Copy All List
                 </button>
                 <button type="button" class="btn btn-default" onclick="warningSW()" >
-                    <span class="glyphicon glyphicon-volume-off" id="warnPic" ></span> 
+                    <span class="glyphicon glyphicon-volume-off" id="warnPic" ></span>
                     <span id="warnText" >Warning Off</span>
                 </button>
                 <button type="button" class="btn btn-default" onclick="resetAllTime()" >
-                    <span class="glyphicon glyphicon-retweet" id="warnPic" ></span> Reset All time                    
+                    <span class="glyphicon glyphicon-retweet" id="warnPic" ></span> Reset All time
                 </button>
 
                 <div id= "show_fast_view" style="margin:20px"></div>
-            </div>            
+            </div>
         </div>
         <div class="col-sm-6" >
             <div class="">
@@ -808,13 +808,13 @@
                             <th>
                                 最後位置:
                                 <select class="form-control" id="place_select" ></select>
-                            </th>                        
+                            </th>
                             <th><button type="button" class="btn btn-success" onclick="editBossTime()">修改</button></th>
                           </tr>
                       </thead>
                 </table>
-               
-    
+
+
                 <table class="table">
                     <thead>
                       <tr>
@@ -837,14 +837,14 @@
                       </tr>
                     </tbody>
                 </table>
-                  
+
             </div>
 
             <div style="display:none;">
                 <div class="input-group">
                     <span class="input-group-addon">Text</span>
                     <input id="msg_text" type="text" class="form-control" name="msg" placeholder="Data is here">
-                </div> 
+                </div>
                 <button type="button" class="btn btn-info" onclick="getBossData()">匯出資料</button>
                 <button type="button" class="btn btn-warning" onclick="setBossData()">匯入資料</button>
                 <button type="button" class="btn btn-default " onclick="doCopy('msg_text')">
@@ -852,7 +852,7 @@
                 </button>
             </div>
         </div>
-      
+
     </div>
     <div class="row">
         <div class="panel panel-default col-lg-4" id= "show_view"></div>
@@ -882,12 +882,12 @@
                             <th>
                                 群組:
                                 <input type="text" class="form-control" id="add_boss_group">
-                            </th>                                                                                             
+                            </th>
                             <th><button type="button" class="btn btn-success" onclick="addBossData()">新增</button></th>
                           </tr>
                       </thead>
                 </table>
-               
+
                 <h3>修改/刪除資料</h3>
                 <table class="table">
                     <thead>
@@ -895,7 +895,7 @@
                             <th>
                                 BOSS名稱:
                                 <select class="form-control" id="modify_boss_select" onchange="modify_boss_select()"></select>
-                            </th>                        
+                            </th>
                             <th><button type="button" class="btn btn-warning" onclick="modifyBossTime()">修改</button></th>
                             <th><button type="button" class="btn btn-danger" onclick="deleteBossTime()">刪除</button></th>
                           </tr>
@@ -917,7 +917,7 @@
                         <td><input type="text" class="form-control" id="modify_boss_place"></td>
                         <td><input type="text" class="form-control" id="modify_boss_rebornTime"></td>
                         <td><input type="text" class="form-control" id="modify_boss_killTime" placeholder="0"></td>
-                        <td><input type="text" class="form-control" id="modify_boss_group"></td>      
+                        <td><input type="text" class="form-control" id="modify_boss_group"></td>
                       </tr>
                     </tbody>
                 </table>
@@ -928,24 +928,24 @@
                             <th>
                                 Year
                                 <input type="text" class="form-control" placeholder="0" id="syc_time_YYYY">
-                            </th>                           
+                            </th>
                             <th>
                                 Mon
                                 <input type="text" class="form-control" placeholder="0" id="syc_time_Mon">
-                            </th>                           
+                            </th>
                             <th>
                                 Day
                                 <input type="text" class="form-control" placeholder="0" id="syc_time_DD">
-                            </th>                           
+                            </th>
                             <th>
                                 時間 名稱(範例=>20:20:20 太平間)
                                 <input type="text" class="form-control" id="fast_syc">
-                            </th>                                                                 
+                            </th>
                             <th><button type="button" class="btn btn-success" onclick="sycBossData()">送出</button></th>
                           </tr>
                       </thead>
-                </table>            
-            </div> 
+                </table>
+            </div>
         </div>
     </div>
     </div>
@@ -959,11 +959,11 @@
             <img src="./loading.gif">
         </div>
     </div>
-    <button style="display:none" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="btnTrigger"></button>    
+    <button style="display:none" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="btnTrigger"></button>
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
-        
+
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -977,9 +977,9 @@
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-        
+
         </div>
-    </div>    
+    </div>
     <div style="display:none">
         <xmp id="btnXMP" >
             <div class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*,'')" style="height: 120px;" id = "btn_boss_*ID*" >
