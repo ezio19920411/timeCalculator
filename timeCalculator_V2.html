@@ -3,7 +3,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>萬國_Boss重生計時</title>
+	<title>皇庭_Boss重生計時</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
      crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -240,7 +240,8 @@
                 var tmp2 = listXMP;
                 tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
-                tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, (tmp_data["lastPlace"] != "無區分")? "最後位置:" + tmp_data["lastPlace"]:"");
+                // tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, (tmp_data["lastPlace"] != "無區分")? "最後位置:" + tmp_data["lastPlace"]:"");
+                tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, "");
                 tmp2 = tmp2.replace(/\*PASSCOUNT\*/gi, (tmp_data["passCount"])? "【過 " + tmp_data["passCount"] + " 】":"");
                 var textStylr = "";
                 var textColor = "#FF0000";
@@ -788,7 +789,7 @@
                     <span class="glyphicon glyphicon-volume-off" id="warnPic" ></span>
                     <span id="warnText" >Warning Off</span>
                 </button>
-                <button type="button" class="btn btn-default" onclick="resetAllTime()" >
+                <button type="button" class="btn btn-default" onclick="resetAllTime()"  style="display:none">
                     <span class="glyphicon glyphicon-retweet" id="warnPic" ></span> Reset All time
                 </button>
 
