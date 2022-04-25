@@ -210,7 +210,7 @@
                 tmp = tmp.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
                 tmp = tmp.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
                 var btnclass = "primary";
-                if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < warn_min*60*1000)btnclass = "danger";
+                if (tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"] - nowD) < warn_min * 60 * 1000) btnclass = "danger";
                 if( tmp_data["nextBorn"] != "" && (nowD - (tmp_data["nextBorn"]-(tmp_data["rebornTime"]*60*1000 )) ) <= 10*60*1000)btnclass = "success";
                 tmp = tmp.replace(/\*CLASS\*/gi, btnclass );
 
@@ -251,7 +251,7 @@
                     if(warnSW){
                         if(!tmp_SW){
                             console.log("open Ring");
-                            ringUtil.playRing(5000);
+                            ringUtil.playRing(5000,"1");
                             bossWarn[tmp_data["index"]]= true;
                         }
                     }
@@ -260,6 +260,18 @@
                     textColor2 = "#ffff66";
                 }else{
                     if(tmp_SW)bossWarn[tmp_data["index"]] = false;
+                }
+                //快到在提醒一次 9秒
+                if (tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"] - nowD) < 0.15 * 60 * 1000) {
+                    if (warnSW) {
+                        if (!tmp_SW) {
+                            console.log("open Ring2");
+                            ringUtil.playRing(5000,"2");
+                            bossWarn[tmp_data["index"]] = true;
+                        }
+                    }
+                } else {
+                    if (tmp_SW) bossWarn[tmp_data["index"]] = false;
                 }
                 tmp2 = tmp2.replace(/\*STYLE\*/gi, textStylr );
                 tmp2 = tmp2.replace(/\*COLOR\*/gi, textColor );
@@ -468,21 +480,24 @@
         function ringSystem(){
             var self = this;
             self.setRingAudioAtr = function () {
-                var ring = document.getElementById("ring_audio");
+                var ring = document.getElementById("ring_audio1");
+                var ring2 = document.getElementById("ring_audio2");
                 ring.setAttribute("type", "audio/mpeg");
                 ring.setAttribute("Loop", "Loop");
+                ring2.setAttribute("type", "audio/mpeg");
+                ring2.setAttribute("Loop", "Loop");
             }
 
-            self.playRing = function (closeTime) {
+            self.playRing = function (closeTime,type) {
                 console.log("is Ring " + closeTime);
-                var ring = document.getElementById("ring_audio");
+                var ring = document.getElementById("ring_audio"+ type);
                 ring.play();
-                setTimeout("ringUtil.stopRing()", closeTime);
+                setTimeout("ringUtil.stopRing("+type+")", closeTime);
             }
 
-            self.stopRing = function () {
+            self.stopRing = function (type) {
                 console.log("close close");
-                var ring = document.getElementById("ring_audio");
+                var ring = document.getElementById("ring_audio"+ type);
                 if (!ring) return;
                 ring.pause();
                 ring.load();
@@ -951,8 +966,11 @@
     </div>
     </div>
     <div id="copy_area"></div>
-    <audio id="ring_audio">
+    <audio id="ring_audio1">
         <source src="./warnig.mp3">
+    </audio>
+    <audio id="ring_audio2">
+        <source src="./katana1.mp3">
     </audio>
     <div id="loading_mask" style="display:none;">
         <div class="theme-popover-mask"></div>
