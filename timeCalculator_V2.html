@@ -253,6 +253,15 @@
                             console.log("open Ring");
                             ringUtil.playRing(5000,"1");
                             bossWarn[tmp_data["index"]]= true;
+                        }else if(tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"] - nowD) < 0.05 * 60 * 1000){
+                            //快到在停醒一次
+                            if (warnSW) {
+                                if (!tmp_SW) {
+                                    console.log("open Ring2");
+                                    ringUtil.playRing(3000, "2");
+                                    bossWarn[tmp_data["index"]] = true;
+                                }
+                            }
                         }
                     }
                     textStylr = "background-color:Tomato;";
@@ -260,18 +269,6 @@
                     textColor2 = "#ffff66";
                 }else{
                     if(tmp_SW)bossWarn[tmp_data["index"]] = false;
-                }
-                //快到在提醒一次 9秒
-                if (tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"] - nowD) < 0.15 * 60 * 1000) {
-                    if (warnSW) {
-                        if (!tmp_SW) {
-                            console.log("open Ring2");
-                            ringUtil.playRing(5000,"2");
-                            bossWarn[tmp_data["index"]] = true;
-                        }
-                    }
-                } else {
-                    if (tmp_SW) bossWarn[tmp_data["index"]] = false;
                 }
                 tmp2 = tmp2.replace(/\*STYLE\*/gi, textStylr );
                 tmp2 = tmp2.replace(/\*COLOR\*/gi, textColor );
