@@ -50,6 +50,7 @@
         var dataTimetamp = "";
         var nowGroup = "all";
         var warn_min = 2;//warning min
+        var voiceLang = "Chinese Female";//念的語系
 		function init() {
             bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|右|下","passCount":0};
             bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"","passCount":0};
@@ -106,7 +107,7 @@
             //提供可用的語音
             var voicelist = responsiveVoice.getVoices();
             //設定預設的聲音
-            responsiveVoice.setDefaultVoice("Chinese Female");
+            responsiveVoice.setDefaultVoice(voiceLang);
         }
         function doSomthing(data){
             if (timeIDGS != null) clearTimeout(timeIDGS);
@@ -269,7 +270,7 @@
                                 if (responsiveVoice.isPlaying()) {
                                     console.log("I hope you are listening");
                                 }else{
-                                    responsiveVoice.speak(tmp_data["name"] + " 即將出現");
+                                    responsiveVoice.speak(tmp_data["name"] + " 即將出現", voiceLang, { rate: 0.75 });
                                 }
                             }
                         }
