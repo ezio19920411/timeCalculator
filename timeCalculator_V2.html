@@ -8,6 +8,7 @@
      crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="http://code.responsivevoice.org/responsivevoice.js"></script>
     <style>
         .theme-popover-mask {
         z-index: 9998;
@@ -101,6 +102,11 @@
             getGSBossData();
             maskOpen("");
 
+            //設定google 講話
+            //提供可用的語音
+            var voicelist = responsiveVoice.getVoices();
+            //設定預設的聲音
+            responsiveVoice.setDefaultVoice("Chinese Taiwan Female");
         }
         function doSomthing(data){
             if (timeIDGS != null) clearTimeout(timeIDGS);
@@ -259,6 +265,12 @@
                             if (warnSW) {
                                 console.log("open Ring2");
                                 ringUtil.playRing(3000, "2");
+                                //檢查是否正在說話中
+                                if (responsiveVoice.isPlaying()) {
+                                    console.log("I hope you are listening");
+                                }else{
+                                    responsiveVoice.speak(tmp_data["name"] + " 即將出現");
+                                }
                             }
                         }
                     }
