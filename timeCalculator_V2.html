@@ -8,7 +8,6 @@
      crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://code.responsivevoice.org/responsivevoice.js?key=4f3FzJ7c"></script>
     <style>
         .theme-popover-mask {
         z-index: 9998;
@@ -50,7 +49,7 @@
         var dataTimetamp = "";
         var nowGroup = "all";
         var warn_min = 2;//warning min
-        var voiceLang = "Chinese Female";//念的語系
+        var voiceLang = "zh-tw";//念的語系
 		function init() {
             bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|右|下","passCount":0};
             bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"","passCount":0};
@@ -103,11 +102,6 @@
             getGSBossData();
             maskOpen("");
 
-            //設定google 講話
-            //提供可用的語音
-            var voicelist = responsiveVoice.getVoices();
-            //設定預設的聲音
-            responsiveVoice.setDefaultVoice(voiceLang);
         }
         function doSomthing(data){
             if (timeIDGS != null) clearTimeout(timeIDGS);
@@ -261,17 +255,13 @@
                             ringUtil.playRing(5000,"1");
                             bossWarn[tmp_data["index"]]= true;
                         }
-                        if(tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"] - nowD) < 0.1 * 60 * 1000){
+                        if(tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"] - nowD) < 0.03 * 60 * 1000){
                             //快到在停醒一次 6秒
                             if (warnSW) {
                                 console.log("open Ring2");
-                                ringUtil.playRing(3000, "2");
-                                //檢查是否正在說話中
-                                if (responsiveVoice.isPlaying()) {
-                                    console.log("I hope you are listening");
-                                }else{
-                                    responsiveVoice.speak(tmp_data["name"] + " 即將出現", voiceLang, { rate: 0.75 });
-                                }
+                                ringUtil.playRing(1000, "2");
+                                //瀏覽器語音
+                                playAudioV2("voice_Name", voiceLang, tmp_data["name"] + " 即將出現");
                             }
                         }
                     }
@@ -790,6 +780,52 @@
                 tmp_Div.classList.remove("active");
             }
             e.classList.add("active");
+        }
+        function playAudioV2 (voiceName, langx, text){
+            var synth = window.speechSynthesis;
+            var voices = [];
+
+            if (!synth) {
+                console.error('speechSynthesis null');
+                return;
+            }
+
+            if (synth.speaking) {
+                // console.error('speechSynthesis.speaking');
+                // return;
+            }
+
+            function reset() {
+                voices = synth.getVoices();
+            }
+            reset();
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = reset;
+            }
+            if (text !== '') {
+                voices = synth.getVoices();
+                var utterThis = new SpeechSynthesisUtterance(text);
+                utterThis.onend = function (event) {
+                    console.log('SpeechSynthesisUtterance.onend');
+                }
+                utterThis.onerror = function (event) {
+                    console.error('SpeechSynthesisUtterance.onerror');
+                }
+                utterThis.pitch = 1;
+                utterThis.rate = 0.75;
+                utterThis.lang = langx;
+                for (var i = 0; i < voices.length; i++) {
+
+                    if (voices[i].name === voiceName && voices[i].lang.toLowerCase() == langx) {
+                        // console.log(voiceName, langx);
+                        utterThis.voice = voices[i];
+                        break;
+                    } else if (voices[i].lang.toLowerCase() == langx) {
+                        utterThis.voice = voices[i];
+                    }
+                }
+                synth.speak(utterThis);
+            }
         }
 	</script>
 </head>
