@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<h2 align=center>鍵盤事件：英文輸入基本測試</h2>
+<hr>
+
+<script>
+var tmp_text = "";
+var limit_L = 100;
+function keyFunction() {
+	//alert("Key code = " + event.keyCode);
+    //getRandom(1,5);
+    var print_div = document.getElementById("text_print");
+    var key = event.keyCode;
+    if(key >= 40 && key <= 90)tmp_text = String.fromCharCode(key) +tmp_text;
+    print_div.innerHTML = tmp_text;
+    if(Date.now()%3 == 0 && Date.now()%10 == 0){
+        var limit = getRandom(1,7);
+    	for(var i = 0 ; i < limit ; i++){
+          setTimeout(() => {
+          		tmp_text = String.fromCharCode(key) +tmp_text;
+                print_div.innerHTML = tmp_text;
+          }, 1000);
+
+        }
+    }
+    console.log(tmp_text.length);
+    if(tmp_text.length >= limit_L)tmp_text = tmp_text.substring(0, limit_L);
+    //print_div.innerHTML = tmp_text;
+
+}
+function getRandom(min,max){
+    return Math.floor(Math.random()*max)+min;
+}
+document.onkeydown=keyFunction;
+</script>
+
+請按下鍵盤任意鍵，以顯示按鍵！
+<ul>
+您輸入的是:
+<li id="text_print">
+</ul>
+<hr>
+</body>
+</html>
