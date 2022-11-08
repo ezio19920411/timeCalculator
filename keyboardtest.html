@@ -16,16 +16,6 @@ function keyFunction() {
     var key = event.keyCode;
     if(key >= 40 && key <= 90)tmp_text = String.fromCharCode(key) +tmp_text;
     print_div.innerHTML = tmp_text;
-    if(Date.now()%3 == 0 && Date.now()%10 == 0){
-        var limit = getRandom(1,7);
-    	for(var i = 0 ; i < limit ; i++){
-          setTimeout(() => {
-          		tmp_text = String.fromCharCode(key) +tmp_text;
-                print_div.innerHTML = tmp_text;
-          }, 1000);
-
-        }
-    }
     console.log(tmp_text.length);
     if(tmp_text.length >= limit_L)tmp_text = tmp_text.substring(0, limit_L);
     //print_div.innerHTML = tmp_text;
