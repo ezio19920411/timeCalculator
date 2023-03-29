@@ -3,11 +3,10 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Boss重生計時</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-     crossorigin="anonymous">
+	<title>配對Demo</title>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <style>
         .theme-popover-mask {
         z-index: 9998;
@@ -50,42 +49,10 @@
         var nowGroup = "all";
         var warn_min = 2;//warning min
         var voiceLang = "zh-tw";//念的語系
+        var userID = "";//使用者的ID
+        var roomLimt = 4;//一間四人
+        var roomTimeLimt = 60000;//房間如果沒滿 只能存在時間
 		function init() {
-            bossData["1"]={"index":"1","name":"凱索斯(絕望廢墟)","rebornTime":"600","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|右|下","passCount":0};
-            bossData["2"]={"index":"2","name":"采爾圖巴(采爾圖巴的營帳)","rebornTime":"360","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"","passCount":0};
-            bossData["3"]={"index":"3","name":"特論巴(血之沼澤)","rebornTime":"420","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"上(26)|中(28)|下(27)","passCount":0};
-            bossData["4"]={"index":"4","name":"安庫拉(狄恩牧草地)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右","passCount":0};
-            bossData["5"]={"index":"5","name":"沙勒卡(德魯伊蜥蜴人棲息地)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|下","passCount":0};
-            bossData["6"]={"index":"6","name":"巴實那(荒原南部)","rebornTime":"240","nextBorn":"","killTime":"0.1","lastPlace":"","bossPlace":"","passCount":0};
-            bossData["7"]={"index":"7","name":"薩班(螞蟻洞窟地下2樓)","rebornTime":"720","nextBorn":"","killTime":"0.1","lastPlace":"","bossPlace":"","passCount":0};
-            bossData["8"]={"index":"8","name":"巨蟻女王(螞蟻洞窟地下3樓)","rebornTime":"360","nextBorn":"","killTime":"3","lastPlace":"","bossPlace":"","passCount":0};
-            bossData["9"]={"index":"9","name":"佩爾利斯(蜜蜂蜂窩)","rebornTime":"180","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"中|下|右","passCount":0};
-            bossData["10"]={"index":"10","name":"提米特利斯(芙羅蘭開墾地)","rebornTime":"480","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"上(23)|下(24)","passCount":0};
-            bossData["11"]={"index":"11","name":"潘柴特(狄恩丘陵地)","rebornTime":"720","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"上(20)|下(21)","passCount":0};
-            bossData["12"]={"index":"12","name":"塔拉金(叛亂軍根據地)","rebornTime":"600","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|下","passCount":0};
-            bossData["13"]={"index":"13","name":"坦彿斯特(太平間)","rebornTime":"360","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
-            bossData["14"]={"index":"14","name":"突變克魯瑪(克魯瑪沼澤地)","rebornTime":"480","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
-            bossData["15"]={"index":"15","name":"史坦(巨人的痕跡)","rebornTime":"420","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"上|下","passCount":0};
-            bossData["16"]={"index":"16","name":"被污染的克魯瑪(克魯瑪高塔3樓)","rebornTime":"480","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"上|下","passCount":0};
-            bossData["17"]={"index":"17","name":"卡坦(克魯瑪高塔6樓)","rebornTime":"600","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"上|下","passCount":0};
-            bossData["18"]={"index":"18","name":"核心基座(克魯瑪高塔7樓)","rebornTime":"600","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
-            bossData["19"]={"index":"19","name":"潘納洛德(哥肯花園)","rebornTime":"300","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右|右下","passCount":0};
-            bossData["20"]={"index":"20","name":"魔圖拉(掠奪者野營)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"左|中|右上|右下","passCount":0};
-            bossData["21"]={"index":"21","name":"布賴卡(布賴卡巢穴)","rebornTime":"360","nextBorn":"","killTime":"0.3","lastPlace":"","bossPlace":"上|中|右","passCount":0};
-            bossData["22"]={"index":"22","name":"塔金(里多蜥蜴人部落)","rebornTime":"480","nextBorn":"","killTime":"0.2","lastPlace":"","bossPlace":"左|中|右","passCount":0};
-            bossData["23"]={"index":"23","name":"卡雷斯(塔諾峽谷)","rebornTime":"540","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"左(02)|右(01)","passCount":0};
-            bossData["24"]={"index":"24","name":"梅杜莎(梅杜莎庭園)","rebornTime":"600","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"上(33)|下(32)","passCount":0};
-            bossData["25"]={"index":"25","name":"黑色蕾爾莉(死亡迴廊)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左下(19)|中下(17)|右下(18)","passCount":0};
-            bossData["26"]={"index":"26","name":"貝希莫斯(龍之谷北部)","rebornTime":"540","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左下|左中凹槽|上三岔|右下","passCount":0};
-            bossData["27"]={"index":"27","name":"猛龍獸(安塔瑞斯洞窟地下6樓)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
-            bossData["28"]={"index":"28","name":"賽魯(帕格立歐祭壇)","rebornTime":"720","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"左(31)|中(29)|右(30)","passCount":0};
-            bossData["29"]={"index":"29","name":"瓦柏(山賊城寨)","rebornTime":"720","nextBorn":"","killTime":"0.5","lastPlace":"","bossPlace":"左|中|上|下","passCount":0};
-            bossData["30"]={"index":"30","name":"提米妮爾(提米妮爾之巢/風之丘陵)","rebornTime":"480","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左上(16)|右內(14)|右外(15)","passCount":0};
-            bossData["31"]={"index":"31","name":"雷比魯(孢子擴散地)","rebornTime":"420","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"中|右|最右","passCount":0};
-            bossData["32"]={"index":"32","name":"奧爾芬(奧爾芬之巢)","rebornTime":"1440","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"","passCount":0};
-            bossData["33"]={"index":"33","name":"寇倫(象牙塔二樓)","rebornTime":"720","nextBorn":"","killTime":"0","lastPlace":"","bossPlace":"左|中|右","passCount":0};
-            bossData["timestamp"]="";
-
 
             var date = new Date(Date.now());
             document.getElementById("time_YYYY").value = date.getFullYear();
@@ -94,12 +61,16 @@
             document.getElementById("time_HH").value = date.getHours();
             document.getElementById("time_MM").value = date.getMinutes();
 
-            document.getElementById("syc_time_YYYY").value = date.getFullYear();
-            document.getElementById("syc_time_Mon").value = date.getMonth()+1;
-            document.getElementById("syc_time_DD").value = date.getDate();
             ringUtil = new ringSystem();
-            ringUtil.setRingAudioAtr();
-            getGSBossData();
+            // ringUtil.setRingAudioAtr();
+            //取得目前是否有創過userid
+            userID = getLocalStorageItem("userid");
+            if(userID == "" || userID == null){
+                userID = myrandomstring();
+                setLocalStorage("userid", userID);
+                console.log("userid : " + userID);
+            }
+            getGSRoomData();
             maskOpen("");
 
         }
@@ -109,66 +80,53 @@
             console.log(" dataTimetamp :" + dataTimetamp + " | LSdata :" + LSdata["timestamp"]);
             var isModify = false;
             var isRe = false;
-            if(LSdata != "" && LSdata["2"]){
+            //檢查資料是否最新
+            if(LSdata != "" && LSdata["timestamp"]){
                 for(var key in bossData){
                     if(key=="timestamp"){
+                        //如果目前有已經有某時間點的資料 新拿到的資料是舊的 不要拿舊的更新 是要更新過去
                         if(dataTimetamp != ""){
+                            //如果取得的資料 沒有時間搓
                             if(!LSdata["timestamp"]){
                                 console.log("doSomthing [ LSdata " + LSdata["timestamp"] + " setGSBossData ]");
-                                setGSBossData();
+                                setGSRoomData();
                                 isRe = true;
                             }
+                            //如果取得資料時間小於目前的
                             if(LSdata["timestamp"] < dataTimetamp){
                                 console.log("doSomthing [ timestamp " + LSdata["timestamp"] + " <  dataTimetamp " + dataTimetamp + " setGSBossData ]");
-                                setGSBossData();
+                                setGSRoomData();
                                 isRe = true;
                             }
                         }
                         continue;
-                    }
-                    if(LSdata[key] && LSdata[key]["name"]){
-                        if(LSdata[key]["name"] != bossData[key]["name"])isModify = true;
+                    }else {
+                        //房間資料比對
+                        if(LSdata[key]){
+                            if(LSdata[key]["player"]){
+                                if (object_count(LSdata[key]["player"]) != object_count(bossData[key]["player"])) isModify = true;
+                            }
+                            if(LSdata[key]["gamedata"]){
+                                if (LSdata[key]["gamedata"].length != bossData[key]["gamedata"].length) isModify = true;
+                            }
+                        }
                     }
                 }
             }
             if(isRe)return;
             if(first_Open || isModify){
-                for(var key in bossData){
-                    if(key=="timestamp")continue;
-                    bossWarn[key] = false;
-                }
                 dataTimetamp = LSdata["timestamp"];
                 bossData = LSdata;
-                showGroup();
-                resetAllSelect();
                 first_Open = false;
                 isModify = false;
             }else{
                 dataTimetamp = LSdata["timestamp"];
                 bossData = LSdata;
             }
-            var boss_select_length = document.getElementById("boss_select").options.length;
-            var mboss_select_length = document.getElementById("modify_boss_select").options.length;
-            if(object_count(LSdata)-1 != boss_select_length || object_count(LSdata)-1 != mboss_select_length)resetAllSelect();
+
             getNowTime();
             // setLocalStorage("bossData_v2",JSON.stringify(data));
-
-            timeIDGS = setTimeout(getGSBossData, getGSTime);
-        }
-        function resetAllSelect(){
-            var boss_sele = document.getElementById("boss_select");
-            var mboss_select = document.getElementById("modify_boss_select");
-            boss_sele.options.length = 0;
-            mboss_select.options.length = 0;
-            for(var key in bossData){
-                if(key=="timestamp")continue;
-                var tmp = bossData[key];
-                boss_sele.options.add(new Option(tmp["name"], tmp["index"]));
-                mboss_select.options.add(new Option(tmp["name"], tmp["index"]));
-            }
-            boss_select();
-            modify_boss_select();
-
+            timeIDGS = setTimeout(getGSRoomData, getGSTime);
         }
         function getNowTime() {
             if (timeID != null) clearTimeout(timeID);
@@ -176,134 +134,51 @@
             var time_div = document.getElementById("text_now_time");
             var tmp_time = secTrancer(timeInMs);
             time_div.innerHTML = tmp_time;
-            checkBossTime();
+            //檢查房間是否有過期
+            checkRoomTime();
             timeID = setTimeout(getNowTime, getTime);
         }
 		function show() {
             var btn_view = document.getElementById("btn_view");
-            var show_view = document.getElementById("show_view");
             var show_fast_view = document.getElementById("show_fast_view");
             var btnXMP = document.getElementById("btnXMP").innerHTML;
-            var btnXMP2 = document.getElementById("btnXMP2").innerHTML;
-            var listXMP = document.getElementById("listXMP").innerHTML;
-            var tmp_btn_v = "";
+            var tmp_btn_v = "";//右邊顯示按鈕
             var tmp_list_v = "";
             btn_view.innerHTML = "";
-            show_view.innerHTML = "";
             show_fast_view.innerHTML = "";
-            var funcNameAry = new Array();
             var bossAry = object_sort(bossData);
             var fastListStr = "";
             var fast_count = 0;
 			for (key in bossData) {
                 if(key=="timestamp")continue;
                 var tmp = btnXMP;
-                var inner_btn = "";
+                var playerName = "玩家名稱 :";
                 var tmp_data = bossData[key];
                 var nowD = Date.now();
 
-                if(nowGroup !="all"){
-                    if(nowGroup != tmp_data["boss_group"]){
-                        continue;
-                    }
-                }
-                tmp = tmp.replace(/\*ID\*/gi, tmp_data["index"]);
-                tmp = tmp.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
-                tmp = tmp.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
+                tmp = tmp.replace(/\*ID\*/gi, key);
+                tmp = tmp.replace(/\*BOSSNAME\*/gi, "房間代號 : " + key);
+                tmp = tmp.replace(/\*BORNTIME\*/gi, "創建時間 : " + secTrancer(tmp_data["roomTime"]) );
+
+                //判斷時間是否快到期
                 var btnclass = "primary";
-                if (tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"] - nowD) < warn_min * 60 * 1000) btnclass = "danger";
-                if( tmp_data["nextBorn"] != "" && (nowD - (tmp_data["nextBorn"]-(tmp_data["rebornTime"]*60*1000 )) ) <= 10*60*1000)btnclass = "success";
+                if (tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"] - nowD) < warn_min * roomTimeLimt) btnclass = "danger";
+
+                //顯示房間內的玩家
                 tmp = tmp.replace(/\*CLASS\*/gi, btnclass );
-
-                var placeAry = bossPlace[tmp_data["index"]];
-
-                if(tmp_data["bossPlace"].indexOf("|") != -1 ){
-                    placeAry = tmp_data["bossPlace"].split("|");
+                for(var playID in tmp_data["player"]){
+                    playerName += playID + " | " ;
                 }
-                for(var key in placeAry){
-                    if(placeAry[key] == "")continue;
-                    inner_btn += btnXMP2;
-                    inner_btn = inner_btn.replace(/\*ID\*/gi, tmp_data["index"]);
-                    inner_btn = inner_btn.replace(/\*PLACEID\*/gi, placeAry[key]);
-                    inner_btn = inner_btn.replace(/\*PLACENAME\*/gi, placeAry[key]);
-                }
-                tmp = tmp.replace(/\*PLACEBTN\*/gi, inner_btn );
+                tmp = tmp.replace(/\*PLAYERNAME\*/gi, playerName );
+
                 tmp_btn_v += tmp;
             }
-
-            for(var i = 0 ; i < bossAry.length ; i++){
-                var tmp_data = bossAry[i];
-                if(nowGroup !="all"){
-                    if(nowGroup != tmp_data["boss_group"]){
-                        continue;
-                    }
-                }
-                var tmp2 = listXMP;
-                tmp2 = tmp2.replace(/\*BOSSNAME\*/gi, tmp_data["name"]);
-                tmp2 = tmp2.replace(/\*BORNTIME\*/gi, secTrancer(tmp_data["nextBorn"]) );
-                // tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, (tmp_data["lastPlace"] != "無區分")? "最後位置:" + tmp_data["lastPlace"]:"");
-                tmp2 = tmp2.replace(/\*BOSSPLACE\*/gi, "");
-                tmp2 = tmp2.replace(/\*PASSCOUNT\*/gi, (tmp_data["passCount"])? "【過 " + tmp_data["passCount"] + " 】":"");
-                var textStylr = "";
-                var textColor = "#FF0000";
-                var textColor2 = "#9933ff";
-                var tmp_SW = bossWarn[tmp_data["index"]];
-                if( tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"]-nowD) < warn_min*60*1000){
-                    if(warnSW){
-                        if(!tmp_SW){
-                            console.log("open Ring");
-                            ringUtil.playRing(5000,"1");
-                            bossWarn[tmp_data["index"]]= true;
-                        }
-                        if(tmp_data["nextBorn"] != "" && (tmp_data["nextBorn"] - nowD) < 0.03 * 60 * 1000){
-                            //快到在停醒一次 6秒
-                            if (warnSW) {
-                                console.log("open Ring2");
-                                ringUtil.playRing(1000, "2");
-                                //瀏覽器語音
-                                playAudioV2("voice_Name", voiceLang, tmp_data["name"] + " 即將出現");
-                            }
-                        }
-                    }
-                    textStylr = "background-color:Tomato;";
-                    textColor = "#ffffff";
-                    textColor2 = "#ffff66";
-                }else{
-                    if(tmp_SW)bossWarn[tmp_data["index"]] = false;
-                }
-                tmp2 = tmp2.replace(/\*STYLE\*/gi, textStylr );
-                tmp2 = tmp2.replace(/\*COLOR\*/gi, textColor );
-                tmp2 = tmp2.replace(/\*COLOR2\*/gi, textColor2 );
-
-                if(fast_count < fastCopyLimit){
-                    if(fastListStr != "")fastListStr += "➠";
-                    var tmpT = secTrancer(tmp_data["nextBorn"]);
-                    var tmpN = (tmp_data["name"].length > 3 && (tmp_data["name"].split("(") != -1) )?tmp_data["name"].split("(")[0]:tmp_data["name"];
-                    var tmpPass = (tmp_data["passCount"])? "[過" + tmp_data["passCount"] + "]":"";
-                    // var tmpPlace = (tmp_data["lastPlace"] != "無區分")? " " + tmp_data["lastPlace"]:"";
-                    fastListStr += tmpT.split(" ")[1] + tmpN + tmpPass ;
-                }
-                fast_count++;
-                tmp_list_v += tmp2;
-            }
+            var room_D = checkPlayerRoom(userID);
+            fastListStr = " userID : " + userID + " | 房間名稱 : " + room_D["roomID"];
             show_fast_view.innerHTML = fastListStr;
             btn_view.innerHTML = tmp_btn_v;
-            show_view.innerHTML = tmp_list_v;
 
 		}
-		function setBossTime(key,place) {
-            event.stopPropagation();
-            var boss_D = bossData[key];
-            var timeInMs = Date.now();
-            var addsec = (boss_D["rebornTime"]*60)*1000;
-            bossData[key]["nextBorn"] = timeInMs + addsec;
-            if(place)bossData[key]["lastPlace"] = place;
-            bossData[key]["passCount"] = 0;
-            setGSBossData();
-            maskOpen("");
-            // setLocalStorage("bossData_v2",JSON.stringify(bossData));
-
-        }
         function secTrancer(timestamp){
             if(timestamp == "")return "-";
             var date = new Date(timestamp);
@@ -331,32 +206,80 @@
 
             return rs;
         }
-        function editBossTime (){
-            var dayTime = "";
-            var time_YYYY = document.getElementById("time_YYYY").value;
-            var time_Mon = document.getElementById("time_Mon").value;
-            var time_DD = document.getElementById("time_DD").value;
-            var time_HH = document.getElementById("time_HH").value;
-            var time_MM = document.getElementById("time_MM").value;
-            var time_SS = document.getElementById("time_SS").value;
-            var boss_select = document.getElementById("boss_select").value;
-            var place_select = document.getElementById("place_select").options[document.getElementById("place_select").selectedIndex].innerHTML;
-            if(time_SS == "")time_SS = "000";
-            dayTime = time_YYYY + "-" + time_Mon + "-" + time_DD + " " + time_HH + ":" + time_MM + ":" + time_SS;
-            var timstamp = timeTrancer(dayTime);
-            if(isNaN(timstamp)){
-                dayTime = time_YYYY + "/" + time_Mon + "/" + time_DD + " " + time_HH + ":" + time_MM + ":" + time_SS;
-                timstamp = timeTrancer(dayTime);
-            }
-            // console.log(dayTime + " | " + timstamp);
-            bossData[boss_select]["nextBorn"] = timstamp;
-            bossData[boss_select]["lastPlace"] = place_select;
-            bossData[boss_select]["passCount"] = 0;
-            setGSBossData();
-            maskOpen("");
-            // setLocalStorage("bossData_v2",JSON.stringify(bossData));
+        function creatRoom(){
+            //新增房間
+            var roomid = myrandomstring("room");
+            //檢查是否已經有這個ID
+            if(bossData[roomid]) {
+                roomid = myrandomstring("room");
+            }else {
+                //在檢查 此玩家是否已經有房間
+                var room_data = checkPlayerRoom(userID);
 
+                if(room_data["hasRoom"]){
+                    console.log("已有房間 roomid:" + room_data["roomID"]);
+                }else{
+                    bossData[roomid] = new Object;
+                    bossData[roomid]["player"] = new Object;
+                    bossData[roomid]["player"][userID] = new Object;
+                    var timeInMs = Date.now();
+                    //什麼時受產生的房間
+                    bossData[roomid]["roomTime"] = timeInMs;
+                    console.log("新增房間成功 roomid:" + roomid);
+                    getGSRoomData();
+                    setGSRoomData();
+                    maskOpen("");
+                }
+            }
         }
+        function randomRoom(roomID){
+            //在檢查 此玩家是否已經有房間
+            var room_data = checkPlayerRoom(userID);
+
+            if (room_data["hasRoom"]) {
+                console.log("已有房間 roomid:" + room_data["roomID"]);
+            } else {
+                if(roomID != "" && bossData[roomID]){
+                    bossData[roomID]["player"][userID] = new Object;
+                    console.log("加入房間成功 roomid:" + roomID);
+                    getGSRoomData();
+                    setGSRoomData();
+                    maskOpen("");
+                    return;
+                }else{
+                    //隨機加入一個目前有的房間
+                    for(var key in bossData){
+                        if(key == "timestamp")continue;
+
+                        if(object_count(bossData[key])< roomLimt){
+                            bossData[key]["player"][userID] = new Object;
+                            console.log("加入房間成功 roomid:" + key);
+                            getGSRoomData();
+                            setGSRoomData();
+                            maskOpen("");
+                            return;
+                        }
+                    }
+                }
+                console.log("加入房間失敗 目前沒有房間");
+
+            }
+        }
+        //離開房間
+        function leaveRoom(){
+            var room_data = checkPlayerRoom(userID);
+            if (room_data["hasRoom"]) {
+                delete bossData[room_data["roomID"]]["player"][userID];
+                console.log("已離開房間 roomid:" + room_data["roomID"]);
+                getGSRoomData();
+                setGSRoomData();
+                maskOpen("");
+                return;
+            }else{
+                console.log("已無房間");
+            }
+        }
+        //---------------tools------------------
         function getLocalStorage () {
             var tmp_storage = null;
             try {
@@ -380,35 +303,62 @@
             bossData = null;
             init();
         }
-        function checkBossTime(){
-            var isModify = false;
-            for (key in bossData) {
-                if(key=="timestamp")continue;
-                var tmp_BD = bossData[key];
-                var BT = tmp_BD["nextBorn"];
-                var loopSW = true;
-                var nowD = Date.now();
-                var addsec = (tmp_BD["rebornTime"]*60 + tmp_BD["killTime"]*60)*1000;
-                if(nowD > BT){
-                    while(loopSW){
-                        BT = BT*1+addsec;
-                        if(BT > nowD){
-                            loopSW = false;
-                            isModify = true;
-                            tmp_BD["nextBorn"] = BT;
-                            if(tmp_BD["passCount"]){
-                                tmp_BD["passCount"] = tmp_BD["passCount"]*1+1;
-                            }else{
-                                tmp_BD["passCount"] = 1;
-                            }
-                        }
+        function randomusefloor(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+        // 亂數英文字
+        function makerandomletter(max) {
+            var text = "";
+            var possible = "abcdefghijklmnopqrstuvwxyz";
+
+            for (var i = 0; i < max; i++)
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            return text;
+        }
+
+        // 前3碼英文小寫,後6碼數字
+        function myrandomstring(type) {
+            if(type == "room") return randomusefloor(1, 999) + makerandomletter(3);
+            else return makerandomletter(3) + randomusefloor(1, 999999);
+        }
+        // 檢查玩家是否有在房間
+        function checkPlayerRoom(userID){
+            var hasRoom = false;
+            var roomID = "";
+            var roomData = new Object;
+            for(var key in bossData){
+                if (key == "timestamp") continue;
+                var room_d  = bossData[key];
+                for(var player_ID in room_d["player"]){
+                    if(player_ID == userID) {
+                        hasRoom = true;
+                        roomID = key;
                     }
                 }
             }
-            // if(isModify)setGSBossData();
-            // if(isModify)setLocalStorage("bossData",JSON.stringify(bossData));
+            roomData["hasRoom"] = hasRoom;
+            roomData["roomID"] = roomID;
+            return roomData;
+        }
+        //檢查房間是否創超過時間
+        function checkRoomTime() {
+            for (var key in bossData) {
+                if (key == "timestamp") continue;
+                var room_d = bossData[key];
+                var timeInMs = Date.now();
+                //如果目前時間已經超過 人數不足4人
+                if( (timeInMs - room_d["roomTime"]) > roomTimeLimt && object_count(bossData[key]) != roomLimt){
+                    console.log("檢查到 房間:" + key + " 人數不足 且超過 " + roomTimeLimt/1000 + "秒 ");
+                    delete bossData[key];
+                    getGSRoomData();
+                    setGSRoomData();
+                    maskOpen("");
+                }
+
+            }
             show();
         }
+        //---------------tools------------------
         function object_sort (obj) {
             var gmary = new Array();
             for(var key in obj){
@@ -426,54 +376,6 @@
 
             }
             return count;
-        }
-        function getBossData(){
-            var msg_text = document.getElementById("msg_text");
-            var tmpD = getLocalStorageItem("bossData_v2");
-            msg_text.value = tmpD;
-        }
-        function setBossData(){
-            var msg_text = document.getElementById("msg_text");
-
-            if(msg_text.value == ""){
-                $('#alert_text').text("請勿匯入空白資料!");
-                $('#btnTrigger').click();
-                return;
-            }
-
-            var tmp_Obj = JSON.parse(msg_text.value);
-            if(typeof(tmp_Obj) != "object"){
-                $('#alert_text').text("資料格式錯誤!");
-                $('#btnTrigger').click();
-                return;
-            }
-
-            setLocalStorage("bossData_v2",JSON.stringify(tmp_Obj));
-            bossData = tmp_Obj;
-            checkBossTime();
-        }
-        function doCopy(divID) {
-            var copyDiv = document.getElementById(divID);
-            if (window.clipboardData) {
-                window.clipboardData.setData("Text", copyDiv.innerHTML);
-                $('#alert_text').text("Copy Success!");
-                $('#btnTrigger').click();
-            }
-            else if (document.createRange && window.getSelection) {
-                var range = document.createRange();
-                range.selectNode(copyDiv);
-                var sel = window.getSelection();
-                sel.removeAllRanges();
-                sel.addRange(range);
-                document.execCommand("Copy", false, null);
-                sel.removeAllRanges();
-                $('#alert_text').text("Copy Success!");
-                $('#btnTrigger').click();
-
-            } else {
-                $('#alert_text').text("erro_Copy");
-                $('#btnTrigger').click();
-            }
         }
         function ringSystem(){
             var self = this;
@@ -541,34 +443,8 @@
             document.getElementById("modify_boss_group").value = (bossData[tmp_index]["boss_group"])?bossData[tmp_index]["boss_group"]:"" ;
 
         }
-        function resetAllTime(){
-            if(confirm("確定今天星期三要重置了嗎?")){
-                for(var key in bossData){
-                    if(key=="timestamp")continue;
-                    var boss_D = bossData[key];
-                    var date = new Date(Date.now());
-                    var year = date.getFullYear();
-                    var month = (date.getMonth()+1)+"";
-                    var day = date.getDate()+"";
-                    var dayTime = "";
-                    dayTime = year + "-" + month + "-" + day + " 05:50:00";
-                    var timstamp = timeTrancer(dayTime);
-                    if(isNaN(timstamp)){
-                        dayTime = year + "/" + month + "/" + day + " 05:50:00";
-                        timstamp = timeTrancer(dayTime);
-                    }
-                    bossData[key]["nextBorn"] = timstamp ;
-                    bossData[key]["passCount"] = 0;
-                }
-                console.log(bossData);
-                setGSBossData();
-                maskOpen("");
-            }else{
-                return;
-            }
-        }
 
-        function getGSBossData(){
+        function getGSRoomData(){
             $.ajax({
                 url: "https://script.google.com/macros/s/AKfycbyHQJxY7rke3crnWPvSmKFLpJqVTVZvlcWaOnurpmiZbi4am3LMgBSOL3gIHKWmT8hD/exec",
                 type: "POST",
@@ -579,7 +455,7 @@
                 },
             });
         }
-        function setGSBossData() {
+        function setGSRoomData() {
             bossData["timestamp"] = Date.now();
             dataTimetamp = bossData["timestamp"];
             var name = JSON.stringify(bossData);
@@ -592,8 +468,8 @@
                 success: function(response) {
                 if(response == "成功"){
                     console.log(response);
-                    resetAllSelect();
-                    setTimeout(getGSBossData, 1000);
+                    // resetAllSelect();
+                    setTimeout(getGSRoomData, 1000);
                 }
                 },
             });
@@ -612,7 +488,7 @@
                     document.getElementById("add_boss_place").value = "" ;
                     document.getElementById("add_boss_rebornTime").value = "" ;
                     document.getElementById("add_boss_killTime").value = "" ;
-                    getGSBossData();
+                    getGSRoomData();
                 }
                 },
             });
@@ -674,38 +550,18 @@
             bossData[index]["rebornTime"] = rebornTime;
             bossData[index]["killTime"] = (killTime=="")?"0":killTime;
             bossData[index]["boss_group"] = boss_group;
-            setGSBossData();
+            setGSRoomData();
             maskOpen("");
         }
         function deleteBossTime (){
             var index = document.getElementById("modify_boss_select").value;
             delete bossData[index];
-            setGSBossData();
+            setGSRoomData();
             maskOpen("");
         }
         function maskOpen(disstr){
             var mask = document.getElementById("loading_mask");
             mask.style.display=disstr;
-        }
-        function sycBossData(){
-            var fast_syc = document.getElementById("fast_syc").value;
-            if(fast_syc == ""){
-                $('#alert_text').text("同步資料 不能為空!");
-                $('#btnTrigger').click();
-                return;
-            }
-            if(fast_syc.indexOf("  ") != -1){
-                var big_fast = fast_syc.split("  ");
-                for(var i = 0 ; i<big_fast.length ; i++){
-                    console.log(big_fast[i]);
-                    setSynBossData(big_fast[i]);
-                }
-            }else {
-                console.log(fast_syc);
-                setSynBossData(fast_syc);
-            }
-            setGSBossData();
-            maskOpen("");
         }
         function setSynBossData(fast_syc){
             var dayTime = "";
@@ -746,40 +602,6 @@
             console.log(dayTime + " | " + timstamp + " | " + passCount);
             bossData[boss_select]["nextBorn"] = timstamp;
             bossData[boss_select]["passCount"] = passCount;
-        }
-        function showGroup(){
-            var group_div = document.getElementById("group_div");
-            var li_XMP = document.getElementById("li_XMP").innerHTML;
-            var groupAry = new Object();
-            var gstr = "";
-            group_div.innerHTML = "";
-            for(var key in bossData){
-                var tmpD = bossData[key];
-                console.log(tmpD["boss_group"]);
-                if(tmpD["boss_group"])groupAry[tmpD["boss_group"]] = "";
-            }
-
-            gstr+=li_XMP;
-            gstr = gstr.replace(/\*GROUPNAME\*/gi, "all" );
-            gstr = gstr.replace(/\*class\*/gi, "active" );
-
-            for(key in groupAry){
-                gstr += li_XMP;
-                gstr = gstr.replace(/\*GROUPNAME\*/gi, key );
-                gstr = gstr.replace(/\*class\*/gi, "" );
-            }
-            group_div.innerHTML = gstr;
-
-        }
-        function groupSW(e){
-            console.log(e.getAttribute("data-value"));
-            nowGroup = e.getAttribute("data-value");
-            var group_div = document.getElementById("group_div");
-            for(var i = 0 ; i < group_div.children.length ; i++){
-                var tmp_Div = group_div.children[i];
-                tmp_Div.classList.remove("active");
-            }
-            e.classList.add("active");
         }
         function playAudioV2 (voiceName, langx, text){
             var synth = window.speechSynthesis;
@@ -836,26 +658,24 @@
             <div class="panel panel-default" >
                 <div class="panel-heading">
                     現在時間 : <h3 id="text_now_time"></h3>
-                    <ul class="nav nav-tabs" id="group_div" ></ul>
                 </div>
-                <button type="button" class="btn btn-default" onclick="doCopy('show_fast_view')">
-                    <span class="glyphicon glyphicon-duplicate"></span> Copy Top List
+                <button type="button" class="btn btn-default" onclick="creatRoom()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> 建立房間
                 </button>
-                <button type="button" class="btn btn-default" onclick="doCopy('show_view')">
-                    <span class="glyphicon glyphicon-duplicate"></span> Copy All List
+                <button type="button" class="btn btn-default" onclick="randomRoom()">
+                    <span class="glyphicon glyphicon-globe"></span> 隨機入房
                 </button>
-                <button type="button" class="btn btn-default" onclick="warningSW()" >
-                    <span class="glyphicon glyphicon-volume-off" id="warnPic" ></span>
-                    <span id="warnText" >Warning Off</span>
+                <button type="button" class="btn btn-default" onclick="leaveRoom()">
+                    <span class="glyphicon glyphicon-globe"></span> 離開房間
                 </button>
-                <button type="button" class="btn btn-default" onclick="resetAllTime()"  style="display:none">
-                    <span class="glyphicon glyphicon-retweet" id="warnPic" ></span> Reset All time
+                <button type="button" class="btn btn-default" onclick="resetAllTime()"  >
+                    <span class="glyphicon glyphicon-user" id="warnPic" ></span> 單人模式
                 </button>
 
                 <div id= "show_fast_view" style="margin:20px"></div>
             </div>
         </div>
-        <div class="col-sm-6" >
+        <div class="col-sm-6" style="display:none">
             <div class="">
                 <h3>設定時間</h3>
                 <table class="table">
@@ -899,111 +719,80 @@
                 </table>
 
             </div>
-
-            <div style="display:none;">
-                <div class="input-group">
-                    <span class="input-group-addon">Text</span>
-                    <input id="msg_text" type="text" class="form-control" name="msg" placeholder="Data is here">
-                </div>
-                <button type="button" class="btn btn-info" onclick="getBossData()">匯出資料</button>
-                <button type="button" class="btn btn-warning" onclick="setBossData()">匯入資料</button>
-                <button type="button" class="btn btn-default " onclick="doCopy('msg_text')">
-                    <span class="glyphicon glyphicon-copy"></span> Copy Text
-                </button>
-            </div>
         </div>
 
     </div>
-    <div class="row">
-        <div class="panel panel-default col-lg-4" id= "show_view"></div>
+    <div class="row" >
+        <div class="panel panel-default col-lg-4" id= "show_view" style="display:none"></div>
         <div id="btn_view" style="" class="col-lg-8 btn-group"></div>
-        <div id="" style="" class="col-lg-6">
+        <div id="" class="col-lg-10" style="">
             <div class="">
-                <h3>新增資料</h3>
-                <table class="table">
+                <h3>遊戲室</h3>
+                <table class="table table-borderless table-dark">
                     <thead>
                         <tr>
-                            <th>
-                                BOSS名稱:
-                                <input type="text" class="form-control" id="add_boss_name">
+                            <th class="col-lg-2">
+                                剩餘牌數:
+                                <input type="text" class="form-control" id="card_remain">
                             </th>
-                            <th>
-                                出生位置:(範例: 上|中|下 )
-                                <input type="text" class="form-control" id="add_boss_place">
+                            <th colspan="5">
+                                系統訊息 :
+                                <textarea id="system_msg" rows="5" cols="100" disabled = "disabled"></textarea>
+                                <!-- <input type="text" class="form-control" id="system_msg" readonly> -->
                             </th>
-                            <th>
-                                重生時間:(單位分鐘)
-                                <input type="text" class="form-control" placeholder="0" id="add_boss_rebornTime">
-                            </th>
-                            <th>
-                                修正時間:(單位分鐘)
-                                <input type="text" class="form-control" placeholder="0" id="add_boss_killTime">
-                            </th>
-                            <th>
-                                群組:
-                                <input type="text" class="form-control" id="add_boss_group">
-                            </th>
-                            <th><button type="button" class="btn btn-success" onclick="addBossData()">新增</button></th>
                           </tr>
                       </thead>
-                </table>
-
-                <h3>修改/刪除資料</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                BOSS名稱:
-                                <select class="form-control" id="modify_boss_select" onchange="modify_boss_select()"></select>
-                            </th>
-                            <th><button type="button" class="btn btn-warning" onclick="modifyBossTime()">修改</button></th>
-                            <th><button type="button" class="btn btn-danger" onclick="deleteBossTime()">刪除</button></th>
-                          </tr>
-                      </thead>
-                </table>
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th>名稱</th>
-                        <th>出生位置</th>
-                        <th>重生時間</th>
-                        <th>修正時間</th>
-                        <th>群組</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><input type="text" class="form-control" id="modify_boss_name"></td>
-                        <td><input type="text" class="form-control" id="modify_boss_place"></td>
-                        <td><input type="text" class="form-control" id="modify_boss_rebornTime"></td>
-                        <td><input type="text" class="form-control" id="modify_boss_killTime" placeholder="0"></td>
-                        <td><input type="text" class="form-control" id="modify_boss_group"></td>
-                      </tr>
-                    </tbody>
-                </table>
-                <h3>快速同步</h3>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                Year
-                                <input type="text" class="form-control" placeholder="0" id="syc_time_YYYY">
-                            </th>
-                            <th>
-                                Mon
-                                <input type="text" class="form-control" placeholder="0" id="syc_time_Mon">
-                            </th>
-                            <th>
-                                Day
-                                <input type="text" class="form-control" placeholder="0" id="syc_time_DD">
-                            </th>
-                            <th>
-                                時間 名稱(範例=>20:20:20 太平間)
-                                <input type="text" class="form-control" id="fast_syc">
-                            </th>
-                            <th><button type="button" class="btn btn-success" onclick="sycBossData()">送出</button></th>
-                          </tr>
-                      </thead>
+                      </table>
+                <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td scope="row"></td>
+                                <td class="table-secondary" colspan="5" id = "p3_card_view" align="center">P3 牌型顯示在這裡</td>
+                                <td ></td>
+                            </tr>
+                            <tr>
+                                <td class="table-secondary" scope="row" ></td>
+                                <td></td>
+                                <td class="table-secondary" id = "p3_name_view" >Player3</td>
+                                <td class="table-secondary" colspan="2" id = "p3_gold_view">500</td>
+                                <td></td>
+                                <td class="table-secondary" id = "p4_card_view"></td>
+                            </tr>
+                            <tr>
+                                <td class="table-secondary" scope="row"></td>
+                                <td class="table-secondary" id="p2_name_view">Player2</td>
+                                <td class="table-info" colspan="3"></td>
+                                <td class="table-secondary" id="p4_name_view">Player4</td>
+                                <td class="table-secondary" ></td>
+                            </tr>
+                            <tr>
+                                <td class="table-secondary" scope="row"></td>
+                                <td class="table-secondary" id="p2_gold_view">600</td>
+                                <td class="table-info" colspan="3"></td>
+                                <td class="table-secondary" id="p4_gold_view">700</td>
+                                <td class="table-secondary" ></td>
+                            </tr>
+                            <tr>
+                                <td class="table-secondary" scope="row"></td>
+                                <td class="table-secondary" id = "p2_card_view" align="center" >P2 牌型顯示在這裡</td>
+                                <td class="table-info" colspan="3"></td>
+                                <td class="table-secondary" id = "p4_card_view" align="center" >P4 牌型顯示在這裡</td>
+                                <td class="table-secondary" ></td>
+                            </tr>
+                            <tr>
+                                <td class="table-secondary" scope="row"></td>
+                                <td></td>
+                                <td class="table-warning" id="p1_name_view">Player1</td>
+                                <td class="table-warning" colspan="2" id="p1_gold_view">800</td>
+                                <td></td>
+                                <td class="table-secondary" ></td>
+                            </tr>
+                            <tr>
+                                <td scope="row"></td>
+                                <td class="table-warning" colspan="5" id = "p1_card_view" align="center"> P1 牌型顯示在這裡</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
                 </table>
             </div>
         </div>
@@ -1045,10 +834,10 @@
     </div>
     <div style="display:none">
         <xmp id="btnXMP" >
-            <div class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*,'')" style="height: 120px;" id = "btn_boss_*ID*" >
+            <div class="btn btn-*CLASS* btn-lg" onclick="randomRoom('*ID*')" style="height: 120px;" id = "btn_boss_*ID*" >
                 *BOSSNAME*
                 <h4>*BORNTIME*</h4>
-                <div class="btn-group">*PLACEBTN*</div>
+                <div class="btn-group">*PLAYERNAME*</div>
                 </div>
         </xmp>
         <xmp id="listXMP" >
