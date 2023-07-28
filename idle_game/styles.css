@@ -1,9 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url("your_background_image_path.jpg");
-    background-size: cover;
+    background-image: url("./images/Town_base.png");
+    background-size:contain;
     background-position: center;
+    background-repeat:no-repeat;
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;

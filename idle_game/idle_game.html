@@ -7,6 +7,9 @@
     <title>放置型角色培養小遊戲</title>
     <link rel="stylesheet" href="./styles.css">
     <script src="./idle_game.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="default-src *;
+       img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;
+       style-src  'self' 'unsafe-inline' *">
 </head>
 
 <body onload="init();">
@@ -41,7 +44,7 @@
         <button onclick="confirmName()">開始遊戲</button>
     </div>
     <!-- 遊戲主畫面-->
-    <div id="main_view" style="display:none">
+    <div id="main_view" class="container" style="display:none">
         <button onclick="showCharacterInfo()">角色資訊</button>
         <button onclick="importData()">匯出檔案</button>
         <div class="menu">
