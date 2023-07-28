@@ -247,6 +247,13 @@ function showBattleLog(log) {
     const battleLog = document.getElementById("battleLog");
     battleLog.innerHTML += `<div>${log}</div>`;
     battleLog.scrollTop = battleLog.scrollHeight;
+    //檢查有沒有過長
+    let all_div = battleLog.getElementsByTagName('div');
+    let logsize = 30;
+    if (all_div.length > logsize){
+        let div = all_div[0];
+        div.remove();
+    }
 }
 
 
