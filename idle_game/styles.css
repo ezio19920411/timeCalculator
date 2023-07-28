@@ -1,0 +1,150 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("your_background_image_path.jpg");
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.version {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    text-align: center;
+    margin: 50px;
+}
+.mirrorRotateLevel {
+    transform: rotateY(180deg);
+    /* 水平鏡像翻轉 */
+}
+.menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.stats {
+    text-align: left;
+}
+
+.stat {
+    margin: 5px;
+}
+
+.skills {
+    text-align: left;
+}
+
+.skill {
+    margin: 5px;
+}
+
+.battle-log {
+    width: 100%;
+    height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    margin: 20px auto;
+    padding: 5px;
+}
+/* 角色資訊視窗樣式 */
+.character-info {
+    top: 50px;
+    right: 20px;
+    width: 30%;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.character-info .character-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.character-info .character-header h2 {
+    margin: 0;
+}
+
+.character-info .equipment,
+.character-info .class,
+.character-info .skills,
+.character-info .attributes {
+    margin-bottom: 10px;
+}
+
+.character-info .equipment h3,
+.character-info .class h3,
+.character-info .skills h3,
+.character-info .attributes h3 {
+    margin: 0;
+}
+
+.character-info .equipment ul,
+.character-info .skills ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.character-info .equipment ul li,
+.character-info .skills ul li {
+    list-style-type: square;
+}
+
+.character-info .abilities {
+    display: flex;
+    justify-content: space-between;
+}
+
+.character-info .abilities .primary-attributes{
+    /* text-align: left; */
+    width: 45%;
+}
+.character-info .abilities .ability-values {
+    /* text-align: right; */
+    width: 45%;
+}
+
+.character-info button {
+    /* background-color: #ccc; */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.character-info button:hover {
+    background-color: #aaa;
+}
