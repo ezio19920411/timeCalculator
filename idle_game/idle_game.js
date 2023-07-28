@@ -10,11 +10,11 @@ const monsters = [
     "蜘蛛",
 ];
 const monsters_detail = [
-        "https://static.wikia.nocookie.net/bravefrontierglobal/images/2/22/Unit_ills_anime_87302601.gif/revision/latest?cb=20190522133753",
-        "https://static.wikia.nocookie.net/bravefrontierglobal/images/3/3f/Unit_ills_anime_10050.gif/revision/latest?cb=20160203060032",
-        "https://static.wikia.nocookie.net/bravefrontierglobal/images/b/bb/Unit_ills_anime_60261.gif/revision/latest?cb=20140731142248",
-        "https://static.wikia.nocookie.net/bravefrontierglobal/images/b/b2/Unit_ills_anime_60253.gif/revision/latest?cb=20140501143243",
-        "https://static.wikia.nocookie.net/bravefrontierglobal/images/a/aa/Unit_ills_anime_87202603.gif/revision/latest?cb=20190611015949",
+        "./images/monster1.gif",
+        "./images/monster2.gif",
+        "./images/monster3.gif",
+        "./images/monster4.gif",
+        "./images/monster5.gif",
 ];
 
 const equipments = {
@@ -148,10 +148,10 @@ function randomName() {
 function showGif(selectedGender,div) {
     // 假設有一個存放gif圖片路徑的物件，根據性別選擇對應的gif圖片
     const gifPaths = {
-        male: "https://static.wikia.nocookie.net/bravefrontierglobal/images/9/90/Unit_ills_anime_11036.gif/revision/latest?cb=20170302062952",
-        female: "https://static.wikia.nocookie.net/bravefrontierglobal/images/9/9e/Unit_ills_anime_810176.gif/revision/latest?cb=20160715172315",
-        male_atk: "https://static.wikia.nocookie.net/bravefrontierglobal/images/4/4f/Unit_ills_atk_11036.gif/revision/latest?cb=20170601185205",
-        female_atk: "https://static.wikia.nocookie.net/bravefrontierglobal/images/f/fb/Unit_ills_atk_810176.gif/revision/latest?cb=20181216213002",
+        male: "./images/male.gif",
+        female: "./images/female.gif",
+        male_atk: "./images/male_atk.gif",
+        female_atk: "./images/female_atk.gif",
     };
 
     // 取得gif圖片路徑
