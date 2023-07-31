@@ -421,7 +421,7 @@ class Character {
             if (monster.hp <= 0) {
                 this.exp += monster.expValue;
                 this.levelUp();
-                if (Math.random() < 0.0001) {
+                if (Math.random() < 0.006) {
                     this.getEquipment();
                 }
                 if (monster.hp < 0) monster.hp = 0;
@@ -456,7 +456,7 @@ class Character {
                 showBattleLog(player.name + " 獲得裝備: " + this.equipment[randomType]["name"] + " level:" + this.equipment[randomType]["level"] + " 防禦:" + this.equipment[randomType].defense);
             }
             // 獲得裝備後檢查是否有前綴詞屬性的裝備
-            if (isprobabilities(0.001) ) {
+            if (isprobabilities(0.01) ) {
                 this.getPrefixedEquipment(randomType);
             }
         }
