@@ -838,6 +838,8 @@ function reloadAbilities(){
     player.critical = (player.agility + player.other_agility) * 0.001;
     player.attackSpeed = (player.agility + player.other_agility) * 0.001;
     player.evasion = (player.agility + player.other_agility) * 0.002;
+    player.hpRecovery = (player.constitution / 5);
+    player.mpRecovery = (player.intelligence / 5);
 }
 function isprobabilities(p){
     // 設定機率為 5%
