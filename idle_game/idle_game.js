@@ -536,9 +536,10 @@ class Monster {
             return `${this.name} 使用普通攻擊 被是被 ${player.name}(LV:${player.level}) 閃開了`;
         }else{
             //計算防禦
+            let scal_d = player.defense*0.5;
             player.hp -= damage;
             if (player.hp < 0) player.hp = 0;
-            return `${this.name} 使用普通攻擊 造成 ${player.name}(LV:${player.level}) ${damage} 點傷害`;
+            return `${this.name} 使用普通攻擊 造成 ${player.name}(LV:${player.level}) ${damage} 點傷害 ,抵擋了(${scal_d}點傷害)`;
         }
     }
 }
@@ -655,7 +656,7 @@ function showPlayerStatus(player){
     document.getElementById("player_intelligence").innerHTML = player.intelligence + player.other_intelligence;
     document.getElementById("player_hp").innerHTML = player.hp;
     document.getElementById("player_mp").innerHTML = player.mp;
-    document.getElementById("player_attack").innerHTML = player.attack;
+    document.getElementById("player_attack").innerHTML = player.attack ;
     document.getElementById("player_critical").innerHTML = player.critical * 100 + "%";
     document.getElementById("player_attackSpeed").innerHTML = player.attackSpeed * 100 + "%";
     document.getElementById("player_defense").innerHTML = player.defense;
