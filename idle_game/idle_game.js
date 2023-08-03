@@ -657,10 +657,10 @@ function showPlayerStatus(player){
     document.getElementById("player_hp").innerHTML = player.hp;
     document.getElementById("player_mp").innerHTML = player.mp;
     document.getElementById("player_attack").innerHTML = player.attack ;
-    document.getElementById("player_critical").innerHTML = player.critical.toFixed(4) * 100 + "%";
-    document.getElementById("player_attackSpeed").innerHTML = player.attackSpeed.toFixed(4) * 100 + "%";
+    document.getElementById("player_critical").innerHTML = (player.critical * 100).toFixed(4)*1 + "%";
+    document.getElementById("player_attackSpeed").innerHTML = (player.attackSpeed * 100).toFixed(4) * 1 + "%";
     document.getElementById("player_defense").innerHTML = player.defense;
-    document.getElementById("player_evasion").innerHTML = player.evasion.toFixed(4) * 100 + "%";
+    document.getElementById("player_evasion").innerHTML = (player.evasion * 100).toFixed(4) * 1 + "%";
     document.getElementById("player_point").innerHTML = player.point;
     document.getElementById("player_hpRecovery").innerHTML = player.hpRecovery;
     document.getElementById("player_mpRecovery").innerHTML = player.mpRecovery;
