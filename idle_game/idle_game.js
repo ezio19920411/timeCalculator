@@ -657,10 +657,10 @@ function showPlayerStatus(player){
     document.getElementById("player_hp").innerHTML = player.hp;
     document.getElementById("player_mp").innerHTML = player.mp;
     document.getElementById("player_attack").innerHTML = player.attack ;
-    document.getElementById("player_critical").innerHTML = Math.floor(player.critical) * 100 + "%";
-    document.getElementById("player_attackSpeed").innerHTML = Math.floor(player.attackSpeed) * 100 + "%";
+    document.getElementById("player_critical").innerHTML = player.critical.toFixed(2) * 100 + "%";
+    document.getElementById("player_attackSpeed").innerHTML = player.attackSpeed.toFixed(2) * 100 + "%";
     document.getElementById("player_defense").innerHTML = player.defense;
-    document.getElementById("player_evasion").innerHTML = Math.floor(player.evasion) * 100 + "%";
+    document.getElementById("player_evasion").innerHTML = player.evasion.toFixed(2) * 100 + "%";
     document.getElementById("player_point").innerHTML = player.point;
     document.getElementById("player_hpRecovery").innerHTML = player.hpRecovery;
     document.getElementById("player_mpRecovery").innerHTML = player.mpRecovery;
@@ -838,8 +838,8 @@ function reloadAbilities(){
     player.critical = (player.agility + player.other_agility) * 0.001;
     player.attackSpeed = (player.agility + player.other_agility) * 0.001;
     player.evasion = (player.agility + player.other_agility) * 0.002;
-    player.hpRecovery = (player.constitution / 5);
-    player.mpRecovery = (player.intelligence / 5);
+    player.hpRecovery = 5+(player.constitution / 5);
+    player.mpRecovery = 5+(player.intelligence / 5);
 }
 function isprobabilities(p){
     // 設定機率為 5%
