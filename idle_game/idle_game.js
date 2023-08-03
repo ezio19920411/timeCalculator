@@ -460,7 +460,8 @@ class Character {
                 this.getPrefixedEquipment(randomType);
             }
         }
-
+        //獲得裝備要再重置一下能力
+        reloadAbilities();
     }
 
     // 獲得有前綴詞的裝備
