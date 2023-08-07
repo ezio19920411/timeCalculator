@@ -477,10 +477,10 @@ class Character {
         const randomAttribute = attributeType[Math.floor(Math.random() * attributeType.length)];
         this.equipment[randomType]["name"] = randomAttribute + "的 " + this.equipment[randomType]["name"];
         //先判斷原本有沒有
-        if (this.equipment[randomType]["attributeType"] != "") {
+        if (this.equipment[randomType]["attributeType"] == "") {
             this.equipment[randomType]["attributeValue"] = 1;
         } else {
-            this.equipment[randomType]["attributeValue"] += Math.random() * 0.5 + 1;
+            this.equipment[randomType]["attributeValue"] += Math.floor(Math.random() * 0.5 + 1);
         }
         //塞對應的能力
         this.equipment[randomType]["attributeType"] = attributeType_V[randomAttribute];
@@ -812,6 +812,10 @@ function reloadAbilities(){
     let attriT = "";
     let attriV = 0;
 
+    player["other_constitution"] = 0;
+    player["other_intelligence"] = 0;
+    player["other_strength"] = 0;
+    player["other_agility"] = 0;
     total_def += player.equipment["headgear"]["defense"];
     attriT = player.equipment["headgear"]["attributeType"];
     attriV = player.equipment["headgear"]["attributeValue"];
