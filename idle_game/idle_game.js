@@ -49,6 +49,12 @@ const equipments = {
         { "name": "白銀盾牌" },
     ],
 }
+const attributeType_TRANCE = {
+    "strength": "力量的 ",
+    "constitution": "體質的 ",
+    "agility": "敏捷的 ",
+    "intelligence": "智力的 ",
+}
 player = {
     gender: "",
     player_name: "",
@@ -445,9 +451,15 @@ class Character {
                 this.getPrefixedEquipment(randomType);
             }
         } else {
-            // 裝備增加防禦或攻擊力
-            this.equipment[randomType].name = eqname;
+            //如果原本是有屬性的裝備
+            let tmp_eq_name = "";
+            if (this.equipment[randomType]["attributeType"] != "") {
+                tmp_eq_name = attributeType_TRANCE[this.equipment[randomType]["attributeType"]];
+            }
+
+            this.equipment[randomType].name = tmp_eq_name + eqname;
             this.equipment[randomType].level++;
+            // 裝備增加防禦或攻擊力
             if (randomType === "mainWeapon" || randomType === "subWeapon") {
                 this.equipment[randomType].attack = Math.floor(this.equipment[randomType].attack + Math.random() * 0.5 + 1);
                 showBattleLog(player.name + " 獲得裝備: " + this.equipment[randomType]["name"] + " level:" + this.equipment[randomType]["level"] + " 攻擊:" + this.equipment[randomType].attack );
