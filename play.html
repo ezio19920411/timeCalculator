@@ -1,0 +1,204 @@
+<!doctype html>
+<html style="height:100%" ;>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>奇怪的玩</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+     crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .theme-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:#000;
+        opacity:0.7;
+        filter:alpha(opacity=40);
+        }
+        .theme-popover {
+        z-index:9999;
+        position:fixed;
+        top:50%;
+        left:55%;
+        width:150px;
+        height:150px;
+        margin:-180px 0 0 -330px;
+        /* border-radius:5px; */
+        /* border:solid 2px #666; */
+        /* box-shadow: 0 0 10px #666; */
+        }
+
+    </style>
+	<script>
+        var bossData = new Object();
+        var getTime = 1000;
+        var getGSTime = 3000;
+        var timeID = null;
+        var timeIDGS = null;
+        var ringUtil = null;
+        var warnSW = false;
+        var bossWarn = new Array();
+        var bossPlace = new Array();
+        var first_Open = true;
+        var fastCopyLimit = 3;
+        var dataTimetamp = "";
+        var nowGroup = "all";
+        var warn_min = 2;//warning min
+        var voiceLang = "zh-tw";//念的語系
+		function init() {
+            var input1_div = document.getElementById("input1");
+            var input2_div = document.getElementById("input2");
+            input1_div.value = "https://docs.google.com/spreadsheets/d/1sAV36WNGtVUJYY1nNkzzzHAF_IXGZuX2cfZtwg_TwEk/edit?gid=1347251866#gid=1347251866";
+            input2_div.value = "https://www.google.com/maps/d/u/0/embed?mid=1UMcYHT4mIV3ev4gzoG_EZ2NGbzvBrmI&ehbc=2E312F";
+            getNowTime();
+            setiframe();
+        }
+
+        function setiframe(){
+            var input1_v = document.getElementById("input1").value;
+            var input2_v = document.getElementById("input2").value;
+            var f1 = document.getElementById("show_iframe");
+            var f2 = document.getElementById("show_iframe2");
+            f1.src = input1_v;
+            f2.src = input2_v;
+
+        }
+        function getNowTime() {
+            if (timeID != null) clearTimeout(timeID);
+            var timeInMs = Date.now();
+            var time_div = document.getElementById("text_now_time");
+            var tmp_time = secTrancer(timeInMs);
+            time_div.innerHTML = tmp_time;
+            timeID = setTimeout(getNowTime, getTime);
+        }
+        function secTrancer(timestamp) {
+            if (timestamp == "") return "-";
+            var date = new Date(timestamp);
+            var year = date.getFullYear();
+            var month = (date.getMonth() + 1) + "";
+            var day = date.getDate() + "";
+            var hh = date.getHours() + "";
+            var mm = date.getMinutes() + "";
+            var ss = date.getSeconds() + "";
+
+            var real_month = (month.length < 2) ? "0" + month : month;
+            var real_day = (day.length < 2) ? "0" + day : day;
+            var real_hh = (hh.length < 2) ? "0" + hh : hh;
+            var real_mm = (mm.length < 2) ? "0" + mm : mm;
+            var real_ss = (ss.length < 2) ? "0" + ss : ss;
+            var tmp_time = year + "/" + real_month + "/" + real_day + " " + real_hh + ":" + real_mm + ":" + real_ss;
+
+            return tmp_time;
+        }
+	</script>
+</head>
+
+<body onload="init();" style="height:100%;">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-default" >
+                <div class="panel-heading">
+                    現在時間 : <h3 id="text_now_time"></h3>
+                    <ul class="nav nav-tabs" id="group_div" ></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6" >
+            <div class="">
+                <h3>設定iframe</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                上半部:
+                                <input type="text" class="form-control" id="input1">
+                            </th>
+                            <th>
+                                下半部:
+                                <input type="text" class="form-control" id="input2">
+                            </th>
+                            <th><button type="button" class="btn btn-success" onclick="setiframe()">顯示</button></th>
+                          </tr>
+                      </thead>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row" style="width:100%;height:100%;">
+        <div class="" style="width:100%;height:100%;" id= "ifram_view">
+            <iframe id="show_iframe" style="width:70%;height:100%;" src=""> </iframe>
+        </div>
+    </div>
+    <div class="row" style="width:100%;height:100%;">
+        <div id="ifram_view2" style="width:100%;height:100%;" class="">
+            <iframe id="show_iframe2" style="width:70%;height:100%;" src=""> </iframe>
+        </div>
+    </div>
+    </div>
+    <div id="copy_area"></div>
+    <audio id="ring_audio1">
+        <source src="./warnig.mp3">
+    </audio>
+    <audio id="ring_audio2">
+        <source src="./katana1.mp3">
+    </audio>
+    <div id="loading_mask" style="display:none;">
+        <div class="theme-popover-mask"></div>
+        <div class="theme-popover">
+            <img src="./loading.gif">
+        </div>
+    </div>
+    <button style="display:none" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="btnTrigger"></button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <!-- <h4 class="modal-title">System Massage</h4> -->
+            </div>
+            <div class="modal-body">
+                <h3 id="alert_text">Copy Success !</h3>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+        </div>
+    </div>
+    <div style="display:none">
+        <xmp id="btnXMP" >
+            <div class="btn btn-*CLASS* btn-lg" onclick="setBossTime(*ID*,'')" style="height: 120px;" id = "btn_boss_*ID*" >
+                *BOSSNAME*
+                <h4>*BORNTIME*</h4>
+                <div class="btn-group">*PLACEBTN*</div>
+                </div>
+        </xmp>
+        <xmp id="listXMP" >
+            <div class="panel-body" style ="*STYLE*">
+                <font color="*COLOR*" size="5">*BORNTIME*</font>
+                <font size="3">*BOSSNAME*</font>
+                <font size="3" color="*COLOR2*">*BOSSPLACE*</font>
+                <font size="3" >*PASSCOUNT*</font>
+            </div>
+        </xmp>
+        <xmp id="btnXMP2" >
+            <button type="button" class="btn btn-default" onclick="setBossTime(*ID*,'*PLACEID*')">*PLACENAME*</button>
+        </xmp>
+        <xmp id="li_XMP">
+            <li class="*CLASS*" onclick="groupSW(this)" data-value="*GROUPNAME*" ><a href="#">*GROUPNAME*</a></li>
+        </xmp>
+    </div>
+</body>
+
+</html>
